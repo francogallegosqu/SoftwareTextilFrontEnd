@@ -35,16 +35,16 @@ export default [
       layout: 'full',
     },
   },
-  {
+  /* {
     path: '/register',
-    name: 'auth-register',
+    name: 'auth-registers',
     component: () => import('@/views/pages/authentication/Register.vue'),
     meta: {
       layout: 'full',
       resource: 'Auth',
       redirectIfLoggedIn: true,
     },
-  },
+  }, */
   {
     path: '/pages/authentication/register-v1',
     name: 'auth-register-v1',

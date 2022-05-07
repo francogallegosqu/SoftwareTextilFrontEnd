@@ -7,6 +7,15 @@ import app from './app'
 import appConfig from './app-config'
 import verticalMenu from './vertical-menu'
 
+// Shared
+import location from './shared/location.store'
+
+// Authentication 
+import signup from '@/modules/authentication/signup/signup.store'
+
+// User
+import roles from './user/roles.store'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -15,6 +24,15 @@ export default new Vuex.Store({
     appConfig,
     verticalMenu,
     'app-ecommerce': ecommerceStoreModule,
+
+    // Shared
+    location,
+
+    // Authentication
+    signup,
+
+    // User
+    roles,
   },
   strict: process.env.DEV,
 })
