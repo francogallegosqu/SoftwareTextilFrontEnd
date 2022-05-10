@@ -4,13 +4,14 @@ import VueRouter from 'vue-router'
 // Routes
 import { canNavigate } from '@/libs/acl/routeProtection'
 import { isUserLoggedIn, getUserData, getHomeRouteForLoggedInUser } from '@/auth/utils'
-
+import uiElements from './routes/ui-elements/index'
 // ----- Modules -----
 // Web
 import webRouter from '@/modules/web/web.router'
 
 // Authentication
 import authSignUpRouter from "@/modules/authentication/signup/signup.router"
+import authSignInRouter from "@/modules/authentication/login/login.router"
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,8 @@ const router = new VueRouter({
     // Modules
     ...webRouter,
     ...authSignUpRouter,
+    ...authSignInRouter,
+    ...uiElements,
     {
       path: '*',
       redirect: 'error-404',

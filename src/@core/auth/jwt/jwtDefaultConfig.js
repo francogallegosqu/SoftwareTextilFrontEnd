@@ -1,6 +1,6 @@
 export default {
   // Endpoints
-  loginEndpoint: '/jwt/login',
+  loginEndpoint: process.env.VUE_APP_BASE_URL + '/signin',
   registerEndpoint: '/jwt/register',
   refreshEndpoint: '/jwt/refresh-token',
   logoutEndpoint: '/jwt/logout',

@@ -8,9 +8,9 @@
         </a>
 
         <div class="nav__menu" id="nav-menu" style="margin-top: 10px">
-          <ul class="nav__list">
+          <!-- <ul class="nav__list">
             <li class="nav__item">
-              <a href="#faqs" class="nav__link">Iniciar Sesión</a>
+              <a @click="redirectToSignIn" class="nav__link">Iniciar Sesión</a>
             </li>
             <li class="nav__item">
               <a @click="redirectToSignUp" class="nav__link register__button">
@@ -21,6 +21,9 @@
 
           <div class="nav__close" id="nav-close">
             <i class="ri-close-line"></i>
+          </div> -->
+          <div>
+            <user-dropdown />
           </div>
         </div>
 
@@ -504,13 +507,22 @@
 </template>
 
 <script>
+import UserDropdown from "./UserDropdown.vue"
 export default {
+  components:{
+    UserDropdown,
+  },
   methods: {
     redirectToSignUp() {
       this.$router.push({
         name: "auth-register",
       });
     },
+    redirectToSignIn(){
+      this.$router.push({
+        name: "auth-login",
+      });
+    }
   },
 };
 </script>
