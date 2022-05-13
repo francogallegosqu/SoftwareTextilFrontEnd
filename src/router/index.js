@@ -12,6 +12,9 @@ import webRouter from '@/modules/web/web.router'
 // Authentication
 import authSignUpRouter from "@/modules/authentication/signup/signup.router"
 
+// System
+import systemProfileRouter from "@/modules/system/profile/profile.router"
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -26,6 +29,9 @@ const router = new VueRouter({
     // Modules
     ...webRouter,
     ...authSignUpRouter,
+
+    // System
+    ...systemProfileRouter,
     {
       path: '*',
       redirect: 'error-404',
