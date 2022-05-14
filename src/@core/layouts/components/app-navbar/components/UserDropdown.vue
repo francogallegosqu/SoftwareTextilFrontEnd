@@ -7,9 +7,9 @@
     <template #button-content>
       <div class="d-sm-flex d-none user-nav">
         <p class="user-name font-weight-bolder mb-0">
-          {{ userData.fullName || userData.username }}
+          {{ userData.businessName }}
         </p>
-        <span class="user-status">{{ userData.role }}</span>
+        <span class="user-status">{{ userData.role.role_name }}</span>
       </div>
       <b-avatar
         size="40"

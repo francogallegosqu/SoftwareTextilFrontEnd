@@ -31,9 +31,10 @@ tagVariant
 
 */
 
+import MyPostsNavigation from "@/modules/system/my-posts/my-posts.nav"
 
 // Array of sections
 export default [
-
-
+    ...MyPostsNavigation,
+  
 ]

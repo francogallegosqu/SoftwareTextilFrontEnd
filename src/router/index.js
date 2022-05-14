@@ -15,6 +15,7 @@ import authSignInRouter from "@/modules/authentication/login/login.router"
 
 // System
 import systemProfileRouter from "@/modules/system/profile/profile.router"
+import systemMyPostsRouter from "@/modules/system/my-posts/my-posts.router"
 
 Vue.use(VueRouter)
 
@@ -30,10 +31,12 @@ const router = new VueRouter({
     // Modules
     ...webRouter,
     ...authSignUpRouter,
+    ...authSignInRouter,
 
     // System
     ...systemProfileRouter,
-    ...authSignInRouter,
+    ...systemMyPostsRouter,
+
     ...uiElements,
     {
       path: '*',
