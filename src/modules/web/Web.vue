@@ -1,5 +1,6 @@
 <template>
   <div id="web">
+   
     <!--==================== HEADER ====================-->
     <header class="header" id="header">
       <nav class="nav container">
@@ -7,7 +8,7 @@
           <i class="ri-leaf-line nav__logo-icon"></i> APP LOGO
         </a>
 
-        <div class="nav__menu" id="nav-menu" style="margin-top: 10px">
+        <div class="nav__menu" id="nav-menu">
           <!-- <ul class="nav__list">
             <li class="nav__item">
               <a @click="redirectToSignIn" class="nav__link">Iniciar Sesión</a>
@@ -25,8 +26,8 @@
           <div>
             <user-dropdown />
           </div>
-        </div>
-
+        </div> 
+        
         <div class="nav__btns">
           <!-- Theme change button -->
           <i class="ri-moon-line change-theme" id="theme-button"></i>

@@ -1,5 +1,6 @@
 <template>
   <div class="auth-wrapper auth-v2">
+       
     <b-row class="auth-inner m-0">
 
       <!-- Brand logo-->
@@ -37,6 +38,7 @@
           lg="12"
           class="px-xl-2 mx-auto"
         >
+        
           <b-card-title
             class="mb-1 font-weight-bold"
             title-tag="h2"
@@ -223,7 +225,7 @@ import store from '@/store/index'
 import { getHomeRouteForLoggedInUser } from '@/auth/utils'
 
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-
+import UserDropdown from '../../web/UserDropdown.vue'
 export default {
   directives: {
     'b-tooltip': VBTooltip,
@@ -246,6 +248,7 @@ export default {
     VuexyLogo,
     ValidationProvider,
     ValidationObserver,
+    UserDropdown,
   },
   mixins: [togglePasswordVisibility],
   data() {
