@@ -16,6 +16,9 @@ import signup from '@/modules/authentication/signup/signup.store'
 // User
 import roles from './user/roles.store'
 
+// System
+import myPosts from '@/modules/system/my-posts/my-posts.store'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -33,6 +36,9 @@ export default new Vuex.Store({
 
     // User
     roles,
+
+    // System
+    myPosts,
   },
   strict: process.env.DEV,
 })
