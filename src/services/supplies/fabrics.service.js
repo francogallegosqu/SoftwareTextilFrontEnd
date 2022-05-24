@@ -14,7 +14,7 @@ class FabricsService {
 
     async getFabricById(id) {
         try {
-            const { data, status } = await textilApi.get('/fabrics/' + id)
+            const { data, status } = await textilApi.get('api/fabrics/' + id)
             return { data, status }
         } catch (error) {
             console.log("Something went wrong on getFabricById ", error)
@@ -24,7 +24,7 @@ class FabricsService {
 
     async registerFabric(body) {
         try {
-            const { data, status } = await textilApi.post('/fabrics', body)
+            const { data, status } = await textilApi.post('api/fabrics', body)
             return { data, status }
         } catch (error) {
             console.log("Something went wrong on registerFabric ", error)
@@ -34,7 +34,7 @@ class FabricsService {
 
     async updateFabric(code, body) {
         try {
-            const { data, status } = await textilApi.put('/fabrics/' + code, body)
+            const { data, status } = await textilApi.put('api/fabrics/' + code, body)
             return { data, status }
         } catch (error) {
             console.log("Something went wrong on updateFabric ", error)

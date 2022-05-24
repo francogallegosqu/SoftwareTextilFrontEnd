@@ -13,16 +13,10 @@
           </b-button>
 
           <b-button-group class="mr-2">
-            <b-button
-              v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-              variant="outline-dark"
-            >
+            <b-button variant="outline-dark">
               <feather-icon icon="GridIcon" />
             </b-button>
-            <b-button
-              v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-              variant="outline-dark"
-            >
+            <b-button variant="outline-dark">
               <feather-icon icon="ColumnsIcon" />
             </b-button>
           </b-button-group>
@@ -51,6 +45,7 @@
           empty-text="No hay datos para mostrar"
           :fields="table.fields"
           :items="fabrics.data"
+          sticky-header="500px"
         >
           <!-- Column: Actions -->
           <template #cell(actions)="data">
@@ -167,7 +162,11 @@ export default {
     openModalRegisterFabric() {
       this.showModalRegisterFabric = true;
     },
-    closeModalRegisterFabric() {
+    async closeModalRegisterFabric(saved) {
+      if (saved) {
+        await this.getFabrics();
+      }
+
       this.showModalRegisterFabric = false;
     },
     openModalUpdateFabric(id) {
@@ -179,6 +178,8 @@ export default {
     },
     async getFabrics() {
       try {
+        this.addPreloader();
+
         const response = await this.A_GET_FABRICS_BY_USER(
           this.currentUser.idUsuario
         );
@@ -186,6 +187,8 @@ export default {
         if (response.status == 200) {
           this.fabrics.data = response.data;
         }
+
+        this.removePreloader();
       } catch (error) {
         throw error;
       }

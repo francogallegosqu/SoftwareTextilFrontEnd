@@ -9,6 +9,8 @@ import authentication from './authentication'
 
 // Shared
 import location from './shared/location.store'
+import category from './shared/category.store'
+import images from './shared/images.store'
 
 // Authentication 
 import signup from '@/modules/authentication/signup/signup.store'
@@ -30,6 +32,8 @@ export default new Vuex.Store({
 
     // Shared
     location,
+    category,
+    images,
 
     // Authentication
     signup,

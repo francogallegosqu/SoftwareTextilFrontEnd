@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="h-100" :class="[skinClasses]">
+  <div id="app" class="h-100" :class="[skinClasses]" v-loading.full="loading">
     <component :is="layout">
       <router-view />
     </component>
@@ -10,6 +10,7 @@
 
 <script>
 import ScrollToTop from "@core/components/scroll-to-top/ScrollToTop.vue";
+import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 
 // This will be populated in `beforeCreate` hook
 import { $themeColors, $themeBreakpoints, $themeConfig } from "@themeConfig";
@@ -38,6 +39,9 @@ export default {
   // ! We can move this computed: layout & contentLayoutType once we get to use Vue 3
   // Currently, router.currentRoute is not reactive and doesn't trigger any change
   computed: {
+    ...mapGetters({
+      loading: "app/loading",
+    }),
     layout() {
       if (this.$route.meta.layout === "full") return "layout-full";
       return `layout-${this.contentLayoutType}`;
