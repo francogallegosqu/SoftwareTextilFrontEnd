@@ -14,6 +14,10 @@ import router from './router'
 import store from './store'
 import App from './App.vue'
 
+import { initialize } from './service/general'
+import 'verte/dist/verte.css';
+
+
 // Global Components
 import './global-components'
 
@@ -55,6 +59,15 @@ require('@core/scss/core.scss')
 require('@/assets/scss/style.scss')
 
 Vue.config.productionTip = false
+
+// Mixins
+import generalMixins from './mixins/general.mixin'
+import vueLoader from './directives/preloader/index'
+
+Vue.mixin(generalMixins)
+Vue.use(vueLoader, 'loading')
+
+initialize(router)
 
 new Vue({
   router,

@@ -11,6 +11,7 @@ export const isUserLoggedIn = () => {
 }
 
 export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
+export const getUserToken = () => localStorage.getItem('accessToken')
 
 /**
  * This function is used for demo purpose route navigation
@@ -21,8 +22,7 @@ export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
  * @param {String} userRole Role of user
  */
 export const getHomeRouteForLoggedInUser = userRole => {
-  console.log(userRole, userRole === 'Vendedor')
-  if(userRole === 'Vendedor') return { name: 'web' }
+  if (userRole === 'Vendedor') return { name: 'app-profile' }
   if (userRole === 'admin') return '/'
   if (userRole === 'client') return { name: 'access-control' }
   return { name: 'auth-login' }

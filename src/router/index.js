@@ -13,6 +13,10 @@ import webRouter from '@/modules/web/web.router'
 import authSignUpRouter from "@/modules/authentication/signup/signup.router"
 import authSignInRouter from "@/modules/authentication/login/login.router"
 
+// System
+import systemProfileRouter from "@/modules/system/profile/profile.router"
+import systemMyPostsRouter from "@/modules/system/my-posts/my-posts.router"
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -28,6 +32,11 @@ const router = new VueRouter({
     ...webRouter,
     ...authSignUpRouter,
     ...authSignInRouter,
+
+    // System
+    ...systemProfileRouter,
+    ...systemMyPostsRouter,
+
     ...uiElements,
     {
       path: '*',
