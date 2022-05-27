@@ -222,7 +222,7 @@ export default {
     VuexyLogo,
     ValidationProvider,
     ValidationObserver,
-    UserDropdown,
+    
   },
   mixins: [togglePasswordVisibility],
   data() {

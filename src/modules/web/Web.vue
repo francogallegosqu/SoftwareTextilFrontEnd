@@ -5,11 +5,12 @@
     <header class="header" id="header">
       <nav class="nav container">
         <a href="#" class="nav__logo">
-          <i class="ri-leaf-line nav__logo-icon"></i> APP LOGO
+          <i class="ri-leaf-line nav__logo-icon"></i>
+           <img src="@/assets/images/logo.svg" alt="My logo" width="100%" height="100%">
         </a>
 
-        <div class="nav__menu" id="nav-menu">
-          <!-- <ul class="nav__list">
+        <div class="nav__menu" id="nav-menu" v-if="!isLogged">
+          <ul class="nav__list" >
             <li class="nav__item">
               <a @click="redirectToSignIn" class="nav__link">Iniciar Sesión</a>
             </li>
@@ -19,22 +20,11 @@
               </a>
             </li>
           </ul>
-
-          <div class="nav__close" id="nav-close">
-            <i class="ri-close-line"></i>
-          </div> -->
-          <div>
-            <user-dropdown />
-          </div>
         </div> 
-        
-        <div class="nav__btns">
-          <!-- Theme change button -->
-          <i class="ri-moon-line change-theme" id="theme-button"></i>
-
-          <div class="nav__toggle" id="nav-toggle">
-            <i class="ri-menu-line"></i>
-          </div>
+        <div v-if="isLogged" class="d-flex justify-content-start
+        align-items-start " style="width:20%">
+            <user-dropdown />
+           <!-- <feather-icon icon="ListIcon" size="25" /> -->
         </div>
       </nav>
     </header>
@@ -43,15 +33,15 @@
       <!--==================== HOME ====================-->
       <section class="home" id="home">
         <div class="home__container container grid">
-          <img src="/assets/img/home.png" alt="" class="home__img" />
+          <img src="@/assets/images/manos.png" alt="" class="home__img" />
 
           <div class="home__data">
             <h1 class="home__title">
               Encuentra a tu próximo socio de negocios
             </h1>
             <p class="home__description">
-              Somos una web respaldada por el BCP que busca ayudarte a encontrar
-              proveedores y clientes manera segura y gratuita.
+              Somos una web que busca ayudarte a encontrar
+              proveedores y clientes manera segura y gratuita haciendo crecer tu negocio.
             </p>
             <a
               @click="redirectToSignUp"
@@ -61,34 +51,6 @@
               Registrate ahora
               <feather-icon icon="ArrowUpRightIcon" />
             </a>
-          </div>
-
-          <div class="home__social">
-            <span class="home__social-follow">Follow Us</span>
-
-            <div class="home__social-links">
-              <a
-                href="https://www.facebook.com/"
-                target="_blank"
-                class="home__social-link"
-              >
-                <feather-icon icon="FacebookIcon" />
-              </a>
-              <a
-                href="https://www.instagram.com/"
-                target="_blank"
-                class="home__social-link"
-              >
-                <feather-icon icon="InstagramIcon" />
-              </a>
-              <a
-                href="https://twitter.com/"
-                target="_blank"
-                class="home__social-link"
-              >
-                <feather-icon icon="TwitterIcon" />
-              </a>
-            </div>
           </div>
         </div>
       </section>
@@ -513,6 +475,16 @@ export default {
   components:{
     UserDropdown,
   },
+  data(){
+    return {
+      userData: JSON.parse(localStorage.getItem('userData')),
+    }
+  }, 
+  computed:{
+    isLogged(){
+      return this.userData? true : false
+    }
+  },
   methods: {
     redirectToSignUp() {
       this.$router.push({
@@ -534,7 +506,7 @@ export default {
 
 /*=============== VARIABLES CSS ===============*/
 :root {
-  --header-height: 3.5rem; /*56px*/
+  --header-height: 6.0rem; /*56px*/
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
@@ -595,7 +567,7 @@ export default {
 #web {
   * {
     box-sizing: border-box;
-    padding: 0;
+    // padding: 0;
     margin: 0;
   }
 
@@ -855,8 +827,8 @@ the website, in dark theme
   }
 
   .home__img {
-    width: 200px;
-    justify-self: center;
+    width: 100%;
+    // justify-self: center;
   }
 
   .home__title {
@@ -872,7 +844,7 @@ the website, in dark theme
   .home__social {
     position: absolute;
     top: 2rem;
-    right: -1rem;
+    right: -4rem;
     display: grid;
     justify-items: center;
     row-gap: 3.5rem;
@@ -1404,7 +1376,7 @@ the website, in dark theme
     }
 
     .home__img {
-      width: 180px;
+      width: 100%;
     }
     .home__title {
       font-size: var(--h1-font-size);
@@ -1479,7 +1451,7 @@ the website, in dark theme
       align-items: center;
     }
     .home__img {
-      width: 280px;
+      width: 100%;
       order: 1;
     }
     .home__social {
@@ -1517,7 +1489,7 @@ the website, in dark theme
       padding: 13rem 0 5rem;
     }
     .home__img {
-      width: 350px;
+      width: 400px;
     }
     .home__description {
       padding-right: 7rem;
