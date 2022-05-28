@@ -1,19 +1,16 @@
 export default [
     {
-        key: 'nameFabric',
+        key: 'nameService',
         label: 'Titulo',
         tdClass: 'text-left'
     },
     {
-        key: 'widthFabric',
-        label: 'Ancho'
+        key: 'descriptionService',
+        label: 'Descripción',
+        tdClass: 'text-left'
     },
     {
-        key: 'meters_x_Kg',
-        label: 'Metros x Kg'
-    },
-    {
-        key: 'priceFabric',
+        key: 'priceService',
         label: 'Precio'
     },
     {

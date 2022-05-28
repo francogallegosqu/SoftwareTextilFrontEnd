@@ -2,6 +2,7 @@ export default [
     {
         path: '/app/my-posts',
         name: 'app-my-posts',
+        redirect: { name: 'app-my-posts-fabrics' },
         component: () => import('@/modules/system/my-posts/MyPosts.vue'),
         meta: {
             pageTitle: 'Mis publicaciones',
@@ -76,6 +77,48 @@ export default [
                 {
                     text: 'Telas',
                     to: { name: 'app-my-posts-fabrics' }
+                },
+                {
+                    text: 'Detalles',
+                    active: true
+                }
+            ]
+        },
+    },
+    {
+        path: '/app/my-posts/services/details/:id',
+        name: 'app-my-posts-services-details',
+        component: () => import('@/modules/system/my-posts/views/services/components/service-details/ServiceDetails.vue'),
+        meta: {
+            pageTitle: 'Detalles',
+            breadcrumb: [
+                {
+                    text: 'Mis publicaciones',
+                },
+                {
+                    text: 'Servicios',
+                    to: { name: 'app-my-posts-services' }
+                },
+                {
+                    text: 'Detalles',
+                    active: true
+                }
+            ]
+        },
+    },
+    {
+        path: '/app/my-posts/tackle/details/:id',
+        name: 'app-my-posts-tackle-details',
+        component: () => import('@/modules/system/my-posts/views/tackle/components/tackle-details/TackleDetails.vue'),
+        meta: {
+            pageTitle: 'Detalles',
+            breadcrumb: [
+                {
+                    text: 'Mis publicaciones',
+                },
+                {
+                    text: 'Avios',
+                    to: { name: 'app-my-posts-tackle' }
                 },
                 {
                     text: 'Detalles',

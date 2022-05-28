@@ -43,6 +43,26 @@ export default {
             )
         },
 
+        showGenericConfirmSwal({
+            title = "Estás seguro?",
+            text = "¡No podrás revertir esto!",
+        }) {
+            return this.$swal({
+                icon: "question",
+                title: title,
+                text: text,
+                imageWidth: 70,
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "Confirmar",
+                cancelButtonText: "Cancelar",
+                customClass: {
+                    confirmButton: "btn btn-primary mr-1",
+                    cancelButton: "btn btn-outline-danger  ",
+                },
+            });
+        },
+
         addPreloader() {
             this.$store.commit('app/SET_LOADING', true)
         },

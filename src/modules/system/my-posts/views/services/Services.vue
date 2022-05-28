@@ -6,23 +6,17 @@
           <b-button
             variant="outline-primary"
             class="mr-2"
-            @click="openModalRegisterFabric"
+            @click="openModalRegisterService"
           >
             <feather-icon icon="PlusCircleIcon" class="mr-50" />
             Agregar Servicio
           </b-button>
 
           <b-button-group class="mr-2">
-            <b-button
-              v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-              variant="outline-primary"
-            >
+            <b-button variant="outline-primary">
               <feather-icon icon="GridIcon" />
             </b-button>
-            <b-button
-              v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-              variant="outline-primary"
-            >
+            <b-button variant="outline-primary">
               <feather-icon icon="ColumnsIcon" />
             </b-button>
           </b-button-group>
@@ -32,12 +26,12 @@
       <filter-slot
         :filter="table.filters"
         :filter-principal="filterPrincipal"
-        :total-rows="fabrics.total"
+        :total-rows="services.total"
         :paginate="paginate"
-        :start-page="fabrics.fromPage"
-        :to-page="fabrics.toPage"
-        @reload="getFabrics"
-        @onChangeCurrentPage="getFabrics"
+        :start-page="services.fromPage"
+        :to-page="services.toPage"
+        @reload="getServices"
+        @onChangeCurrentPage="getServices"
       >
         <b-table
           slot="table"
@@ -50,7 +44,7 @@
           small
           empty-text="No hay datos para mostrar"
           :fields="table.fields"
-          :items="fabrics.data"
+          :items="services.data"
         >
           <!-- Column: Actions -->
           <template #cell(actions)="data">
@@ -65,40 +59,44 @@
 
               <b-dropdown-item
                 :to="{
-                  name: 'app-my-posts-fabrics-details',
-                  params: { id: data.item.idFabric },
+                  name: 'app-my-posts-services-details',
+                  params: { id: data.item.idService },
                 }"
               >
                 <feather-icon icon="EyeIcon" />
-                <span class="align-middle ml-50">Ver tela</span>
+                <span class="align-middle ml-50">Ver servicio</span>
               </b-dropdown-item>
 
               <b-dropdown-item
-                @click="openModalUpdateFabric(data.item.idFabric)"
+                @click="openModalUpdateService(data.item.idService)"
               >
                 <feather-icon icon="EditIcon" />
                 <span class="align-middle ml-50">Actualizar</span>
               </b-dropdown-item>
 
-              <b-dropdown-item @click="deleteUser(data.item.code)">
+              <b-dropdown-item @click="deleteService(data.item.idService)">
                 <feather-icon icon="Trash2Icon" class="text-danger" />
                 <span class="align-middle ml-50 text-danger">Eliminar</span>
               </b-dropdown-item>
             </b-dropdown>
           </template>
+
+          <template #cell(created_at)="data">
+            {{ $moment(data.item.created_at).format("dddd, MMMM Do YYYY") }}
+          </template>
         </b-table>
       </filter-slot>
     </b-card>
 
-    <modal-register-fabric
-      v-if="showModalRegisterFabric"
-      @onClose="closeModalRegisterFabric"
+    <modal-register-service
+      v-if="showModalRegisterService"
+      @onClose="closeModalRegisterService"
     />
 
-    <modal-update-fabric
-      v-if="showModalUpdateFabric"
-      :fabric-code="fabricCodeSelected"
-      @onClose="closeModalUpdateFabric"
+    <modal-update-service
+      v-if="showModalUpdateService"
+      :service-code="serviceCodeSelected"
+      @onClose="closeModalUpdateService"
     />
   </div>
 </template>
@@ -141,18 +139,18 @@ export default {
       selectAll: false,
       isBusy: false,
 
-      fabrics: {
+      services: {
         data: [],
         total: 0,
         fromPage: 0,
         toPage: 0,
       },
 
-      fabricCodeSelected: null,
+      serviceCodeSelected: null,
 
       // Modals
-      showModalRegisterFabric: false,
-      showModalUpdateFabric: false,
+      showModalRegisterService: false,
+      showModalUpdateService: false,
     };
   },
   computed: {
@@ -162,29 +160,55 @@ export default {
   },
   methods: {
     ...mapActions({
-      A_GET_FABRICS_BY_USER: "myPosts/A_GET_FABRICS_BY_USER",
+      A_GET_SERVICES_BY_USER: "myPosts/A_GET_SERVICES_BY_USER",
+      A_DELETE_SERVICE: "myPosts/A_DELETE_SERVICE",
     }),
-    openModalRegisterFabric() {
-      this.showModalRegisterFabric = true;
+    openModalRegisterService() {
+      this.showModalRegisterService = true;
     },
-    closeModalRegisterFabric() {
-      this.showModalRegisterFabric = false;
+    async closeModalRegisterService(saved) {
+      if (saved) await this.getServices();
+
+      this.showModalRegisterService = false;
     },
-    openModalUpdateFabric(id) {
-      this.fabricCodeSelected = id;
-      this.showModalUpdateFabric = true;
+    openModalUpdateService(id) {
+      this.serviceCodeSelected = id;
+      this.showModalUpdateService = true;
     },
-    closeModalUpdateFabric() {
-      this.showModalUpdateFabric = false;
+    async closeModalUpdateService(saved) {
+      if (saved) await this.getServices();
+
+      this.showModalUpdateService = false;
     },
-    async getFabrics() {
+    async getServices() {
       try {
-        const response = await this.A_GET_FABRICS_BY_USER(
+        this.addPreloader();
+
+        const response = await this.A_GET_SERVICES_BY_USER(
           this.currentUser.idUsuario
         );
 
         if (response.status == 200) {
-          this.fabrics.data = response.data;
+          this.services.data = response.data;
+        }
+
+        this.removePreloader();
+      } catch (error) {
+        throw error;
+      }
+    },
+    async deleteService(id) {
+      try {
+        const confirm = await this.showGenericConfirmSwal({});
+
+        if (confirm.value) {
+          const response = await this.A_DELETE_SERVICE(id);
+
+          if (response.status == 200) {
+            this.showGenericToast({ type: "delete" });
+
+            await this.getServices();
+          }
         }
       } catch (error) {
         throw error;
@@ -192,7 +216,7 @@ export default {
     },
   },
   async created() {
-    await this.getFabrics();
+    await this.getServices();
   },
 };
 </script>

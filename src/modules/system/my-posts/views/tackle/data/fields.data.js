@@ -1,20 +1,17 @@
 export default [
     {
-        key: 'nameFabric',
+        key: 'nameAccessory',
         label: 'Titulo',
         tdClass: 'text-left'
     },
     {
-        key: 'widthFabric',
-        label: 'Descripción'
+        key: 'descriptionAccessory',
+        label: 'Descripción',
+        tdClass: 'text-left'
     },
     {
-        key: 'priceFabric',
+        key: 'priceAccesory',
         label: 'Precio'
-    },
-    {
-        key: 'meters_x_Kg',
-        label: 'Color'
     },
     {
         key: 'created_at',
