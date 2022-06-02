@@ -34,7 +34,12 @@
               <p>{{ fabric.priceService }}</p>
             </b-col>
             <b-col cols="12">
-              <b-button variant="outline-primary" size="sm" class="mr-1">
+              <b-button
+                variant="outline-primary"
+                size="sm"
+                class="mr-1"
+                @click="openModalUploadImages"
+              >
                 Cargar fotos
               </b-button>
               <b-button
@@ -64,6 +69,12 @@
       :service-code="serviceCodeSelected"
       @onClose="closeModalUpdateFabric"
     />
+
+    <modal-upload-images
+      v-if="showModalUploadImages"
+      :register-code="idParam"
+      @onClose="closeModalUploadImages"
+    />
   </div>
 </template>
 
@@ -72,10 +83,12 @@ import { mapActions } from "vuex";
 
 // Components
 import ModalUpdateFabric from "../update-service/ModalUpdateService.vue";
+import ModalUploadImages from "@/modules/system/my-posts/components/ModalUploadImages.vue";
 
 export default {
   components: {
     ModalUpdateFabric,
+    ModalUploadImages,
   },
   data() {
     return {
@@ -86,6 +99,7 @@ export default {
 
       // Modals
       showModalUpdateFabric: false,
+      showModalUploadImages: false,
     };
   },
   computed: {
@@ -107,6 +121,13 @@ export default {
       if (saved) await this.getFabric();
 
       this.showModalUpdateFabric = false;
+    },
+    openModalUploadImages() {
+      this.showModalUploadImages = true;
+    },
+    async closeModalUploadImages(saved) {
+      if (saved) await this.getServiceImages();
+      this.showModalUploadImages = false;
     },
     async getService() {
       try {

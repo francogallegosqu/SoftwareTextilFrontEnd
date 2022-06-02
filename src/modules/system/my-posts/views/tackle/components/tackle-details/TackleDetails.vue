@@ -40,7 +40,12 @@
               <p>#4e41b4</p>
             </b-col>
             <b-col cols="12">
-              <b-button variant="outline-primary" size="sm" class="mr-1">
+              <b-button
+                variant="outline-primary"
+                size="sm"
+                class="mr-1"
+                @click="openModalUploadImages"
+              >
                 Cargar fotos
               </b-button>
               <b-button
@@ -70,6 +75,12 @@
       :tackle-code="idParam"
       @onClose="closeModalUpdateAccessory"
     />
+
+    <modal-upload-images
+      v-if="showModalUploadImages"
+      :register-code="idParam"
+      @onClose="closeModalUploadImages"
+    />
   </div>
 </template>
 
@@ -78,10 +89,12 @@ import { mapActions } from "vuex";
 
 // Components
 import ModalUpdateTackle from "../update-tackle/ModalUpdateTackle.vue";
+import ModalUploadImages from "@/modules/system/my-posts/components/ModalUploadImages.vue";
 
 export default {
   components: {
     ModalUpdateTackle,
+    ModalUploadImages,
   },
   data() {
     return {
@@ -90,6 +103,7 @@ export default {
 
       // Modals
       showModalUpdateAccessory: false,
+      showModalUploadImages: false,
     };
   },
   computed: {
@@ -109,6 +123,13 @@ export default {
       if (saved) await this.getAccessory();
 
       this.showModalUpdateAccessory = false;
+    },
+    openModalUploadImages() {
+      this.showModalUploadImages = true;
+    },
+    async closeModalUploadImages(saved) {
+      if (saved) await this.getAccessoryImages();
+      this.showModalUploadImages = false;
     },
     async getAccessory() {
       try {
