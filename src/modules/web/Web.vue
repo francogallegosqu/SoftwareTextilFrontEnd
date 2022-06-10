@@ -1,16 +1,27 @@
 <template>
   <div id="web">
-   
     <!--==================== HEADER ====================-->
     <header class="header" id="header">
-      <nav class="nav container">
+      <nav
+        v-if="['md', 'xl', 'xxl'].includes(currentSize)"
+        class="nav container"
+      >
         <a href="#" class="nav__logo">
           <i class="ri-leaf-line nav__logo-icon"></i>
-           <img src="@/assets/images/logo.svg" alt="My logo" width="100%" height="100%">
+          <img
+            src="@/assets/images/logo.svg"
+            alt="My logo"
+            width="100%"
+            height="100%"
+          />
         </a>
 
-        <div class="nav__menu" id="nav-menu" v-if="!isLogged">
-          <ul class="nav__list" >
+        <div
+          class="nav__menu"
+          id="nav-menu"
+          v-if="!isLogged && ['md', 'xl', 'xxl'].includes(currentSize)"
+        >
+          <ul class="nav__list">
             <li class="nav__item">
               <a @click="redirectToSignIn" class="nav__link">Iniciar Sesión</a>
             </li>
@@ -20,13 +31,59 @@
               </a>
             </li>
           </ul>
-        </div> 
-        <div v-if="isLogged" class="d-flex justify-content-start
-        align-items-start " style="width:20%">
-            <user-dropdown />
-           <!-- <feather-icon icon="ListIcon" size="25" /> -->
         </div>
+        <div
+          v-if="isLogged && ['md', 'xl', 'xxl'].includes(currentSize)"
+          class="d-flex justify-content-start align-items-start"
+          style="width: 30%"
+        >
+          <user-dropdown />
+        </div>
+        <!-- <div v-if="['xs', 'sm'].includes(currentSize)" style="width: 20%"> -->
+        <!-- <feather-icon icon="ListIcon" size="25" /> -->
+
+        <!-- </div> -->
       </nav>
+      <b-navbar
+        v-if="['xs', 'sm'].includes(currentSize)"
+        toggleable
+        type="light-primary"
+        variant="light-primary"
+      >
+        <b-navbar-brand href="#">
+          <img
+            src="@/assets/images/logo.svg"
+            alt="My logo"
+            width="100%"
+            height="100%"
+          />
+        </b-navbar-brand>
+
+        <b-navbar-toggle target="navbar-toggle-collapse">
+          <template #default="{ expanded }">
+            <feather-icon v-if="expanded" icon="ListIcon" size="25" />
+            <feather-icon v-else icon="ListIcon" size="25" />
+          </template>
+        </b-navbar-toggle>
+
+        <b-collapse id="navbar-toggle-collapse" is-nav>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item v-if="!isLogged">
+              <a @click="redirectToSignIn" class="w-100"
+                >Iniciar Sesión</a
+              ></b-nav-item
+            >
+            <b-nav-item v-if="!isLogged" class="w-100">
+              <a @click="redirectToSignUp">
+                Registrate gratis
+              </a></b-nav-item
+            >
+            <b-nav-item v-if="isLogged"  class="w-100 d-flex justify-content-end ">
+              <user-dropdown />
+            </b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
     </header>
 
     <main class="main">
@@ -40,8 +97,8 @@
               Encuentra a tu próximo socio de negocios
             </h1>
             <p class="home__description">
-              Somos una web que busca ayudarte a encontrar
-              proveedores y clientes manera segura y gratuita haciendo crecer tu negocio.
+              Somos una web que busca ayudarte a encontrar proveedores y
+              clientes manera segura y gratuita haciendo crecer tu negocio.
             </p>
             <a
               @click="redirectToSignUp"
@@ -58,8 +115,8 @@
       <!--==================== ABOUT ====================-->
       <section class="about section container" id="about">
         <div class="about__container grid">
-          <img src="/assets/img/about.png" alt="" class="about__img" />
-
+          <img src="@/assets/images/Somos.png" alt="" class="about__img" />
+          
           <div class="about__data">
             <h2 class="section__title about__title">
               Quienes somos realmente <br />
@@ -67,32 +124,32 @@
             </h2>
 
             <p class="about__description">
-              We have over 4000+ unbiased reviews and our customers trust our
-              plant process and delivery service every time
+              Somos una plataforma en la cual nos enfocamos en ayudarte a encontrar tu proveedor o clientes
+              con mayor interes y además de proveerte una administrado de tus pedido o servicios.
             </p>
 
             <div class="about__details">
               <p class="about__details-description">
                 <i class="ri-checkbox-fill about__details-icon"></i>
-                We always deliver on time.
+                Tu proveedor o cliente siempre esta a tiempo.
               </p>
               <p class="about__details-description">
                 <i class="ri-checkbox-fill about__details-icon"></i>
-                We give you guides to protect and care for your plants.
+                Te guiamos para protegerte en tu proxima compra o venta de servicios.
               </p>
               <p class="about__details-description">
                 <i class="ri-checkbox-fill about__details-icon"></i>
-                We always come over for a check-up after sale.
+                Estamos siempre verificando cada transacción hecha en la web.
               </p>
               <p class="about__details-description">
                 <i class="ri-checkbox-fill about__details-icon"></i>
-                100% money back guaranteed.
+                100% garantizados en tu primera experiencia en la web.
               </p>
             </div>
 
-            <a href="#" class="button--link button--flex">
-              Shop Now <i class="ri-arrow-right-down-line button__icon"></i>
-            </a>
+            <!-- <a href="#" class="button--link button--flex">
+              Mostrar Ahora <i class="ri-arrow-right-down-line button__icon"></i>
+            </a> -->
           </div>
         </div>
       </section>
@@ -101,7 +158,7 @@
       <section class="steps section container">
         <div class="steps__bg">
           <h2 class="section__title-center steps__title">¿Cómo funciona?</h2>
-
+          <h3 class="section__title-center steps__title">Si buscas proveedores</h3>
           <div class="steps__container grid">
             <div class="steps__card">
               <div class="steps__card-number">01</div>
@@ -128,19 +185,54 @@
               </p>
             </div>
           </div>
+          
         </div>
+         <div class="mt-1 steps__bg">
+           <h3 class="section__title-center steps__title">Si buscas clientes</h3>
+          <div class="steps__container grid">
+            <div class="steps__card">
+              <div class="steps__card-number">01</div>
+              <h3 class="steps__card-title">Registra tu negocio</h3>
+              <p class="steps__card-description">
+                Crea un perfil para que otros negocios puedan conocerte.
+              </p>
+            </div>
+
+            <div class="steps__card">
+              <div class="steps__card-number">02</div>
+              <h3 class="steps__card-title">Publica tus productos</h3>
+              <p class="steps__card-description">
+                Registra lo que ofreces a tus clientes.
+              </p>
+            </div>
+
+            <div class="steps__card">
+              <div class="steps__card-number">03</div>
+              <h3 class="steps__card-title">Recibe alertas</h3>
+              <p class="steps__card-description">
+                Te notificaremos cuando un cliente este interesado en ti.
+              </p>
+            </div>
+            <div class="steps__card">
+              <div class="steps__card-number">04</div>
+              <h3 class="steps__card-title">Responde los pedidos</h3>
+              <p class="steps__card-description">
+                Para que los clientes sepan que puedes atenderlos y se pongan en contacto contigo.
+              </p>
+            </div>
+          </div>
+         </div>
       </section>
 
       <!--==================== PRODUCTS ====================-->
       <section class="product section container" id="products">
         <h2 class="section__title-center">
-          Check out our <br />
-          products
+          Lo Nuevo en nosotros
         </h2>
 
         <p class="product__description">
-          Here are some selected plants from our showroom, all are in excellent
-          shape and has a long life span. Buy and enjoy best quality.
+          Aqui estan algunos de nuestros servicios o productos en la cual tu puedes escoger.
+          Compra tu producto o servicio y disfruta de la mejor experiencia.
         </p>
 
         <div class="product__container grid">
@@ -225,7 +317,7 @@
       </section>
 
       <!--==================== QUESTIONS ====================-->
-      <section class="questions section" id="faqs">
+      <!-- <section class="questions section" id="faqs">
         <h2 class="section__title-center questions__title container">
           Some common questions <br />
           were often asked
@@ -328,32 +420,32 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <!--==================== CONTACT ====================-->
-      <section class="contact section container" id="contact">
+      <b-row class="w-100 questions">
+        <section class=" contact section container" id="contact">
         <div class="contact__container grid">
           <div class="contact__box">
-            <h2 class="section__title">
-              Reach out to us today <br />
-              via any of the given <br />
-              information
+            <h2 class="section__title text-start mr-2">
+              Comuníquese con nosotros hoy  
+              a través de cualquiera de la información dada 
             </h2>
 
             <div class="contact__data">
               <div class="contact__information">
-                <h3 class="contact__subtitle">Call us for instant support</h3>
+                <h3 class="contact__subtitle">Llamanos para un soporte instantáneo</h3>
                 <span class="contact__description">
                   <i class="ri-phone-line contact__icon"></i>
-                  +999 888 777
+                  +51 903 207 417
                 </span>
               </div>
 
               <div class="contact__information">
-                <h3 class="contact__subtitle">Write us by mail</h3>
+                <h3 class="contact__subtitle">Escríbemos un email</h3>
                 <span class="contact__description">
                   <i class="ri-mail-line contact__icon"></i>
-                  user@email.com
+                  enTaller@gmail.com
                 </span>
               </div>
             </div>
@@ -368,7 +460,7 @@
 
               <div class="contact__content">
                 <input type="text" placeholder=" " class="contact__input" />
-                <label for="" class="contact__label">Subject</label>
+                <label for="" class="contact__label">Asunto</label>
               </div>
 
               <div class="contact__content contact__area">
@@ -377,17 +469,19 @@
                   placeholder=" "
                   class="contact__input"
                 ></textarea>
-                <label for="" class="contact__label">Message</label>
+                <label for="" class="contact__label">Mensaje</label>
               </div>
             </div>
 
             <button class="button button--flex">
-              Send Message
+              Enviar Mensaje
               <i class="ri-arrow-right-up-line button__icon"></i>
             </button>
           </form>
         </div>
       </section>
+      </b-row>
+      
     </main>
 
     <!--==================== FOOTER ====================-->
@@ -395,43 +489,42 @@
       <div class="footer__container container grid">
         <div class="footer__content">
           <a href="#" class="footer__logo">
-            <i class="ri-leaf-line footer__logo-icon"></i> Plantex
+            <i class="ri-leaf-line footer__logo-icon"></i> En Taller
           </a>
 
           <h3 class="footer__title">
-            Subscribe to our newsletter <br />
-            to stay update
+            Suscribete para nuestros datos informativos <br />
+            para mantenerte actualizado
           </h3>
 
           <div class="footer__subscribe">
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Ingresa tu email"
               class="footer__input"
             />
 
             <button class="button button--flex footer__button">
-              Subscribe
+              Suscribete
               <i class="ri-arrow-right-up-line button__icon"></i>
             </button>
           </div>
         </div>
 
         <div class="footer__content">
-          <h3 class="footer__title">Our Address</h3>
+          <h3 class="footer__title">Nuestra Dirección</h3>
 
           <ul class="footer__data">
-            <li class="footer__information">1234 - Peru</li>
-            <li class="footer__information">La Libertad - 43210</li>
-            <li class="footer__information">123-456-789</li>
+            <li class="footer__information">Lima - Peru</li>
+            <li class="footer__information">EnTaller.com</li>
           </ul>
         </div>
 
         <div class="footer__content">
-          <h3 class="footer__title">Contact Us</h3>
+          <h3 class="footer__title">Contáctanos</h3>
 
           <ul class="footer__data">
-            <li class="footer__information">+999 888 777</li>
+            <li class="footer__information">+51 903 207 417</li>
 
             <div class="footer__social">
               <a href="https://www.facebook.com/" class="footer__social-link">
@@ -470,43 +563,47 @@
 </template>
 
 <script>
-import UserDropdown from "./UserDropdown.vue"
+import { mapGetters } from 'vuex'
+import UserDropdown from './UserDropdown.vue'
 export default {
-  components:{
-    UserDropdown,
+  components: {
+    UserDropdown
   },
-  data(){
+  data() {
     return {
-      userData: JSON.parse(localStorage.getItem('userData')),
+      userData: JSON.parse(localStorage.getItem('userData'))
     }
-  }, 
-  computed:{
-    isLogged(){
-      return this.userData? true : false
+  },
+  computed: {
+    ...mapGetters({
+      currentSize: 'app/currentBreakPoint'
+    }),
+    isLogged() {
+      return this.userData ? true : false
     }
   },
   methods: {
     redirectToSignUp() {
       this.$router.push({
-        name: "auth-register",
-      });
+        name: 'auth-register'
+      })
     },
-    redirectToSignIn(){
+    redirectToSignIn() {
       this.$router.push({
-        name: "auth-login",
-      });
+        name: 'auth-login'
+      })
     }
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss">
 /*=============== GOOGLE FONTS ===============*/
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 /*=============== VARIABLES CSS ===============*/
 :root {
-  --header-height: 6.0rem; /*56px*/
+  --header-height: 6rem; /*56px*/
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
@@ -523,7 +620,7 @@ export default {
 
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
-  --body-font: "Poppins", sans-serif;
+  --body-font: 'Poppins', sans-serif;
   --big-font-size: 2rem;
   --h1-font-size: 1.5rem;
   --h2-font-size: 1.25rem;
@@ -807,7 +904,7 @@ the website, in dark theme
   }
 
   .active-link::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: -0.5rem;
     left: 0;
@@ -828,7 +925,7 @@ the website, in dark theme
 
   .home__img {
     width: 100%;
-    // justify-self: center;
+    justify-self: end;
   }
 
   .home__title {
@@ -859,7 +956,7 @@ the website, in dark theme
   }
 
   .home__social-follow::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 1rem;
     height: 2px;
@@ -1496,7 +1593,7 @@ the website, in dark theme
     }
 
     .about__img {
-      width: 380px;
+      width: 480px;
     }
 
     .steps__container {

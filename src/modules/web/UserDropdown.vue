@@ -5,25 +5,33 @@
     class="dropdown-user"
   >
     <template #button-content>
-      <div class=" user-nav">
+      <!-- <div class=" user-nav">
         <p class="user-name font-weight-bolder mb-0">
-          {{ userData.businessName }}
+          {{ currentUser.businessName }}
         </p>
         <div>
-          <span class="user-status">{{ userData.role.role_name }}</span>
+          <span class="user-status">{{ currentUser.role.role_name }}</span>
         </div>
         
-      </div>
+      </div> -->
+      <div class="profile-title mr-1">
+            <p class="font-weight-bolder">
+              {{ currentUser.businessName }}
+            </p>
+            <p class="font-weight-bolder">
+              {{ currentUser.role.role_name }}
+            </p>
+          </div>
       <b-avatar
         size="40"
-        :src="userData.avatar"
+        :src="currentUser.avatar"
         variant="light-primary"
         badge
         class="badge-minimal"
         badge-variant="success"
       >
         <feather-icon
-          v-if="!userData.fullName"
+          v-if="!currentUser.fullName"
           icon="UserIcon"
           size="22"
         />
@@ -31,7 +39,7 @@
     </template>
 
     <b-dropdown-item
-      :to="{ name: 'pages-profile'}"
+      :to="{ name: 'app-profile'}"
       link-class="d-flex align-items-center"
     >
       <feather-icon
@@ -81,6 +89,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import {
   BNavItemDropdown, BDropdownItem, BDropdownDivider, BAvatar,
 } from 'bootstrap-vue'
@@ -97,15 +106,19 @@ export default {
   },
   data() {
     return {
-      userData: JSON.parse(localStorage.getItem('userData')),
       avatarText,
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentUser: "authentication/currentUser",
+    }),
   },
   methods: {
     logout() {
       localStorage.removeItem(useJwt.jwtConfig.storageTokenKeyName)
       localStorage.removeItem(useJwt.jwtConfig.storageRefreshTokenKeyName)
-      localStorage.removeItem('userData')
+      localStorage.removeItem('currentUser')
       this.$router.push({ name: 'auth-login' })
     },
   },
