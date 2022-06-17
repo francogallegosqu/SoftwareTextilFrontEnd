@@ -318,7 +318,10 @@
       </b-col>
     </b-row>
     <!-- Contact -->
-    <b-row style="height: 300px"> </b-row>
+    <b-row class="w-100">
+      <b-col></b-col>
+      <b-col></b-col>   
+    </b-row>
   </div>
 </template>
 
