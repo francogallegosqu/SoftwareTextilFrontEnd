@@ -318,9 +318,26 @@
       </b-col>
     </b-row>
     <!-- Contact -->
-    <b-row class="w-100">
-      <b-col></b-col>
-      <b-col></b-col>   
+    <b-row class="mt-2 d-flex justify-content-center">
+      <b-col cols="12" sm="10" md="10" lg="10" xl="10">
+        <b-row>
+          <b-col cols="6">
+            <b-row>
+              <h2 style="font-size:1.5rem">
+                Comuníquese con nosotros hoy  
+              a través de cualquiera de la información dada 
+              </h2>
+              <h3 style="font-size:1.5rem">
+              Llamanos para un soporte instantáneo
+              </h3> <br>
+              <span> <strong> +51 903 207 417 </strong> </span>
+
+            </b-row>
+          </b-col>
+          <b-col cols="6"></b-col>
+        </b-row>
+      </b-col>
+        
     </b-row>
   </div>
 </template>
