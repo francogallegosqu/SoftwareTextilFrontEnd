@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- NavBar -->
-    <b-row  
+    <b-row
       class="header-navbar d-flex justify-content-center align-item-center"
     >
       <b-col cols="10">
@@ -239,7 +239,7 @@
             <h1>Algunas preguntas que nos hacen a nosotros.</h1>
           </b-col>
           <b-col cols="12" sm="6" md="6" lg="6" xl="6">
-            <div class="w-100">
+            <div class="w-100 m-1">
               <b-button
                 class="w-100 text-center button-question"
                 :class="visible1 ? null : 'collapsed'"
@@ -247,16 +247,18 @@
                 aria-controls="collapse-1"
                 @click="visible1 = !visible1"
               >
-               <span> Son confiables los proveedores de la plataforma ?</span>
+                <span> Son confiables los proveedores de la plataforma ?</span>
               </b-button>
               <b-collapse id="collapse-1" v-model="visible1" class="mt-2">
-                <b-card>Si, todos los proveedores registrados en nuestra plataforma
-                    han pasado por un filtro de seguridad.</b-card>
+                <b-card
+                  >Si, todos los proveedores registrados en nuestra plataforma
+                  han pasado por un filtro de seguridad.</b-card
+                >
               </b-collapse>
             </div>
           </b-col>
           <b-col cols="12" sm="6" md="6" lg="6" xl="6">
-            <div class="w-100">
+            <div class="w-100 m-1">
               <b-button
                 class="w-100 text-center button-question"
                 :class="visible2 ? null : 'collapsed'"
@@ -264,14 +266,53 @@
                 aria-controls="collapse-2"
                 @click="visible2 = !visible2"
               >
-               <span> Si tengo un problema con mi pedido ?</span>
+                <span> Si tengo un problema con mi pedido ?</span>
               </b-button>
               <b-collapse id="collapse-2" v-model="visible2" class="mt-2">
-                <b-card>Si, todos los proveedores registrados en nuestra plataforma
-                    han pasado por un filtro de seguridad.</b-card>
+                <b-card
+                  >Si, todos los proveedores registrados en nuestra plataforma
+                  han pasado por un filtro de seguridad.</b-card
+                >
               </b-collapse>
             </div>
-            
+          </b-col>
+          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+            <div class="w-100 m-1">
+              <b-button
+                class="w-100 text-center button-question"
+                :class="visible3 ? null : 'collapsed'"
+                :aria-expanded="visible3 ? 'true' : 'false'"
+                aria-controls="collapse-1"
+                @click="visible3 = !visible3"
+              >
+                <span> Son confiables los proveedores de la plataforma ?</span>
+              </b-button>
+              <b-collapse id="collapse-1" v-model="visible3" class="mt-2">
+                <b-card
+                  >Si, todos los proveedores registrados en nuestra plataforma
+                  han pasado por un filtro de seguridad.</b-card
+                >
+              </b-collapse>
+            </div>
+          </b-col>
+          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+            <div class="w-100 m-1">
+              <b-button
+                class="w-100 text-center button-question"
+                :class="visible4 ? null : 'collapsed'"
+                :aria-expanded="visible4 ? 'true' : 'false'"
+                aria-controls="collapse-2"
+                @click="visible4 = !visible4"
+              >
+                <span> Si tengo un problema con mi pedido ?</span>
+              </b-button>
+              <b-collapse id="collapse-2" v-model="visible4" class="mt-2">
+                <b-card
+                  >Si, todos los proveedores registrados en nuestra plataforma
+                  han pasado por un filtro de seguridad.</b-card
+                >
+              </b-collapse>
+            </div>
           </b-col>
         </b-row>
       </b-col>
@@ -287,7 +328,9 @@ export default {
   data() {
     return {
       visible1: false,
-       visible2: false
+      visible2: false,
+      visible3: false,
+      visible4: false
     }
   },
   computed: {
@@ -333,7 +376,8 @@ a.navbar-brand {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
   position: -webkit-sticky;
   position: sticky;
-  top: 0px;z-index: 1020;
+  top: 0px;
+  z-index: 1020;
 }
 
 /* Logo */
@@ -380,14 +424,12 @@ a.navbar-brand {
   }
 }
 
-.button-question{
+.button-question {
   background-color: white !important ;
   border: 0px !important;
-  & > span{
+  & > span {
     color: #3e6552;
     font-size: 1.5rem;
   }
 }
-
-
 </style>
