@@ -1,74 +1,88 @@
 <template>
   <div>
-     <!-- NavBar -->
-    <b-row class="header-navbar d-flex justify-content-center align-item-center">
+    <!-- NavBar -->
+    <b-row  
+      class="header-navbar d-flex justify-content-center align-item-center"
+    >
       <b-col cols="10">
         <b-navbar
-      :toggleable="currentSizeDirect"
-      type="light"
-      variant="light"
-      sticky
-    >
-      <b-navbar-brand :to="{ name: 'web' }">
-        <b-img
-          class="img-logo"
-          fluid
-          src="@/assets/images/logo/logoTextil.svg"
-          alt="My Logo"
-        />
-      </b-navbar-brand>
+          :toggleable="currentSizeDirect"
+          type="light"
+          variant="light"
+          sticky
+        >
+          <b-navbar-brand :to="{ name: 'web' }">
+            <b-img
+              class="img-logo"
+              fluid
+              src="@/assets/images/logo/logoTextil.svg"
+              alt="My Logo"
+            />
+          </b-navbar-brand>
 
-      <b-navbar-toggle target="navbar-toggle-collapse">
-        <template #default="{ expanded }">
-          <feather-icon class="text-success" v-if="expanded" icon="ChevronsUpIcon" size="25" />
-          <feather-icon class="text-success" v-else icon="ChevronsDownIcon" size="25" />
-        </template>
-      </b-navbar-toggle>
+          <b-navbar-toggle target="navbar-toggle-collapse">
+            <template #default="{ expanded }">
+              <feather-icon
+                class="text-success"
+                v-if="expanded"
+                icon="ChevronsUpIcon"
+                size="25"
+              />
+              <feather-icon
+                class="text-success"
+                v-else
+                icon="ChevronsDownIcon"
+                size="25"
+              />
+            </template>
+          </b-navbar-toggle>
 
-      <b-collapse id="navbar-toggle-collapse" is-nav>
-        <b-navbar-nav class="ml-auto " :class="currentSizeDirect?'d-flex flex-column':''">
-          <b-nav-item href="#">
-            <b-link class="web-button-1" @click="redirectToSignIn"
-              >Iniciar Sesión
-            </b-link></b-nav-item
-          >
-          <b-nav-item
-            ><b-link class="web-button-1" @click="redirectToSignUp">
-              Regístrate gratis
-            </b-link></b-nav-item
-          >
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+          <b-collapse id="navbar-toggle-collapse" is-nav>
+            <b-navbar-nav
+              class="ml-auto"
+              :class="currentSizeDirect ? 'd-flex flex-column' : ''"
+            >
+              <b-nav-item href="#">
+                <b-link class="web-button-1" @click="redirectToSignIn"
+                  >Iniciar Sesión
+                </b-link></b-nav-item
+              >
+              <b-nav-item
+                ><b-link class="web-button-1" @click="redirectToSignUp">
+                  Regístrate gratis
+                </b-link></b-nav-item
+              >
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
       </b-col>
     </b-row>
-
     <!-- Home -->
-      <b-row class="d-flex justify-content-center align-item-center mt-1 pt-2">
-        <b-col cols="10" md="5" lg="5" xl="5" class="d-flex align-item-center">
-          <div
-            class="d-flex flex-column justify-content-center align-items-center"
-          >
-            <div class="w-100">
-              <h1 style="font-size: 3.5rem; font-weight: 700">
-                Encuentra a tu próximo socio de negocios
-              </h1>
-              <p style="font-size: 1.2rem">
-                Somos una web que busca ayudarte a encontrar proveedores y
-                clientes manera segura y gratuita haciendo crecer tu negocio.
-              </p>
-            </div>
-            <div class="w-100">
-              <b-button class="web-button" @click="redirectToSignUp"
-                >Registrate ahora <feather-icon icon="ArrowUpRightIcon"
-              /></b-button>
-            </div>
+    <b-row class="d-flex justify-content-center align-item-center mt-1 pt-2">
+      <b-col cols="10" md="5" lg="5" xl="5" class="d-flex align-item-center">
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <div class="w-100">
+            <h1 style="font-size: 3.5rem; font-weight: 700">
+              Encuentra a tu próximo socio de negocios
+            </h1>
+            <p style="font-size: 1.2rem">
+              Somos una web que busca ayudarte a encontrar proveedores y
+              clientes de manera segura y gratuita haciendo crecer tu negocio.
+            </p>
           </div>
-        </b-col>
-        <b-col cols="10" md="5" lg="5" xl="5">
-          <b-img src="@/assets/images/manos.png" alt="Manos" fluid />
-        </b-col>
-      </b-row>
+          <div class="w-100">
+            <b-button class="web-button" @click="redirectToSignUp"
+              >Registrate ahora <feather-icon icon="ArrowUpRightIcon"
+            /></b-button>
+          </div>
+        </div>
+      </b-col>
+      <b-col cols="10" md="5" lg="5" xl="5">
+        <b-img src="@/assets/images/manos.png" alt="Manos" fluid />
+      </b-col>
+    </b-row>
     <!-- About -->
     <b-row class="d-flex justify-content-center align-item-center mt-1">
       <b-col cols="10" sm="6" md="5" lg="5" xl="5">
@@ -207,7 +221,8 @@
                 <div :class="cardContentItem">
                   <h3>Responde los pedidos</h3>
                   <p>
-                    Para que los clientes sepan que puedes atenderlos y se pongan en contacto contigo.
+                    Para que los clientes sepan que puedes atenderlos y se
+                    pongan en contacto contigo.
                   </p>
                 </div>
               </b-card>
@@ -216,12 +231,65 @@
         </b-card>
       </b-col>
     </b-row>
+    <!-- Questions -->
+    <b-row class="mt-2 d-flex justify-content-center">
+      <b-col cols="10">
+        <b-row class="w-100">
+          <b-col cols="12" class="text-center mb-2">
+            <h1>Algunas preguntas que nos hacen a nosotros.</h1>
+          </b-col>
+          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+            <div class="w-100">
+              <b-button
+                class="w-100 text-center button-question"
+                :class="visible1 ? null : 'collapsed'"
+                :aria-expanded="visible1 ? 'true' : 'false'"
+                aria-controls="collapse-1"
+                @click="visible1 = !visible1"
+              >
+               <span> Son confiables los proveedores de la plataforma ?</span>
+              </b-button>
+              <b-collapse id="collapse-1" v-model="visible1" class="mt-2">
+                <b-card>Si, todos los proveedores registrados en nuestra plataforma
+                    han pasado por un filtro de seguridad.</b-card>
+              </b-collapse>
+            </div>
+          </b-col>
+          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+            <div class="w-100">
+              <b-button
+                class="w-100 text-center button-question"
+                :class="visible2 ? null : 'collapsed'"
+                :aria-expanded="visible2 ? 'true' : 'false'"
+                aria-controls="collapse-2"
+                @click="visible2 = !visible2"
+              >
+               <span> Si tengo un problema con mi pedido ?</span>
+              </b-button>
+              <b-collapse id="collapse-2" v-model="visible2" class="mt-2">
+                <b-card>Si, todos los proveedores registrados en nuestra plataforma
+                    han pasado por un filtro de seguridad.</b-card>
+              </b-collapse>
+            </div>
+            
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
+    <!-- Contact -->
+    <b-row style="height: 300px"> </b-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  data() {
+    return {
+      visible1: false,
+       visible2: false
+    }
+  },
   computed: {
     ...mapGetters({
       currentUser: 'authentication/currentUser'
@@ -263,48 +331,36 @@ a.navbar-brand {
 }
 .header-navbar {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;z-index: 1020;
 }
 
 /* Logo */
 .img-logo {
   max-width: 300px;
 }
-/* Back Image */
-.back-image {
-  /* The image used */
-  background-image: url('../../assets/images/HomePage/Homepage-background-tela.png');
-  padding-bottom: 1.5%;
-  /* Full height */
-  width: 100%;
-  box-shadow: 0px 0 8px 8px white inset;
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .web-button-1 {
-  color: hsl(152, 24%, 32%, 1);
+  color: #3e6552;
   font-weight: 700;
   font-size: 1rem;
 }
 .web-button-1:hover {
   color: #006414;
+  border-bottom: 5px solid #3e6552;
 }
 
 .web-button {
-  background-color: #006414 !important ;
+  background-color: #3e6552 !important ;
   border: 0px !important;
-  opacity: 0.7;
 }
 
 .card-content-cards {
-  background-color: #006414;
-  opacity: 0.7;
+  background-color: #3e6552;
 }
 .sub-card-number {
   display: block;
-  background-color: #006414;
+  background-color: #3e6552;
   color: white;
   padding: 0.5rem 0.5rem;
   border-radius: 0.25rem;
@@ -318,5 +374,20 @@ a.navbar-brand {
 }
 .sub-card-body {
   height: 100%;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 25px 0 rgba(black, 0.25);
+  }
 }
+
+.button-question{
+  background-color: white !important ;
+  border: 0px !important;
+  & > span{
+    color: #3e6552;
+    font-size: 1.5rem;
+  }
+}
+
+
 </style>
