@@ -2,18 +2,19 @@
   <div id="web">
     <!--==================== HEADER ====================-->
     <header class="header" id="header">
+       
       <nav
         v-if="['md', 'xl', 'xxl'].includes(currentSize)"
         class="nav container"
       >
         <a href="#" class="nav__logo">
           <i class="ri-leaf-line nav__logo-icon"></i>
-          <img
+          <!-- <img
             src="@/assets/images/logo.svg"
             alt="My logo"
             width="100%"
             height="100%"
-          />
+          /> -->
         </a>
 
         <div
@@ -51,12 +52,12 @@
         variant="light-primary"
       >
         <b-navbar-brand href="#">
-          <img
+          <!-- <img
             src="@/assets/images/logo.svg"
             alt="My logo"
             width="100%"
             height="100%"
-          />
+          /> -->
         </b-navbar-brand>
 
         <b-navbar-toggle target="navbar-toggle-collapse">
@@ -86,7 +87,8 @@
       </b-navbar>
     </header>
 
-    <main class="main">
+    <main class="main" style="background-image: url('https://svgsilh.com/svg/48618.svg')">
+      
       <!--==================== HOME ====================-->
       <section class="home" id="home">
         <div class="home__container container grid">

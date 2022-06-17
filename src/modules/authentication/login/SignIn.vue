@@ -265,32 +265,33 @@ export default {
               useJwt.setToken(userToken);
               localStorage.setItem("userData", JSON.stringify(userData));
 
-              this.$store.dispatch(
-                "authentication/updateCurrentUser",
-                userData
-              );
+              // this.$store.dispatch(
+              //   "authentication/updateCurrentUser",
+              //   userData
+              // );
 
-              this.$store.dispatch("authentication/updateToken", userToken);
+              // this.$store.dispatch("authentication/updateToken", userToken);
 
-              this.$router
-                .replace(getHomeRouteForLoggedInUser(userData.role.role_name))
-                .then(() => {
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: "top-right",
-                    props: {
-                      title: `Bienvenido 
-                      ${userData.businessName.substr(0, 13)}${
-                        userData.businessName.length > 13 ? "..." : ""
-                      }`,
-                      icon: "CoffeeIcon",
-                      variant: "success",
-                    },
-                  });
-                });
+              // this.$router
+              //   .replace(getHomeRouteForLoggedInUser(userData.role.role_name))
+              //   .then(() => {
+              //     this.$toast({
+              //       component: ToastificationContent,
+              //       position: "top-right",
+              //       props: {
+              //         title: `Bienvenido 
+              //         ${userData.businessName.substr(0, 13)}${
+              //           userData.businessName.length > 13 ? "..." : ""
+              //         }`,
+              //         icon: "CoffeeIcon",
+              //         variant: "success",
+              //       },
+              //     });
+              //   })
+
             })
             .catch((error) => {
-              this.$refs.loginForm.setErrors(error.response.data.error);
+              // this.$refs.loginForm.setErrors(error.response.data.error);
             });
         }
       });
