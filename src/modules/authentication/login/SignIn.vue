@@ -1,13 +1,11 @@
 <template>
   <div class="auth-wrapper auth-v2">
-       
     <b-row class="auth-inner m-0">
-      <!-- Brand logo-->
-      <b-link class="brand-logo">
-        <vuexy-logo />
-        <h2 class="brand-text text-primary ml-1">Vuexy</h2>
-      </b-link>
-      <!-- /Brand logo-->
+       <!-- /Brand logo-->
+      <div class="brand-logo" >
+        <logo style="width:100%"/>
+      </div>
+     
 
       <!-- Left Text-->
       <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
@@ -172,9 +170,8 @@
 </template>
 
 <script>
-/* eslint-disable global-require */
-import { ValidationProvider, ValidationObserver } from "vee-validate";
-import VuexyLogo from "@core/layouts/components/Logo.vue";
+// import Components
+import Logo from "../../../commons/logo/Logo.vue"
 import {
   BRow,
   BCol,
@@ -196,15 +193,12 @@ import useJwt from "@/auth/jwt/useJwt";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
 import store from "@/store/index";
-import { getHomeRouteForLoggedInUser } from "@/auth/utils";
-
-import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
-
 export default {
   directives: {
     "b-tooltip": VBTooltip,
   },
   components: {
+    Logo,
     BRow,
     BCol,
     BLink,
@@ -219,9 +213,6 @@ export default {
     BForm,
     BButton,
     BAlert,
-    VuexyLogo,
-    ValidationProvider,
-    ValidationObserver,
     
   },
   mixins: [togglePasswordVisibility],

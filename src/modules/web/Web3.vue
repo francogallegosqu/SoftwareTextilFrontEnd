@@ -8,16 +8,11 @@
         <b-navbar
           :toggleable="currentSizeDirect"
           type="light"
-          variant="light"
+          class="navbar-background"
           sticky
         >
           <b-navbar-brand :to="{ name: 'web' }">
-            <b-img
-              class="img-logo"
-              fluid
-              src="@/assets/images/logo/logoTextil.svg"
-              alt="My Logo"
-            />
+            <logo />
           </b-navbar-brand>
 
           <b-navbar-toggle target="navbar-toggle-collapse">
@@ -233,8 +228,8 @@
     </b-row>
     <!-- Questions -->
     <b-row class="mt-2 d-flex justify-content-center">
-      <b-col cols="10">
-        <b-row class="w-100">
+      <b-col cols="10 ">
+        <b-row class="w-100 mt-2 mb-2">
           <b-col cols="12" class="text-center mb-2">
             <h1>Algunas preguntas que nos hacen a nosotros.</h1>
           </b-col>
@@ -318,39 +313,168 @@
       </b-col>
     </b-row>
     <!-- Contact -->
-    <b-row class="mt-2 d-flex justify-content-center">
-      <b-col cols="12" sm="10" md="10" lg="10" xl="10">
+    <b-row class="mt-2 mb-2 d-flex justify-content-center background-contact">
+      <b-col cols="10" sm="8" md="8" lg="8" xl="8" class="m-4">
         <b-row>
-          <b-col cols="6">
-            <b-row>
-              <h2 style="font-size:1.5rem">
-                Comuníquese con nosotros hoy  
-              a través de cualquiera de la información dada 
+          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+            <div class="d-flex flex-column">
+              <h2
+                style="font-size: 2rem; line-height: 4.3rem; font-weight: 600"
+              >
+                Comuníquese con nosotros hoy <br />
+                a través de cualquiera de la <br />
+                información dada
               </h2>
-              <h3 style="font-size:1.5rem">
-              Llamanos para un soporte instantáneo
-              </h3> <br>
-              <span> <strong> +51 903 207 417 </strong> </span>
-
+              <h3 style="font-size: 1rem">
+                Llamanos para un soporte instantáneo
+              </h3>
+              <p class="ml-1">+51 903 207 417</p>
+              <h3 style="font-size: 1rem">enTaller@gmail.com</h3>
+              <p class="ml-1">+51 903 207 417</p>
+            </div>
+          </b-col>
+          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+            <b-row>
+              <b-col cols="12">
+                <ValidationObserver ref="form">
+                  <ValidationProvider
+                    name="Email"
+                    :rules="{ email: true, required: true }"
+                    v-slot="{ errors }"
+                  >
+                    <b-form-group label="Email">
+                      <b-form-input
+                        class="form-input"
+                        name="Email"
+                        v-model="form.email"
+                      >
+                      </b-form-input>
+                    </b-form-group>
+                    <small class="text-danger" v-if="errors[0]">{{
+                      errors[0]
+                    }}</small>
+                  </ValidationProvider>
+                  <ValidationProvider
+                    name="Subject"
+                    :rules="{ required: true }"
+                    v-slot="{ errors }"
+                  >
+                    <b-form-group label="Subject">
+                      <b-form-input
+                        class="form-input"
+                        name="Subject"
+                        v-model="form.subject"
+                      >
+                      </b-form-input>
+                    </b-form-group>
+                    <small class="text-danger" v-if="errors[0]">{{
+                      errors[0]
+                    }}</small>
+                  </ValidationProvider>
+                  <ValidationProvider
+                    name="Message"
+                    :rules="{ required: true }"
+                    v-slot="{ errors }"
+                  >
+                    <b-form-group label="Message">
+                      <b-form-input
+                        class="form-input"
+                        name="Message"
+                        v-model="form.message"
+                      >
+                      </b-form-input>
+                    </b-form-group>
+                    <small class="text-danger" v-if="errors[0]">{{
+                      errors[0]
+                    }}</small>
+                  </ValidationProvider>
+                </ValidationObserver>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="12">
+                <b-button class="web-button" @click="sendEmail"
+                  >Enviar Mensaje</b-button
+                >
+              </b-col>
             </b-row>
           </b-col>
-          <b-col cols="6"></b-col>
         </b-row>
       </b-col>
-        
+    </b-row>
+    <!-- Footer  -->
+    <b-row class="mt-2 mb-4 d-flex justify-content-center ">
+      <b-col cols="10" sm="10" md="8"  lg="8" xl="8" class="mt-4 mb-4">
+        <b-row>
+          <b-col cols="12" sm="6" md="6" lg="4" xl="4" class="mb-1 d-flex flex-column justify-content-start align-item-left">
+              <h2 class="footer-title">En Taller</h2>
+            <h3 class="footer-content">
+              Suscribete para nuestros datos informativos <br />
+              para mantenerte actualizado
+            </h3>
+          
+            <div>
+              <ValidationObserver ref="formEmail">
+              <ValidationProvider
+                name="FormEmail"
+                :rules="{ email: true, required: true }"
+                v-slot="{ errors }"
+              >
+                <b-input-group name="FormEmail">
+                  <b-form-input class="input-email" placeholder="Ingresa tu Email" v-model="email" />
+                  <b-input-group-append>
+                    <b-button class="web-button"> Suscribete </b-button>
+                  </b-input-group-append>
+                </b-input-group>
+                <small class="text-danger" v-if="errors[0]">{{
+                  errors[0]
+                }}</small>
+              </ValidationProvider>
+            </ValidationObserver>
+           
+            </div>
+          </b-col>
+
+          <b-col cols="6" sm="3" md="3" lg="4" xl="4" class="mb-1 d-flex flex-column justify-content-start align-item-left">
+            <h2 class="footer-title">Nuestra Dirección</h2>
+            <h3 class="footer-content">
+              Lima - Perú 
+            </h3>
+            <h3 class="footer-content"> Provincia lima</h3>
+            <h3 class="footer-content">En Taller</h3>
+          </b-col>
+          <b-col cols="6" sm="3" md="3" lg="4" xl="4" class="d-flex flex-column justify-content-start align-item-left">
+            <h2 class="footer-title">Contáctanos</h2>
+            <h3 class="footer-content">
+              +51 903 207 417
+            </h3>
+          </b-col>
+        </b-row>
+      </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+// Import Components
+import Logo from "../../commons/logo/Logo.vue"
 export default {
+  components:{
+    Logo,
+  },  
   data() {
     return {
       visible1: false,
       visible2: false,
       visible3: false,
-      visible4: false
+      visible4: false,
+      form: {
+        email: '',
+        subject: '',
+        message: ''
+      },
+      email:'',
     }
   },
   computed: {
@@ -380,12 +504,38 @@ export default {
       this.$router.push({
         name: 'auth-login'
       })
+    },
+    sendEmail() {
+      this.$refs.form.validate().then((success) => {
+        if (!success) {
+          console.log('did not send')
+          return
+        }
+        console.log('send')
+      })
+    },
+    sendSuscribe() {
+      this.$refs.formEmail.validate().then((success) => {
+        if (!success) {
+          console.log('did not send Email')
+          return
+        }
+        console.log('send Email')
+      })
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+/* Color */
+
+:root {
+  --mainColor: #3e6552;
+  --valQuestion: white;
+  --h3-font-size: 1.05rem;
+  --header-background:white;
+}
 /* Nav Bar */
 a.navbar-brand {
   width: 50%;
@@ -393,11 +543,15 @@ a.navbar-brand {
   max-width: 500px;
 }
 .header-navbar {
+  background-color: var(--header-background) ;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
   position: -webkit-sticky;
   position: sticky;
   top: 0px;
   z-index: 1020;
+}
+.navbar-background{
+  background-color: var(--header-background) ;
 }
 
 /* Logo */
@@ -405,26 +559,30 @@ a.navbar-brand {
   max-width: 300px;
 }
 .web-button-1 {
-  color: #3e6552;
+  color: var(--mainColor);
   font-weight: 700;
   font-size: 1rem;
 }
 .web-button-1:hover {
   color: #006414;
-  border-bottom: 5px solid #3e6552;
+  border-bottom: 5px solid var(--mainColor);
 }
 
 .web-button {
-  background-color: #3e6552 !important ;
+  background-color: var(--mainColor) !important ;
   border: 0px !important;
+  &:focus {
+    background-color: var(--mainColor) !important ;
+    opacity: 0.7;
+  }
 }
 
 .card-content-cards {
-  background-color: #3e6552;
+  background-color: var(--mainColor);
 }
 .sub-card-number {
   display: block;
-  background-color: #3e6552;
+  background-color: var(--mainColor);
   color: white;
   padding: 0.5rem 0.5rem;
   border-radius: 0.25rem;
@@ -445,11 +603,44 @@ a.navbar-brand {
 }
 
 .button-question {
-  background-color: white !important ;
+  background-color: var(--valQuestion) !important ;
   border: 0px !important;
+  &:focus {
+    background-color: var(--valQuestion) !important ;
+  }
   & > span {
-    color: #3e6552;
+    color: var(--mainColor);
     font-size: 1.5rem;
   }
+}
+.background-contact {
+  background-color: #e5efea;
+}
+
+.form-input {
+  border: 0px;
+  border-radius: 0px;
+  border-bottom: 1.5px solid var(--mainColor);
+  background-color: #e5efea;
+  &:focus {
+    border-bottom: 1.5px solid var(--mainColor);
+    background-color: #e5efea;
+  }
+}
+
+.footer-content {
+  font-size: var(--h3-font-size);
+  margin-bottom: 1.2rem;
+}
+.input-group > .form-control{
+  &:focus{
+    border-color: var(--mainColor) !important;
+  }
+  &:disabled{
+    border: 0px;
+  }
+}
+.footer-title{
+  margin-bottom: 1.2rem;
 }
 </style>

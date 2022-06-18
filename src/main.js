@@ -47,6 +47,9 @@ Vue.use(BootstrapVueIcons)
 Vue.use(VueCompositionAPI)
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
+// Validation rules (Vee validate)
+
+import './validation/rules'
 
 // Feather font icon - For form-wizard
 // * Shall remove it if not using font-icons of feather-icons - For form-wizard
