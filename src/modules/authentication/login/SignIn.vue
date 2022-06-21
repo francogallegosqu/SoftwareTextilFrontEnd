@@ -2,29 +2,26 @@
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
        <!-- /Brand logo-->
-      <div class="brand-logo" >
+     <b-link :to="{ name: 'web' }" class="brand-logo">
         <logo style="width:100%"/>
-      </div>
-     
+      </b-link>
 
-      <!-- Left Text-->
+      <!-- Left Image-->
       <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
         <div
           class="w-100 d-lg-flex align-items-center justify-content-center px-5"
         >
-          <b-img fluid :src="imgUrl" alt="Login V2" />
+          <b-img style="border-radius: 5px ;" fluid src="@/assets/images/profile/post-media/signIn.jpg" alt="Login V2" />
         </div>
       </b-col>
-      <!-- /Left Text-->
-
       <!-- Login-->
       <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
           <b-card-title class="mb-1 font-weight-bold" title-tag="h2">
-            Welcome to Vuexy! 👋
+            Bienvenido de Nuevo 👋
           </b-card-title>
           <b-card-text class="mb-2">
-            Please sign-in to your account and start the adventure
+            Por favor inicia sesión con tu cuenta y empieza tu producción
           </b-card-text>
 
           <b-alert variant="primary" show>
@@ -119,7 +116,7 @@
                   v-model="status"
                   name="checkbox-1"
                 >
-                  Remember Me
+                  Recuerdame
                 </b-form-checkbox>
               </b-form-group>
 
@@ -130,41 +127,19 @@
                 block
                 :disabled="invalid"
               >
-                Sign in
+                Iniciar Sesión
               </b-button>
             </b-form>
           </validation-observer>
 
           <b-card-text class="text-center mt-2">
-            <span>New on our platform? </span>
+            <span>Nuevo en nuestra plataforma? </span>
             <b-link :to="{ name: 'auth-register' }">
-              <span>&nbsp;Create an account</span>
+              <span>&nbsp;Crea una cuenta</span>
             </b-link>
           </b-card-text>
-
-          <!-- divider -->
-          <div class="divider my-2">
-            <div class="divider-text">or</div>
-          </div>
-
-          <!-- social buttons -->
-          <div class="auth-footer-btn d-flex justify-content-center">
-            <b-button variant="facebook" href="javascript:void(0)">
-              <feather-icon icon="FacebookIcon" />
-            </b-button>
-            <b-button variant="twitter" href="javascript:void(0)">
-              <feather-icon icon="TwitterIcon" />
-            </b-button>
-            <b-button variant="google" href="javascript:void(0)">
-              <feather-icon icon="MailIcon" />
-            </b-button>
-            <b-button variant="github" href="javascript:void(0)">
-              <feather-icon icon="GithubIcon" />
-            </b-button>
-          </div>
         </b-col>
       </b-col>
-      <!-- /Login-->
     </b-row>
   </div>
 </template>
@@ -192,6 +167,8 @@ import {
 import useJwt from "@/auth/jwt/useJwt";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
+import { getHomeRouteForLoggedInUser } from '@/auth/utils'
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import store from "@/store/index";
 export default {
   directives: {
@@ -232,14 +209,6 @@ export default {
     passwordToggleIcon() {
       return this.passwordFieldType === "password" ? "EyeIcon" : "EyeOffIcon";
     },
-    imgUrl() {
-      if (store.state.appConfig.layout.skin === "dark") {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require("@/assets/images/pages/login-v2-dark.svg");
-        return this.sideImg;
-      }
-      return this.sideImg;
-    },
   },
   methods: {
     login() {
@@ -251,38 +220,40 @@ export default {
               password: this.password,
             })
             .then((response) => {
-              const userData = response.data.user;
+              let userData = response.data.user;
+              userData.ability = [{action:'manage',subject:'all'}]
+              userData.role.role_name = 'client'
               const userToken = response.data.jwt;
               useJwt.setToken(userToken);
               localStorage.setItem("userData", JSON.stringify(userData));
+              this.$ability.update(userData.ability)
+              this.$store.dispatch(
+                "authentication/updateCurrentUser",
+                userData
+              );
 
-              // this.$store.dispatch(
-              //   "authentication/updateCurrentUser",
-              //   userData
-              // );
+              this.$store.dispatch("authentication/updateToken", userToken);
 
-              // this.$store.dispatch("authentication/updateToken", userToken);
-
-              // this.$router
-              //   .replace(getHomeRouteForLoggedInUser(userData.role.role_name))
-              //   .then(() => {
-              //     this.$toast({
-              //       component: ToastificationContent,
-              //       position: "top-right",
-              //       props: {
-              //         title: `Bienvenido 
-              //         ${userData.businessName.substr(0, 13)}${
-              //           userData.businessName.length > 13 ? "..." : ""
-              //         }`,
-              //         icon: "CoffeeIcon",
-              //         variant: "success",
-              //       },
-              //     });
-              //   })
+              this.$router
+                .replace(getHomeRouteForLoggedInUser(userData.role.role_name))
+                .then(() => {
+                  this.$toast({
+                    component: ToastificationContent,
+                    position: "top-right",
+                    props: {
+                      title: `Bienvenido 
+                      ${userData.businessName.substr(0, 13)}${
+                        userData.businessName.length > 13 ? "..." : ""
+                      }`,
+                      icon: "CoffeeIcon",
+                      variant: "success",
+                    },
+                  });
+                })
 
             })
             .catch((error) => {
-              // this.$refs.loginForm.setErrors(error.response.data.error);
+              console.log(error)
             });
         }
       });

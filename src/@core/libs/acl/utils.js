@@ -1,5 +1,9 @@
 import { getCurrentInstance } from '@vue/composition-api'
 
+import { getUserData, getUserToken } from '@/auth/utils'
+
+
+// const token = getUserToken()
 /**
  * Returns ability result if ACL is configured or else just return true
  * Useful if you don't know if ACL is configured or not
@@ -11,13 +15,19 @@ export const can = (action, subject) => {
   const vm = getCurrentInstance().proxy
   return vm.$can ? vm.$can(action, subject) : true
 }
+export const canView = (rol)=>{
+  const user = getUserData()
+  const rolUser = user.role.role_name
+  return rol == rolUser ? true: false
+}
 
 /**
  * Check if user can view item based on it's ability
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewVerticalNavMenuLink = item => can(item.action, item.resource)
+// export const canViewVerticalNavMenuLink = item => can(item.action, item.resource)
+export const canViewVerticalNavMenuLink = item => canView(item.rol)
 
 /**
  * Check if user can view item based on it's ability
@@ -42,7 +52,8 @@ export const canViewVerticalNavMenuGroup = item => {
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewVerticalNavMenuHeader = item => can(item.action, item.resource)
+// export const canViewVerticalNavMenuHeader = item => can(item.action, item.resource)
+export const canViewVerticalNavMenuHeader = item => canView(item.rol)
 
 /**
  * Check if user can view item based on it's ability

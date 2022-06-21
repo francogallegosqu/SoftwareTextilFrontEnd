@@ -12,6 +12,10 @@ const state = {
 
 const getters = {
     currentUser: state => state.currentUser,
+    isAdmin(){
+        const rolUser = state.currentUser?.role
+        return rolUser.role_name == "admin" ? true: false
+    },
     G_MENU_OPTIONS() {
         const options = state.currentUser.menu_options
         return options

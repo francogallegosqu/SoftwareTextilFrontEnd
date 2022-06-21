@@ -34,7 +34,7 @@
                   size="44"
                   :class="(skin=='dark' || skin == 'semi-dark')?'text-light':'text-dark'"
                 /> -->
-                <b-img src="@/assets/images/logo/logo2.svg" alt="My Logo" width="69px" height="32px"/>
+                <b-img src="@/assets/images/logo/logo.svg" alt="My Logo" width="69px" height="32px"/>
 
                
               </span>
@@ -89,12 +89,13 @@
 </template>
 
 <script>
-import navMenuItems from '@/navigation/vertical'
+
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import { BLink, BImg } from 'bootstrap-vue'
 import { provide, computed, ref } from '@vue/composition-api'
 import useAppConfig from '@core/app-config/useAppConfig'
 import { $themeConfig } from '@themeConfig'
+import navMenuItems from '@/navigation/vertical'
 import VerticalNavMenuItems from './components/vertical-nav-menu-items/VerticalNavMenuItems.vue'
 import useVerticalNavMenu from './useVerticalNavMenu'
 
