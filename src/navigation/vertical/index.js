@@ -31,10 +31,12 @@ tagVariant
 
 */
 import MyPostsNavigation from "@/modules/system/my-posts/my-posts.nav"
-import administrator from '@/views/administrator/navigation/index'
+import navAdministratorCustomer from '@/views/administrator/navigation/navigation.customer'
+import navAdministratorProvider from '@/views/administrator/navigation/navigation.provider'
 // Array of sections
 export default [
     ...MyPostsNavigation,
-    ...administrator,
+    ...navAdministratorCustomer,
+    ...navAdministratorProvider,
   
 ]

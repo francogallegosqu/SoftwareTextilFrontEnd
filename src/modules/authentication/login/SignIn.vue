@@ -221,12 +221,10 @@ export default {
             })
             .then((response) => {
               let userData = response.data.user;
-              userData.ability = [{action:'manage',subject:'all'}]
-              userData.role.role_name = 'client'
               const userToken = response.data.jwt;
               useJwt.setToken(userToken);
               localStorage.setItem("userData", JSON.stringify(userData));
-              this.$ability.update(userData.ability)
+              
               this.$store.dispatch(
                 "authentication/updateCurrentUser",
                 userData

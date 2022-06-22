@@ -186,6 +186,8 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import useAppCustomizer from './useAppCustomizer'
 
 export default {
+  props:{
+  },
   components: {
     // BSV
     BLink,
@@ -298,6 +300,7 @@ export default {
       perfectScrollbarSettings,
     }
   },
+  
 }
 </script>
 

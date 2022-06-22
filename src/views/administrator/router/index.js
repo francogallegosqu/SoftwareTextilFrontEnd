@@ -1,8 +1,10 @@
-import dashboard from '../views/dashboard/dashboard.router'
-
+// import dashboardCustomer from '../views/customer/router'
+// import dashbboardProvider from '../views/provider/router'
+import chooser from '../views/chooser/chooser.router'
 const routes = [
-  ...dashboard,
-  
+  // ...dashboardCustomer,
+  ...chooser,
+  // ...dashbboardProvider,
 ]
 
 export default routes

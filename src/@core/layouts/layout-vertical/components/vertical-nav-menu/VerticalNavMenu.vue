@@ -79,10 +79,12 @@
       tagname="ul"
       @ps-scroll-y="evt => { shallShadowBottom = evt.srcElement.scrollTop > 0 }"
     >
+    <!-- <slot name="items" :isMouseHovered="isMouseHovered" :isVerticalMenuCollapsed="isVerticalMenuCollapsed"></slot> -->
       <vertical-nav-menu-items
         :items="navMenuItems"
         class="navigation navigation-main"
       />
+      
     </vue-perfect-scrollbar>
     <!-- /main menu content-->
   </div>

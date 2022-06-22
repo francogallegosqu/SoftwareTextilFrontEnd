@@ -1,11 +1,14 @@
 <template>
   <ul>
-    <component
+    <template v-for="item in items">
+      <component
       :is="resolveNavItemComponent(item)"
-      v-for="item in items"
+      v-if="showTabNavigation(item)"
       :key="item.header || item.title"
       :item="item"
     />
+    </template>
+    
   </ul>
 </template>
 
@@ -35,5 +38,19 @@ export default {
       resolveNavItemComponent,
     }
   },
+  methods:{
+    showTabNavigation(item) {
+      
+      const { route } = this.$router.resolve({ name: item.route })
+      console.log("[item] => ",item , "[route]=>",route)
+      if (route.meta === {}) return true
+      if (!route.meta.permittedRoles) return true 
+      return route.meta.permittedRoles.includes(this.currentUser.role_id)
+    },
+  },
+  // mounted(){
+  //   console.log('[Items] => ', this.items)
+  // },
+  
 }
 </script>
