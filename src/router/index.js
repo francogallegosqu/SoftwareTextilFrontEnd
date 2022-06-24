@@ -16,6 +16,8 @@ import authSignInRouter from "@/modules/authentication/login/login.router"
 // System
 import systemProfileRouter from "@/modules/system/profile/profile.router"
 import systemMyPostsRouter from "@/modules/system/my-posts/my-posts.router"
+import systemProductionRouter from "@/modules/system/production/production.router"
+import systemUtilsRouter from "@/modules/system/utils/utils.router";
 
 Vue.use(VueRouter)
 
@@ -36,6 +38,8 @@ const router = new VueRouter({
     // System
     ...systemProfileRouter,
     ...systemMyPostsRouter,
+    ...systemProductionRouter,
+    ...systemUtilsRouter,
 
     ...uiElements,
     {
