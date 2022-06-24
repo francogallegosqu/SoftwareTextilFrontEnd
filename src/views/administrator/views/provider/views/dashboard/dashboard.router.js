@@ -4,5 +4,8 @@ export default [
       name: 'admin-dashboard-provider',
       component: () =>
         import('./Dashboard.vue'),
+        meta:{
+          module:2,
+        }
     }
   ]

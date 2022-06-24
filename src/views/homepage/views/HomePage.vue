@@ -2,7 +2,7 @@
   <div>
     <!-- NavBar -->
     <b-row
-      class="header-navbar d-flex justify-content-center align-item-center"
+      class="header-navbar-home d-flex justify-content-center align-item-center"
     >
       <b-col cols="10">
         <b-navbar
@@ -534,11 +534,11 @@ export default {
         console.log('send Email')
       })
     }
-  }
+  },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 /* Color */
 
 :root {
@@ -553,7 +553,7 @@ a.navbar-brand {
   min-width: 50%;
   max-width: 500px;
 }
-.header-navbar {
+.header-navbar-home {
   background-color: var(--header-background);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
   position: -webkit-sticky;

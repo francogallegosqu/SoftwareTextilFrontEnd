@@ -34,9 +34,6 @@
           v-bind="slotProps"
         />
       </template>
-      <!-- <template #items="{isMouseHovered, isVerticalMenuCollapsed}">
-        <slot name="vertical-menu-items" :isMouseHovered="isMouseHovered" :isVerticalMenuCollapsed="isVerticalMenuCollapsed" />
-      </template> -->
     </vertical-nav-menu>
     <!-- /Vertical Nav Menu -->
 

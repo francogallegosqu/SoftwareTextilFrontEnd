@@ -25,18 +25,10 @@
               to="/"
             >
               <span class="brand-logo">
-                <!-- <b-img
+                <b-img
                   :src="appLogoImage"
                   alt="logo"
-                /> -->
-                <!-- <amg-icon
-                  icon="AmgIcon"
-                  size="44"
-                  :class="(skin=='dark' || skin == 'semi-dark')?'text-light':'text-dark'"
-                /> -->
-                <b-img src="@/assets/images/logo/logo.svg" alt="My Logo" width="69px" height="32px"/>
-
-               
+                />
               </span>
               <h2 class="brand-text">
                 {{ appName }}
@@ -79,12 +71,10 @@
       tagname="ul"
       @ps-scroll-y="evt => { shallShadowBottom = evt.srcElement.scrollTop > 0 }"
     >
-    <!-- <slot name="items" :isMouseHovered="isMouseHovered" :isVerticalMenuCollapsed="isVerticalMenuCollapsed"></slot> -->
       <vertical-nav-menu-items
         :items="navMenuItems"
         class="navigation navigation-main"
       />
-      
     </vue-perfect-scrollbar>
     <!-- /main menu content-->
   </div>

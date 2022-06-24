@@ -3,7 +3,7 @@
     <template v-for="item in items">
       <component
       :is="resolveNavItemComponent(item)"
-      v-if="showTabNavigation(item)"
+      v-if="item.route ? showTabNavigation(item) && onSameModuleItem(item): onSameModuleHeader(item)"
       :key="item.header || item.title"
       :item="item"
     />
@@ -40,17 +40,25 @@ export default {
   },
   methods:{
     showTabNavigation(item) {
-      
       const { route } = this.$router.resolve({ name: item.route })
-      console.log("[item] => ",item , "[route]=>",route)
+      console.log("[item] =>",item,"[route] => ",route)
       if (route.meta === {}) return true
       if (!route.meta.permittedRoles) return true 
-      return route.meta.permittedRoles.includes(this.currentUser.role_id)
+      return true
     },
-  },
-  // mounted(){
-  //   console.log('[Items] => ', this.items)
-  // },
-  
+    onSameModuleItem(item) {
+      const { route } = this.$router.resolve({ name: item.route })
+      if(route.meta === {}) return false
+      if(route.meta.module === 3) return true
+      return false
+    },
+    onSameModuleHeader(item) {
+      const moduleHeader =  item.module ? item.module : 0
+      if (moduleHeader === 3) {
+        return true
+      }
+      return false
+    },
+  }, 
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100vh">
     <b-row
-      class="header-navbar d-flex justify-content-center align-item-center"
+      class="header-navbar-chooser d-flex justify-content-center align-item-center"
     >
     <b-col cols="10" >
       <b-navbar
@@ -23,18 +23,34 @@
         style="height: 90vh"
       >
         <b-col cols="12" sm="6" md="4"  lg="3" class="d-flex flex-column justify-content-center ">
-          <b-card @click="goManageCustomer" bg-variant="primary" text-variant="white" class="card-first">
-            <b-card-title>
-              <h1 class="title-card text-center" >Clientes</h1>
+          <b-card no-body class=" b-card-body d-flex  justify-content-center align-item-center" @click="goManageCustomer" bg-variant="primary" text-variant="white" >
+
+            <div class=" w-100 d-flex justify-content-center">
+              <feather-icon size="200" fluid icon="UsersIcon"></feather-icon>
+            </div>
+            <b-card-title class="mb-0 d-flex justify-content-center">
+              <h1 class="title-card text-center mb-0 mr-0" >Clientes</h1>
             </b-card-title>
           </b-card>
         </b-col>
         <b-col cols="12" sm="6" md="4"  lg="3" class="d-flex flex-column justify-content-center ">
-          <b-card @click="goManageProvider" bg-variant="primary" text-variant="white" class="card-second">
-            <b-card-title>
-              <h1 class="title-card text-center" >Proveedores</h1>
+          <b-card no-body class=" b-card-body d-flex  justify-content-center align-item-center" @click="goManageProvider" bg-variant="primary" text-variant="white" >
+            <div class=" w-100 d-flex justify-content-center">
+              <feather-icon size="200" fluid icon="TruckIcon"></feather-icon>
+            </div>
+            <b-card-title class="mb-0 d-flex justify-content-center">
+              <h1 class="title-card text-center mb-0 mr-0" >Proovedores</h1>
             </b-card-title>
-
+          </b-card>
+        </b-col>
+        <b-col cols="12" sm="6" md="4"  lg="3" class="d-flex flex-column justify-content-center ">
+          <b-card no-body class=" b-card-body d-flex  justify-content-center align-item-center" @click="goManageManage" bg-variant="primary" text-variant="white" >
+            <div class=" w-100 d-flex justify-content-center">
+              <feather-icon size="200" fluid icon="SettingsIcon"></feather-icon>
+            </div>
+            <b-card-title class="mb-0 d-flex justify-content-center">
+              <h1 class="title-card text-center mb-0 mr-0" >Manage</h1>
+            </b-card-title>
           </b-card>
         </b-col>
       </b-row>
@@ -66,13 +82,16 @@ export default {
     },
     goManageProvider(){
       this.$router.push({ name: 'admin-dashboard-provider' })
+    },
+    goManageManage(){
+      this.$router.push({ name: 'admin-create-city' })
     }
   }
 }
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* Color */
 
 :root {
@@ -84,34 +103,32 @@ export default {
 .navbar-background {
   background-color: var(--header-background);
 }
+.header-navbar-chooser {
+  background-color: var(--header-background);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 1020;
+}
 
 .title-card{
   background-color: #e4ede9;
   border-radius: 5px;
+  width: 80%;
   
 }
-
-.card-first{
-    background-image: url("../../../../assets/images/profile/chooser/customer.jpg");
-    background-position:center center;
-    height: 80%;
-    max-height: var(--max-heigth);
-    &:hover {
+.b-card-body{
+  min-height: 50%;
+  max-height: 70%;
+  margin: 0%;
+  padding-bottom: 2%;
+  &:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 25px 0 rgba(black, 0.55);
   }
 }
 
-.card-second{
-    background-image: url("../../../../assets/images/profile/chooser/provider.png");
-    background-position:center center ;
-    height: 80%;
-    max-height: var(--max-heigth);
-    &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 25px 0 rgba(black, 0.55);
-  }
-}
 
 .backgroung-row{
    background-image: url("../../../../assets/images/profile/chooser/fondo-lineas.jpg"); 

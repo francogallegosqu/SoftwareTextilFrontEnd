@@ -49,7 +49,7 @@
           </b-alert>
 
           <!-- form -->
-          <validation-observer ref="loginForm" #default="{ invalid }">
+          <validation-observer ref="loginForm">
             <b-form class="auth-login-form mt-2" @submit.prevent="login">
               <!-- email -->
               <b-form-group label="Email" label-for="login-email">
@@ -125,9 +125,9 @@
                 type="submit"
                 variant="primary"
                 block
-                :disabled="invalid"
+                :disabled="spinner"
               >
-                Iniciar Sesión
+                 {{spinner == true? 'Iniciando... ':'Iniciar Sesión'}} <b-spinner v-if="spinner" small></b-spinner>
               </b-button>
             </b-form>
           </validation-observer>
@@ -203,6 +203,7 @@ export default {
       // validation rules
       required,
       email,
+      spinner:false,
     };
   },
   computed: {
@@ -214,6 +215,7 @@ export default {
     login() {
       this.$refs.loginForm.validate().then((success) => {
         if (success) {
+          this.spinner = true
           useJwt
             .login({
               usernameOrEmail: this.userEmail,
@@ -251,6 +253,7 @@ export default {
 
             })
             .catch((error) => {
+              this.spinner = false
               console.log(error)
             });
         }

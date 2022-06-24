@@ -1,6 +1,10 @@
-export default {
-    title: 'Dashboard Provider',
-    icon: 'PieChartIcon',
-    route: 'admin-dashboard-provider',
-    rol:'admin'
-}
+import dashboardProvider from '../views/dashboard/dashboard.nav'
+
+export default [
+    {
+        header: 'Proovedores',
+        rol:'admin',
+        module:2,
+    },
+    dashboardProvider,
+]

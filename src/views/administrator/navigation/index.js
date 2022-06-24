@@ -1,13 +1,13 @@
 
-import dashboardCustomer from '../views/customer/navigation'
-import dashboardProvider from '../views/provider/navigation'
+
+import manageCustomer from '../views/customer/navigation/index'
+import manageProvider from '../views/provider/navigation/index'
+import manageData from '../views/manage-data/navigation/index'
+
 export default [
-  {
-    header: 'Clientes',
-    rol:'admin'
-  },
-  dashboardCustomer,
-  dashboardProvider,
+  ...manageCustomer,
+  ...manageProvider,
+  ...manageData,
 ]
   
     

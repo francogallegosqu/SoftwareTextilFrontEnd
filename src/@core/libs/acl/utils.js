@@ -28,24 +28,17 @@ export const canView = (rol)=>{
  */
 // export const canViewVerticalNavMenuLink = item => can(item.action, item.resource)
 export const canViewVerticalNavMenuLink = item => canView(item.rol)
-
 /**
  * Check if user can view item based on it's ability
  * Based on item's action and resource & Hide group if all of it's children are hidden
  * @param {Object} item navigation object item
  */
-// eslint-disable-next-line arrow-body-style
-export const canViewVerticalNavMenuGroup = item => {
-  // ! This same logic is used in canViewHorizontalNavMenuGroup and canViewHorizontalNavMenuHeaderGroup. So make sure to update logic in them as well
-  const hasAnyVisibleChild = item.children.some(i => can(i.action, i.resource))
-
-  // If resource and action is defined in item => Return based on children visibility (Hide group if no child is visible)
-  // Else check for ability using provided resource and action along with checking if has any visible child
-  if (!(item.action && item.resource)) {
-    return hasAnyVisibleChild
-  }
-  return can(item.action, item.resource) && hasAnyVisibleChild
+export const canViewVerticalNavMenuGroup = item =>{
+  const hasAnyVisibleChild = item.children.some(i => canView(item.rol))
+  const canViewbyRol = canView(item.rol)
+  return hasAnyVisibleChild && canViewbyRol
 }
+
 
 /**
  * Check if user can view item based on it's ability
