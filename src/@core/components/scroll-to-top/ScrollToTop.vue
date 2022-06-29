@@ -6,9 +6,7 @@
     <!-- We have wrapper because ripple effect give position relative to this absolute positioned btn -->
     <!-- Hence due to that our btn get lost -->
     <b-button
-      v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-      variant="primary"
-      class="btn-icon"
+    class="button-scroll"
       @click="scrollToTop"
     >
       <feather-icon
@@ -63,5 +61,18 @@ export default {
       opacity: 1;
       // transform: translateY(0)
     }
+}
+.button-scroll{
+  background-color: #006414 !important ;
+  opacity: 0.7;
+}
+.button-scroll:checked{
+  background-color: #006414 !important ;
+}
+.button-scroll:active{
+  background-color: #006414 !important ;
+}
+button:focus {
+   background-color: #006414 !important ;
 }
 </style>

@@ -19,10 +19,10 @@
     >
       <div
         v-if="showHeader"
-        class="card-header"
+        class="card-header" style="width:100%"
       >
         <!-- Title & SubTitle -->
-        <div>
+        <div style="width: 90%;">
           <b-card-title>{{ $attrs.title }}</b-card-title>
           <b-card-sub-title v-if="$attrs['sub-title']">
             {{ $attrs['sub-title'] }}

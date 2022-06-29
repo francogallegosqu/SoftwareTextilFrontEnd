@@ -1,11 +1,17 @@
 <template>
   <ul>
-    <component
-      :is="resolveNavItemComponent(item)"
-      v-for="item in items"
-      :key="item.header || item.title"
-      :item="item"
-    />
+    <template v-for="item in items">
+      <component
+        :is="resolveNavItemComponent(item)"
+        v-if="
+          item.route
+            ? showTabNavigation(item) && onSameModuleItem(item)
+            : onSameModuleHeader(item)
+        "
+        :key="item.header || item.title"
+        :item="item"
+      />
+    </template>
   </ul>
 </template>
 
@@ -34,6 +40,28 @@ export default {
     return {
       resolveNavItemComponent,
     };
+  },
+  methods: {
+    showTabNavigation(item) {
+      const { route } = this.$router.resolve({ name: item.route });
+      console.log("[item] =>", item, "[route] => ", route);
+      if (route.meta === {}) return true;
+      if (!route.meta.permittedRoles) return true;
+      return true;
+    },
+    onSameModuleItem(item) {
+      const { route } = this.$router.resolve({ name: item.route });
+      if (route.meta === {}) return false;
+      if (route.meta.module === 3) return true;
+      return false;
+    },
+    onSameModuleHeader(item) {
+      const moduleHeader = item.module ? item.module : 0;
+      if (moduleHeader === 3) {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>

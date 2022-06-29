@@ -1,31 +1,27 @@
 <template>
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
-      <!-- Brand logo-->
-      <b-link class="brand-logo">
-        <vuexy-logo />
-        <h2 class="brand-text text-primary ml-1">Vuexy</h2>
+       <!-- /Brand logo-->
+     <b-link :to="{ name: 'web' }" class="brand-logo">
+        <logo style="width:100%"/>
       </b-link>
-      <!-- /Brand logo-->
 
-      <!-- Left Text-->
+      <!-- Left Image-->
       <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
         <div
           class="w-100 d-lg-flex align-items-center justify-content-center px-5"
         >
-          <b-img fluid :src="imgUrl" alt="Login V2" />
+          <b-img style="border-radius: 5px ;" fluid src="@/assets/images/profile/post-media/signIn.jpg" alt="Login V2" />
         </div>
       </b-col>
-      <!-- /Left Text-->
-
       <!-- Login-->
       <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
           <b-card-title class="mb-1 font-weight-bold" title-tag="h2">
-            Welcome to Vuexy! 👋
+            Bienvenido de Nuevo 👋
           </b-card-title>
           <b-card-text class="mb-2">
-            Please sign-in to your account and start the adventure
+            Por favor inicia sesión con tu cuenta y empieza tu producción
           </b-card-text>
 
           <b-alert variant="primary" show>
@@ -53,7 +49,7 @@
           </b-alert>
 
           <!-- form -->
-          <validation-observer ref="loginForm" #default="{ invalid }">
+          <validation-observer ref="loginForm">
             <b-form class="auth-login-form mt-2" @submit.prevent="login">
               <!-- email -->
               <b-form-group label="Email" label-for="login-email">
@@ -120,7 +116,7 @@
                   v-model="status"
                   name="checkbox-1"
                 >
-                  Remember Me
+                  Recuerdame
                 </b-form-checkbox>
               </b-form-group>
 
@@ -129,51 +125,28 @@
                 type="submit"
                 variant="primary"
                 block
-                :disabled="invalid"
+                :disabled="spinner"
               >
-                Sign in
+                 {{spinner == true? 'Iniciando... ':'Iniciar Sesión'}} <b-spinner v-if="spinner" small></b-spinner>
               </b-button>
             </b-form>
           </validation-observer>
 
           <b-card-text class="text-center mt-2">
-            <span>New on our platform? </span>
+            <span>Nuevo en nuestra plataforma? </span>
             <b-link :to="{ name: 'auth-register' }">
-              <span>&nbsp;Create an account</span>
+              <span>&nbsp;Crea una cuenta</span>
             </b-link>
           </b-card-text>
-
-          <!-- divider -->
-          <div class="divider my-2">
-            <div class="divider-text">or</div>
-          </div>
-
-          <!-- social buttons -->
-          <div class="auth-footer-btn d-flex justify-content-center">
-            <b-button variant="facebook" href="javascript:void(0)">
-              <feather-icon icon="FacebookIcon" />
-            </b-button>
-            <b-button variant="twitter" href="javascript:void(0)">
-              <feather-icon icon="TwitterIcon" />
-            </b-button>
-            <b-button variant="google" href="javascript:void(0)">
-              <feather-icon icon="MailIcon" />
-            </b-button>
-            <b-button variant="github" href="javascript:void(0)">
-              <feather-icon icon="GithubIcon" />
-            </b-button>
-          </div>
         </b-col>
       </b-col>
-      <!-- /Login-->
     </b-row>
   </div>
 </template>
 
 <script>
-/* eslint-disable global-require */
-import { ValidationProvider, ValidationObserver } from "vee-validate";
-import VuexyLogo from "@core/layouts/components/Logo.vue";
+// import Components
+import Logo from "../../../commons/logo/Logo.vue"
 import {
   BRow,
   BCol,
@@ -194,16 +167,15 @@ import {
 import useJwt from "@/auth/jwt/useJwt";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
+import { getHomeRouteForLoggedInUser } from '@/auth/utils'
+import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import store from "@/store/index";
-import { getHomeRouteForLoggedInUser } from "@/auth/utils";
-
-import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
-
 export default {
   directives: {
     "b-tooltip": VBTooltip,
   },
   components: {
+    Logo,
     BRow,
     BCol,
     BLink,
@@ -218,9 +190,7 @@ export default {
     BForm,
     BButton,
     BAlert,
-    VuexyLogo,
-    ValidationProvider,
-    ValidationObserver,
+    
   },
   mixins: [togglePasswordVisibility],
   data() {
@@ -233,36 +203,30 @@ export default {
       // validation rules
       required,
       email,
+      spinner:false,
     };
   },
   computed: {
     passwordToggleIcon() {
       return this.passwordFieldType === "password" ? "EyeIcon" : "EyeOffIcon";
     },
-    imgUrl() {
-      if (store.state.appConfig.layout.skin === "dark") {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.sideImg = require("@/assets/images/pages/login-v2-dark.svg");
-        return this.sideImg;
-      }
-      return this.sideImg;
-    },
   },
   methods: {
     login() {
       this.$refs.loginForm.validate().then((success) => {
         if (success) {
+          this.spinner = true
           useJwt
             .login({
               usernameOrEmail: this.userEmail,
               password: this.password,
             })
             .then((response) => {
-              const userData = response.data.user;
+              let userData = response.data.user;
               const userToken = response.data.jwt;
               useJwt.setToken(userToken);
               localStorage.setItem("userData", JSON.stringify(userData));
-
+              
               this.$store.dispatch(
                 "authentication/updateCurrentUser",
                 userData
@@ -285,10 +249,12 @@ export default {
                       variant: "success",
                     },
                   });
-                });
+                })
+
             })
             .catch((error) => {
-              this.$refs.loginForm.setErrors(error.response.data.error);
+              this.spinner = false
+              console.log(error)
             });
         }
       });

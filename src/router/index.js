@@ -5,10 +5,12 @@ import VueRouter from 'vue-router'
 import { canNavigate } from '@/libs/acl/routeProtection'
 import { isUserLoggedIn, getUserData, getHomeRouteForLoggedInUser } from '@/auth/utils'
 import uiElements from './routes/ui-elements/index'
-// ----- Modules -----
-// Web
-import webRouter from '@/modules/web/web.router'
+import administratorRouter from '@/views/administrator/router'
+import administratorCustomer from '@/views/administrator/views/customer/router'
+import administratorProvider from '@/views/administrator/views/provider/router'
+import homepageRouter from '@/views/homepage/router'
 
+// ----- Modules -----
 // Authentication
 import authSignUpRouter from "@/modules/authentication/signup/signup.router"
 import authSignInRouter from "@/modules/authentication/login/login.router"
@@ -29,9 +31,12 @@ const router = new VueRouter({
   },
   routes: [
     { path: '/', redirect: { name: 'web' } },
-
+    //routes 
+    ...administratorRouter,
+    ...administratorCustomer,
+    ...administratorProvider,
+    ...homepageRouter,
     // Modules
-    ...webRouter,
     ...authSignUpRouter,
     ...authSignInRouter,
 
