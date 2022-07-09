@@ -2,6 +2,29 @@ import ToastificationContent from '@core/components/toastification/Toastificatio
 
 export default {
     methods: {
+        showErrorToast({
+            variant = "danger",
+            position = "top-right",
+            title = "Error",
+            icon = "XIcon",
+            text = Error,
+        }) {
+            this.$toast(
+                {
+                    component: ToastificationContent,
+                    props: {
+                        title,
+                        icon,
+                        text,
+                        variant,
+                    },
+                },
+                {
+                    position,
+                },
+            )
+        },
+
         showGenericToast({
             variant = "success",
             position = "top-right",
@@ -41,6 +64,26 @@ export default {
                     position,
                 },
             )
+        },
+
+        showGenericConfirmSwal({
+            title = "Estás seguro?",
+            text = "¡No podrás revertir esto!",
+        }) {
+            return this.$swal({
+                icon: "question",
+                title,
+                text,
+                imageWidth: 70,
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "Confirmar",
+                cancelButtonText: "Cancelar",
+                customClass: {
+                    confirmButton: "btn btn-primary mr-1",
+                    cancelButton: "btn btn-outline-danger  ",
+                },
+            });
         },
 
         addPreloader() {

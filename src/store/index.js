@@ -21,6 +21,9 @@ import roles from './user/roles.store'
 // System
 import myPosts from '@/modules/system/my-posts/my-posts.store'
 
+// Provider
+import provMyPostsAccessories from "@/views/provider/my-posts/accessories/accessories.store"
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -43,6 +46,10 @@ export default new Vuex.Store({
 
     // System
     myPosts,
+
+    // Provider
+    provMyPostsAccessories,
+
   },
   strict: process.env.DEV,
 })

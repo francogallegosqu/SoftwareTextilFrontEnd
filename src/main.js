@@ -8,6 +8,7 @@ import {
 
 import VueCompositionAPI from '@vue/composition-api'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import VueMoment from 'vue-moment'
 
 import i18n from '@/libs/i18n'
 import router from './router'
@@ -63,12 +64,19 @@ require('@/assets/scss/style.scss')
 
 Vue.config.productionTip = false
 
+
+// Filters
+import '@/filters/status.filters'
+import '@/filters/extension.filters'
+import '@/filters/money.filters'
+
 // Mixins
 import generalMixins from './mixins/general.mixin'
 import vueLoader from './directives/preloader/index'
 
 Vue.mixin(generalMixins)
 Vue.use(vueLoader, 'loading')
+Vue.use(VueMoment)
 
 initialize(router)
 

@@ -19,6 +19,9 @@ import authSignInRouter from "@/modules/authentication/login/login.router"
 import systemProfileRouter from "@/modules/system/profile/profile.router"
 import systemMyPostsRouter from "@/modules/system/my-posts/my-posts.router"
 
+// Provider
+import appProviderRouter from "@/views/provider/module/provider.router"
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -43,6 +46,9 @@ const router = new VueRouter({
     ...systemMyPostsRouter,
 
     ...uiElements,
+
+    // Provider
+    ...appProviderRouter,
     {
       path: '*',
       redirect: 'error-404',
