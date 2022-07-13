@@ -2,6 +2,29 @@ import ToastificationContent from '@core/components/toastification/Toastificatio
 
 export default {
     methods: {
+        showErrorToast({
+            variant = "danger",
+            position = "top-right",
+            title = "Error",
+            icon = "XIcon",
+            text = Error,
+        }) {
+            this.$toast(
+                {
+                    component: ToastificationContent,
+                    props: {
+                        title,
+                        icon,
+                        text,
+                        variant,
+                    },
+                },
+                {
+                    position,
+                },
+            )
+        },
+
         showGenericToast({
             variant = "success",
             position = "top-right",
@@ -49,8 +72,8 @@ export default {
         }) {
             return this.$swal({
                 icon: "question",
-                title: title,
-                text: text,
+                title,
+                text,
                 imageWidth: 70,
                 showCancelButton: true,
                 buttonsStyling: false,

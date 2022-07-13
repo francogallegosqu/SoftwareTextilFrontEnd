@@ -1,9 +1,9 @@
 <template>
-  <div></div>
-  <!-- <b-row
+  <b-row
     v-if="$route.meta.breadcrumb || $route.meta.pageTitle"
     class="content-header"
   >
+    <!-- Content Left -->
     <b-col class="content-header-left mb-2" cols="12" md="9">
       <b-row class="breadcrumbs-top">
         <b-col cols="12">
@@ -20,8 +20,8 @@
                 />
               </b-breadcrumb-item>
               <b-breadcrumb-item
-                v-for="item in $route.meta.breadcrumb"
-                :key="item.text"
+                v-for="(item, index) in $route.meta.breadcrumb"
+                :key="index"
                 :active="item.active"
                 :to="item.to"
               >
@@ -33,13 +33,11 @@
       </b-row>
     </b-col>
 
-    <b-col
-      class="content-header-right text-md-right d-md-block d-none mb-1"
-      md="3"
-      cols="12"
-    >
+    <!-- Content Right -->
+    <b-col class="content-header-right text-md-right mb-2" md="3" cols="12">
+      <slot name="actions" />
     </b-col>
-  </b-row> -->
+  </b-row>
 </template>
 
 <script>
@@ -55,6 +53,7 @@ import {
 import Ripple from "vue-ripple-directive";
 
 export default {
+  name: "HeaderSlot",
   directives: {
     Ripple,
   },

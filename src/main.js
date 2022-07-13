@@ -68,6 +68,12 @@ require('@/assets/scss/style.scss')
 
 Vue.config.productionTip = false
 
+
+// Filters
+import '@/filters/status.filters'
+import '@/filters/extension.filters'
+import '@/filters/money.filters'
+
 // Mixins
 import generalMixins from './mixins/general.mixin'
 import vueLoader from './directives/preloader/index'

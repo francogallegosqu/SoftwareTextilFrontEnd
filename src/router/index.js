@@ -21,6 +21,9 @@ import systemMyPostsRouter from "@/modules/system/my-posts/my-posts.router"
 import systemProductionRouter from "@/modules/system/production/production.router"
 import systemUtilsRouter from "@/modules/system/utils/utils.router";
 
+// Provider
+import appProviderRouter from "@/views/provider/module/provider.router"
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -47,6 +50,9 @@ const router = new VueRouter({
     ...systemUtilsRouter,
 
     ...uiElements,
+
+    // Provider
+    ...appProviderRouter,
     {
       path: '*',
       redirect: 'error-404',
