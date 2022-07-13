@@ -22,6 +22,7 @@ import roles from './user/roles.store'
 import myPosts from '@/modules/system/my-posts/my-posts.store'
 
 // Provider
+import provMyPostsFabrics from "@/views/provider/my-posts/fabrics/fabric.store"
 import provMyPostsAccessories from "@/views/provider/my-posts/accessories/accessories.store"
 
 Vue.use(Vuex)
@@ -49,6 +50,7 @@ export default new Vuex.Store({
 
     // Provider
     provMyPostsAccessories,
+    provMyPostsFabrics,
 
   },
   strict: process.env.DEV,

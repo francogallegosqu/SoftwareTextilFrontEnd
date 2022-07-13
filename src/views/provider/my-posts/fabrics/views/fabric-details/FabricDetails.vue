@@ -9,7 +9,7 @@
             id="carousel-example-generic"
             controls
             indicators
-            style="height: 250px; overflow: hidden"
+            style="height: 250px; overflow-y: hidden"
           >
             <b-carousel-slide
               v-for="(item, index) of images"
@@ -19,13 +19,13 @@
           </b-carousel>
 
           <p class="pt-1">
-            {{ $moment(accessory.created_at).format("L LTS") }}
+            {{ $moment(fabric.created_at).format("L LTS") }}
           </p>
         </b-col>
         <b-col md="8">
-          <h2>{{ accessory.nameAccessory }}</h2>
+          <h2>{{ fabric.nameFabric }}</h2>
           <p>
-            {{ accessory.descriptionAccessory }}
+            {{ fabric.descriptionFabric }}
           </p>
 
           <hr />
@@ -33,20 +33,39 @@
           <b-row>
             <b-col md="6">
               <h5>
+                <b> Composicion de la Tela </b>
+              </h5>
+              <p>{{ fabric.composition }}</p>
+            </b-col>
+            <b-col md="6">
+              <h5>
+                <b> Ancho de la Tela </b>
+              </h5>
+              <p>{{ fabric.widthFabric }}</p>
+            </b-col>
+            <b-col md="6">
+              <h5>
+                <b> Metros x Kg </b>
+              </h5>
+              <p>{{ fabric.meters_x_Kg }}</p>
+            </b-col>
+            <b-col md="6">
+              <h5>
                 <b> Precio </b>
               </h5>
-              <p>{{ accessory.priceAccesory | formatPen }}</p>
+              <p>{{ fabric.priceFabric | formatPen }}</p>
             </b-col>
             <b-col md="6">
               <h5>
                 <b> Color de la Tela </b>
               </h5>
-              <div
-                :style="
-                  'width: 100px; height: 30px; border-radius: 7px; background:' +
-                  accessory.colorAccessory
-                "
-              ></div>
+              <p>#4e41b4</p>
+            </b-col>
+            <b-col md="6">
+              <h5>
+                <b> Tension </b>
+              </h5>
+              <p>{{ fabric.tension }}</p>
             </b-col>
             <b-col cols="12" class="mt-1">
               <b-button
@@ -61,12 +80,12 @@
                 variant="outline-primary"
                 size="sm"
                 class="mr-1"
-                @click="redirectToUpdateAccessory"
+                @click="redirectToUpdateFabric"
               >
-                Editar avio
+                Editar tela
               </b-button>
-              <b-button variant="danger" size="sm" @click="deleteAccesory(1)">
-                Eliminar avio
+              <b-button variant="danger" size="sm" @click="deleteFabric">
+                Eliminar tela
               </b-button>
             </b-col>
           </b-row>
@@ -95,7 +114,7 @@
 
     <modal-upload-images
       v-if="showModalUploadImages"
-      :register-code="accessoryId"
+      :register-code="idParam"
       @onClose="closeModalUploadImages"
     />
   </div>
@@ -113,7 +132,7 @@ export default {
   },
   data() {
     return {
-      accessory: {},
+      fabric: {},
       images: [],
 
       // Modals
@@ -121,21 +140,22 @@ export default {
     };
   },
   computed: {
-    accessoryId() {
+    idParam() {
       return this.$route.params.id;
     },
   },
   methods: {
     ...mapActions({
-      A_GET_ACCESSORY: "provMyPostsAccessories/A_GET_ACCESSORY",
+      A_GET_FABRIC_BY_ID: "provMyPostsFabrics/A_GET_FABRIC_BY_ID",
+      A_DELETE_FABRIC: "provMyPostsFabrics/A_DELETE_FABRIC",
       A_GET_IMAGES_BY_ID: "images/A_GET_IMAGES_BY_ID",
     }),
-    redirectToUpdateAccessory() {
+    redirectToUpdateFabric(id) {
       this.$router.push({
-        name: "app-provider-my-posts-accessories-update",
+        name: "app-provider-my-posts-fabrics-update",
         params: {
           from: "d",
-          id: this.accessoryId,
+          id: this.idParam,
         },
       });
     },
@@ -143,21 +163,17 @@ export default {
       this.showModalUploadImages = true;
     },
     async closeModalUploadImages(saved) {
-      if (saved) {
-        this.addPreloader();
-        await this.getAccessoryImages();
-        this.removePreloader();
-      }
+      if (saved) await this.getFabricImages();
       this.showModalUploadImages = false;
     },
-    async getAccessory() {
+    async getFabric() {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_ACCESSORY(this.accessoryId);
+        const response = await this.A_GET_FABRIC_BY_ID(this.idParam);
 
         if (response.status == 200) {
-          this.accessory = response.data;
+          this.fabric = response.data;
         }
         this.removePreloader();
       } catch (error) {
@@ -166,9 +182,9 @@ export default {
         throw error;
       }
     },
-    async getAccessoryImages() {
+    async getFabricImages() {
       try {
-        const response = await this.A_GET_IMAGES_BY_ID(this.accessoryId);
+        const response = await this.A_GET_IMAGES_BY_ID(this.idParam);
 
         if (response.status == 200) {
           this.images = response.data;
@@ -177,33 +193,31 @@ export default {
         throw error;
       }
     },
-    async deleteAccesory(id) {
+    async deleteFabric() {
       try {
         const confirm = await this.showGenericConfirmSwal({});
 
         if (confirm.value) {
-          this.addPreloader();
-
-          const response = await this.A_DELETE_ACCESSORY(id);
+          const response = await this.A_DELETE_FABRIC(this.idParam);
 
           if (response.status == 200) {
             this.showGenericToast({ type: "delete" });
 
             this.$router.push({
-              name: "app-provider-my-posts-accessories",
+              name: "app-provider-my-posts-fabrics",
             });
           }
-
-          this.removePreloader();
         }
       } catch (error) {
-        this.removePreloader();
+        ths.removePreloader();
+        this.showErrorToast({ text: error });
+
         throw error;
       }
     },
   },
   async created() {
-    await Promise.all([this.getAccessory(), this.getAccessoryImages()]);
+    await Promise.all([this.getFabric(), this.getFabricImages()]);
   },
 };
 </script>

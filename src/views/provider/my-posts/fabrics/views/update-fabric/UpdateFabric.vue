@@ -4,18 +4,31 @@
 
     <b-card>
       <b-container>
-        <ValidationObserver ref="form">
-          <h3 class="mt-1"><b> Cuéntanos acerca de tu Avio</b></h3>
+        <h3 class="mt-1"><b> Cuéntanos acerca de tu Tela </b></h3>
 
-          <b-row class="mt-1">
-            <b-col md="12">
+        <ValidationObserver ref="form">
+          <b-row class="mt-2">
+            <b-col md="6">
               <ValidationProvider rules="required" #default="{ errors }">
                 <b-form-group
                   label="Ponle un titulo"
                   :state="errors.length > 0 ? false : null"
                 >
                   <b-form-input
-                    v-model="form.nameAccessory"
+                    v-model="form.nameFabric"
+                    :state="errors.length > 0 ? false : null"
+                  ></b-form-input>
+                </b-form-group>
+              </ValidationProvider>
+            </b-col>
+            <b-col md="6">
+              <ValidationProvider rules="required" #default="{ errors }">
+                <b-form-group
+                  label="Composición de la tela"
+                  :state="errors.length > 0 ? false : null"
+                >
+                  <b-form-input
+                    v-model="form.composition"
                     :state="errors.length > 0 ? false : null"
                   ></b-form-input>
                 </b-form-group>
@@ -28,7 +41,7 @@
                   :state="errors.length > 0 ? false : null"
                 >
                   <b-form-textarea
-                    v-model="form.descriptionAccessory"
+                    v-model="form.descriptionFabric"
                     :state="errors.length > 0 ? false : null"
                   ></b-form-textarea>
                 </b-form-group>
@@ -36,31 +49,9 @@
             </b-col>
           </b-row>
 
-          <br />
-          <h3 class="mt-1"><b> Haz que tu nuevo socio te encuentre </b></h3>
+          <h3 class="mt-2"><b> Detalla los datos de tu tela </b></h3>
 
-          <b-row class="mt-1">
-            <b-col md="12">
-              <ValidationProvider rules="required" #default="{ errors }">
-                <b-form-group
-                  label="Elige una categoria que describa tu avio"
-                  :state="errors.length > 0 ? false : null"
-                >
-                  <v-select
-                    v-model="form.idSubcategory"
-                    :options="subcategories"
-                    :reduce="(el) => el.value"
-                    :state="errors.length > 0 ? false : null"
-                  ></v-select>
-                </b-form-group>
-              </ValidationProvider>
-            </b-col>
-          </b-row>
-
-          <br />
-          <h3 class="mt-2"><b> Detalla los datos de tu avio </b></h3>
-
-          <b-row class="mt-1">
+          <b-row>
             <b-col md="6">
               <ValidationProvider rules="required" #default="{ errors }">
                 <b-form-group
@@ -69,7 +60,50 @@
                 >
                   <b-input-group prepend="S./">
                     <b-form-input
-                      v-model="form.priceAccesory"
+                      v-model="form.priceFabric"
+                      :state="errors.length > 0 ? false : null"
+                    />
+                  </b-input-group>
+                </b-form-group>
+              </ValidationProvider>
+            </b-col>
+            <b-col md="6">
+              <ValidationProvider rules="required" #default="{ errors }">
+                <b-form-group
+                  label="¿Cual es la tension?"
+                  :state="errors.length > 0 ? false : null"
+                >
+                  <b-form-input
+                    v-model="form.tension"
+                    :state="errors.length > 0 ? false : null"
+                  ></b-form-input>
+                </b-form-group>
+              </ValidationProvider>
+            </b-col>
+            <b-col md="6">
+              <ValidationProvider rules="required" #default="{ errors }">
+                <b-form-group
+                  label="¿Cual es el peso?"
+                  :state="errors.length > 0 ? false : null"
+                >
+                  <b-input-group append="Kg/m2">
+                    <b-form-input
+                      v-model="form.meters_x_Kg"
+                      :state="errors.length > 0 ? false : null"
+                    />
+                  </b-input-group>
+                </b-form-group>
+              </ValidationProvider>
+            </b-col>
+            <b-col md="6">
+              <ValidationProvider rules="required" #default="{ errors }">
+                <b-form-group
+                  label="¿Cual es el ancho?"
+                  :state="errors.length > 0 ? false : null"
+                >
+                  <b-input-group append="cm">
+                    <b-form-input
+                      v-model="form.widthFabric"
                       :state="errors.length > 0 ? false : null"
                     />
                   </b-input-group>
@@ -82,7 +116,7 @@
             <b-col md="2">
               <ValidationProvider rules="required" #default="{ errors }">
                 <input
-                  v-model="form.colorAccessory"
+                  v-model="form.colorFabric"
                   type="color"
                   class="form-control form-control-color"
                   :state="errors.length > 0 ? false : null"
@@ -94,8 +128,10 @@
       </b-container>
 
       <b-container class="mt-1 text-center">
-        <b-button variant="secondary" @click="returnPage"> Cancelar </b-button>
-        <b-button submit variant="primary" class="ml-1" @click="updateFabric">
+        <b-button variant="secondary" class="mr-1" @click="returnPage">
+          Cancelar
+        </b-button>
+        <b-button submit variant="primary" @click="updateFabric">
           <feather-icon icon="SaveIcon"></feather-icon>
           Grabar
         </b-button>
@@ -108,12 +144,7 @@
 import { mapActions } from "vuex";
 import { required } from "@validations";
 
-import vSelect from "vue-select";
-
 export default {
-  components: {
-    vSelect,
-  },
   data() {
     return {
       // Validations
@@ -122,11 +153,15 @@ export default {
       show: false,
 
       form: {
-        nameAccessory: "",
-        priceAccesory: "",
-        colorAccessory: "",
-        descriptionAccessory: "",
-        idSubcategory: "",
+        priceFabric: "",
+        meters_x_Kg: "",
+        widthFabric: "",
+        colorFabric: "#1CA085",
+        nameFabric: "",
+        descriptionFabric: "",
+        subCategory: "",
+        tension: "",
+        composition: "",
         created_by: "",
         created_at: new Date().toString(),
       },
@@ -138,34 +173,16 @@ export default {
     fromRoute() {
       return this.$route.params.from;
     },
-    accessoryId() {
+    fabricId() {
       return this.$route.params.id;
     },
   },
   methods: {
     ...mapActions({
       A_GET_ALL_SUB_CATEGORIES: "category/A_GET_ALL_SUB_CATEGORIES",
-      A_GET_ACCESSORY: "provMyPostsAccessories/A_GET_ACCESSORY",
-      A_UPDATE_ACCESSORY: "provMyPostsAccessories/A_UPDATE_ACCESSORY",
+      A_GET_FABRIC_BY_ID: "provMyPostsFabrics/A_GET_FABRIC_BY_ID",
+      A_UPDATE_FABRIC: "provMyPostsFabrics/A_UPDATE_FABRIC",
     }),
-    async getAccessory() {
-      try {
-        this.addPreloader();
-
-        const response = await this.A_GET_ACCESSORY(this.accessoryId);
-
-        console.log(response.data);
-        if (response.status == 200) {
-          this.form = response.data;
-          this.form.idSubcategory = response.data.subcategory.idSubCategory;
-        }
-        this.removePreloader();
-      } catch (error) {
-        this.removePreloader();
-
-        throw error;
-      }
-    },
     async getAllSubCategories() {
       try {
         const response = await this.A_GET_ALL_SUB_CATEGORIES({
@@ -185,6 +202,22 @@ export default {
         throw error;
       }
     },
+    async getFabric() {
+      try {
+        this.addPreloader();
+
+        const response = await this.A_GET_FABRIC_BY_ID(this.fabricId);
+
+        if (response.status == 200) {
+          this.form = response.data;
+        }
+        this.removePreloader();
+      } catch (error) {
+        this.removePreloader();
+
+        throw error;
+      }
+    },
     async updateFabric() {
       try {
         const validate = await this.$refs.form.validate();
@@ -192,8 +225,8 @@ export default {
         if (validate) {
           this.addPreloader();
 
-          const response = await this.A_UPDATE_ACCESSORY({
-            id: this.accessoryId,
+          const response = await this.A_UPDATE_FABRIC({
+            id: this.fabricId,
             body: this.form,
           });
 
@@ -214,23 +247,20 @@ export default {
     returnPage() {
       if (this.fromRoute == "d") {
         return this.$router.push({
-          name: "app-provider-my-posts-accessories-details",
+          name: "app-provider-my-posts-fabrics-details",
           params: {
-            id: this.accessoryId,
+            id: this.fabricId,
           },
         });
       }
 
       this.$router.push({
-        name: "app-provider-my-posts-accessories",
+        name: "app-provider-my-posts-fabrics",
       });
     },
   },
   async created() {
-    await Promise.all([
-      await this.getAccessory(),
-      await this.getAllSubCategories(),
-    ]);
+    await Promise.all([this.getAllSubCategories(), this.getFabric()]);
 
     this.show = true;
   },
