@@ -3,8 +3,8 @@ import dashboardProvider from '../views/dashboard/dashboard.nav'
 export default [
     {
         header: 'Proovedores',
-        rol:'admin',
-        module:2,
+        rol:'administrador',
+        module:4,
     },
     dashboardProvider,
 ]

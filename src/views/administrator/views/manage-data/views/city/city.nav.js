@@ -4,7 +4,7 @@ import listCity from './list-delete-city/list.delete.city.nav'
 export default{
     title: 'City',
     icon: 'HomeIcon',
-    rol:'admin',
+    rol:'administrador',
     route: 'admin-create-city',
     children: [
         createCity,

@@ -3,7 +3,7 @@ import listDeleteDepart from './list-delete-depart/list.delete.depart.nav'
 export default{
     title: 'Departamento',
     icon: 'MapPinIcon',
-    rol:'admin',
+    rol:'administrador',
     route: 'admin-createUpdate-depart',
     children: [
         createUpdateDepart,

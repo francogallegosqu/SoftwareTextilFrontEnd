@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { resolveVerticalNavMenuItemComponent as resolveNavItemComponent } from '@core/layouts/utils'
 import { provide, ref } from '@vue/composition-api'
 import VerticalNavMenuHeader from '../vertical-nav-menu-header'
@@ -38,6 +39,16 @@ export default {
       resolveNavItemComponent,
     }
   },
+  computed:{
+    ...mapGetters({
+      currentUser: 'authentication/currentUser',
+      isAdmin: 'authentication/isAdmin'
+    }),
+    modulesPermitted(){
+      const modules = this.currentUser.modulos
+      return modules.map(element => element.modulo)
+    }
+  },
   methods:{
     showTabNavigation(item) {
       const { route } = this.$router.resolve({ name: item.route })
@@ -49,12 +60,12 @@ export default {
     onSameModuleItem(item) {
       const { route } = this.$router.resolve({ name: item.route })
       if(route.meta === {}) return false
-      if(route.meta.module === 3) return true
+      if(this.modulesPermitted.includes(route.meta.module)) return true
       return false
     },
     onSameModuleHeader(item) {
       const moduleHeader =  item.module ? item.module : 0
-      if (moduleHeader === 3) {
+      if (this.modulesPermitted.includes(moduleHeader)) {
         return true
       }
       return false

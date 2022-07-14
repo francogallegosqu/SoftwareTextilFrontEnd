@@ -4,8 +4,8 @@ import manageDepartment from '../views/department/department.nav'
 export default [
     {
         header: 'Manage',
-        rol:'admin',
-        module:3,
+        rol:'administrador',
+        module:5,
     },
     manageCountry,
     manageDepartment,
