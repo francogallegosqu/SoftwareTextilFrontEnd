@@ -43,6 +43,31 @@ export default {
             )
         },
 
+        showSuccessSwal(){
+            this.$swal({
+                icon:"success",
+                title:"Operación exitosa!",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                confirmButton: 'btn btn-primary',
+                },
+                buttonsStyling: false,
+            })
+        },
+
+        showErrorSwal(){
+            this.$swal({
+                title: 'Ups...!!',
+                text: 'Al parecer algo salió mal!, Intenta de nuevo por favor.',
+                icon: 'error',
+                customClass: {
+                  confirmButton: 'btn btn-danger',
+                },
+                buttonsStyling: false,
+              })
+        },
+
         addPreloader() {
             this.$store.commit('app/SET_LOADING', true)
         },

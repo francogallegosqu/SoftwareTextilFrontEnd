@@ -52,7 +52,6 @@ export default {
   methods:{
     showTabNavigation(item) {
       const { route } = this.$router.resolve({ name: item.route })
-      console.log("[item] =>",item,"[route] => ",route)
       if (route.meta === {}) return true
       if (!route.meta.permittedRoles) return true 
       return true
