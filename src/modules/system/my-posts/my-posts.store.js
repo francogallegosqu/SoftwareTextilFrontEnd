@@ -2,7 +2,6 @@
 // Services
 import fabricsService from "@/services/supplies/fabrics.service"
 import servicesService from "@/services/supplies/services.service"
-import accesoriesService from "@/services/supplies/accesories.service"
 
 const state = {
 

@@ -2,20 +2,17 @@
   <b-card-group columns>
     <b-card
       class="shadow"
-      v-for="(item, index) of fabrics.data"
+      v-for="(item, index) of services.data"
       :key="index"
-      :title="item.nameFabric"
+      :title="item.nameService"
     >
       <b-card-text>
-        {{ item.descriptionFabric }}
+        {{ item.descriptionService }}
 
         <br />
         <br />
-        <small>
-          {{ item.composition }}
-        </small>
 
-        <h1 class="mt-2">{{ item.priceFabric | formatPen }}</h1>
+        <h1 class="mt-2">{{ item.priceService | formatPen }}</h1>
         <small>
           {{ $moment(item.created_at).format("L LTS") }}
         </small>
@@ -25,7 +22,7 @@
             class="btn-icon"
             size="sm"
             variant="flat-primary"
-            @click="viewDetails(item.idFabric)"
+            @click="viewDetails(item.idService)"
           >
             <feather-icon
               icon="EyeIcon"
@@ -37,7 +34,7 @@
             class="btn-icon"
             size="sm"
             variant="flat-warning"
-            @click="update(item.idFabric)"
+            @click="update(item.idService)"
           >
             <feather-icon
               icon="EditIcon"
@@ -49,7 +46,7 @@
             class="btn-icon"
             size="sm"
             variant="flat-danger"
-            @click="remove(item.idFabric)"
+            @click="remove(item.idService)"
           >
             <feather-icon
               icon="TrashIcon"
@@ -65,7 +62,7 @@
 <script>
 export default {
   props: {
-    fabrics: {
+    services: {
       type: Object,
       required: true,
     },

@@ -30,6 +30,7 @@ import sharedFit from '@/store/shared/fit.store'
 // Provider
 import provMyPostsFabrics from "@/views/provider/my-posts/fabrics/fabric.store"
 import provMyPostsAccessories from "@/views/provider/my-posts/accessories/accessories.store"
+import provMyPostsServices from "@/views/provider/my-posts/services/services.store"
 
 Vue.use(Vuex)
 
@@ -63,6 +64,7 @@ export default new Vuex.Store({
     // Provider
     provMyPostsAccessories,
     provMyPostsFabrics,
+    provMyPostsServices,
 
   },
   strict: process.env.DEV,

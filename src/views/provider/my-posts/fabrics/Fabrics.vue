@@ -93,6 +93,7 @@ export default {
     }),
     getGridView() {
       this.typeGridView = localStorage.getItem("providerMyPostsFabricsView");
+      this.typeGridView == null ? this.setGridView("table") : null;
     },
     setGridView(view) {
       this.typeGridView = view;
@@ -121,7 +122,7 @@ export default {
           this.currentUser.idUsuario
         );
 
-        if ((response.status = 200)) {
+        if (response.status == 200) {
           this.fabrics.data = response.data;
         }
 

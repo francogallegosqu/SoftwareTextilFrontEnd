@@ -96,6 +96,7 @@ export default {
       this.typeGridView = localStorage.getItem(
         "providerMyPostsAccessoriesView"
       );
+      this.typeGridView == null ? this.setGridView("table") : null;
     },
     setGridView(view) {
       this.typeGridView = view;
