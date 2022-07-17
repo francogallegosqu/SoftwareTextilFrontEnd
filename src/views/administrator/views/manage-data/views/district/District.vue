@@ -1,13 +1,13 @@
 <template>
     <div>
-        <t-general-title :title="'Ciudad'" />
-        <b-row class="match-height">
+         <t-general-title :title="'Distrito'" />
+         <b-row>
             <!-- Register -->
             <b-col cols="12" sm="12" md="5" lg="5" xl="5">
-                <validation-observer ref="formSendRegisterC">
+                <validation-observer ref="formSendRegisterDi">
                     <b-row>
-                        <t-register :isAvailable="true" :nameTitle="'Ciudad'" :formRegister="formRegister"
-                            :optionsRegister="optionsRegister" :nameLabelRegister="'nameDepartment'"
+                        <t-register :isAvailable="true" :nameTitle="'Departamento'" :formRegister="formRegister"
+                            :optionsRegister="optionsRegister" :nameLabelRegister="'nameCity'"
                             @validationFormRegister="validationFormRegister" />
                     </b-row>
                 </validation-observer>
@@ -15,7 +15,7 @@
             <!-- Table -->
             <b-col cols="12" sm="12" md="7" lg="7" xl="7">
                 <t-pagination-table :paginate="paginate">
-                    <b-table ref="refListCity" slot="table" sticky-header="40vh" responsive="sm"
+                    <b-table ref="refListDistrict" slot="table" sticky-header="40vh" responsive="sm"
                         :items="myProvider" :fields="fields" :current-page="paginate.currentPage"
                         :per-page="paginate.perPage" :busy.sync="isBusy" :hover="true">
                         <template #table-busy>
@@ -29,15 +29,15 @@
                                 <feather-icon icon="SettingsIcon"  class="text-warning" slot="update"
                                         @click="openModal(data.item)" />
                                 <feather-icon icon="Trash2Icon"  class="text-danger"  slot="delete" 
-                                        @click="deleteCity(data.item)"/>
+                                        @click="deleteDistrict(data.item)"/>
                             </t-actions>
                         </template>
                     </b-table>
                 </t-pagination-table>
             </b-col>
-        </b-row>
-        <!-- Update -->
-        <validation-observer ref="formSendUpdateCi">
+         </b-row>
+         <!-- Update -->
+        <validation-observer ref="formSendUpdateDi">
             <t-update v-if="isUpdate" :isUpdate="isUpdate" :nameTitle="'Departamento'" :formUpdate="formUpdate"
                 @validationFormUpdate="validationFormUpdate" @closeModal="closeModal" />
         </validation-observer>
@@ -50,18 +50,18 @@ import TUpdate from "../../commons/TUpdate.vue"
 import TGeneralTitle from "../../commons/TGeneralTitle.vue"
 import TPaginationTable from "../../commons/TPaginationTable.vue"
 import TActions from "../../commons/TActions.vue"
-import CityService from "./services/city.service"
-import fields from "./data/city.fields"
+import DistrictService from "./services/district.service"
+import fields from "./data/district.fields"
 
 export default {
-    components:{
+    components: {
         TRegister,
         TGeneralTitle,
         TPaginationTable,
         TUpdate,
         TActions,
     },
-    data(){
+    data() {
         return {
             formRegister: {
                 name: "",
@@ -84,16 +84,16 @@ export default {
     },
     methods:{
         validationFormRegister() {
-            this.$refs.formSendRegisterC.validate().then(async (success) => {
+            this.$refs.formSendRegisterDi.validate().then(async (success) => {
                 if (success) {
                     try {
                         const params = {
-                            nameCity: this.formRegister.name,
-                            idDepartment: this.formRegister.value.idDepartment
+                            nameDistrict: this.formRegister.name,
+                            idCity: this.formRegister.value.idCity
                         }
-                        const response = await CityService.createCity(params)
+                        const response = await DistrictService.createDistrict(params)
                         this.showSuccessSwal()
-                        this.$refs.refListCity.refresh()
+                        this.$refs.refListDistrict.refresh()
                     } catch (error) {
                         this.showErrorSwal()
                         console.log("[error]=>", error)
@@ -102,21 +102,21 @@ export default {
             })
         },
         validationFormUpdate() {
-            this.$refs.formSendUpdateCi.validate().then(async (success) => {
+            this.$refs.formSendUpdateDi.validate().then(async (success) => {
                 if (success) {
                     try {
                         const params = {
-                            idCity: this.formUpdate.id,
-                            nameCity: this.formUpdate.name,
-                            idDepartment:'',
+                            idDistrict: this.formUpdate.id,
+                            nameDistrict: this.formUpdate.name,
+                            idCity:''
                         }
-                        const response = await CityService.updateCity(
+                        const response = await DistrictService.updateDistrict(
                             this.formUpdate.id,
                             params
                         )
                         this.showSuccessSwal()
                         this.closeModal()
-                        this.$refs.refListCity.refresh()
+                        this.$refs.refListDistrict.refresh()
                     } catch (error) {
                         this.showErrorSwal()
                         console.log("[error]=>", error)
@@ -124,15 +124,15 @@ export default {
                 }
             })
         },
-        async deleteCity(item){
+        async deleteDistrict(item){
             try{
                 const result = await this.showQuestionSwal("Eliminar")
                 if(result.value){
-                    const id = item.idCity
-                    const response = await CityService.deleteCity(id)
+                    const id = item.idDistrict
+                    const response = await DistrictService.deleteDistrict(id)
                     this.showSuccessSwal()  
                     this.closeModal()
-                    this.$refs.refListCity.refresh()
+                    this.$refs.refListDistrict.refresh()
                 }
             }catch(error){
                 this.showErrorSwal()
@@ -140,31 +140,11 @@ export default {
             }
             
         },
-        async listDepartment(){
-            try {
-                const params = "page=0&size=100&sortDir=asc&sort=idDepartment"
-                const items = await CityService.listDepartment(params)
-                return items || []
-
-            } catch (error) {
-                console.log("[error]=>", error)
-                return []
-            }
-        },
-        openModal(item) {
-            this.formUpdate.id = item?.idCity
-            this.formUpdate.name = item?.nameCity
-            this.isUpdate = true
-        },
-        closeModal() {
-            this.isUpdate = false
-            this.formUpdate = { id: "", name: "" }
-        },
         async myProvider(ctx) {
             try {
                 this.isBusy = true
-                const params = `page/${ctx.currentPage}?sortField=idCity&sortDir=asc&pageSize=${ctx.perPage}`
-                const items = await CityService.listCity(params)
+                const params = `page/${ctx.currentPage}?sortField=idDistrict&sortDir=asc&pageSize=${ctx.perPage}`
+                const items = await DistrictService.listDistrict(params)
                 const itemsValue = items[Object.keys(items)[0]]
                 this.paginate.totalData = itemsValue?.totalElements
                 return itemsValue?.content || []
@@ -174,9 +154,30 @@ export default {
                 this.isBusy = false
             }
         },
+        async listCity() {
+            try {
+                const params = "page=0&size=100&sortDir=asc&sort=idCity"
+                const items = await DistrictService.listCity(params)
+                return items || []
+
+            } catch (error) {
+                console.log("[error]=>", error)
+                return []
+            }
+        },
+        openModal(item) {
+            this.formUpdate.id = item?.idDistrict
+            this.formUpdate.name = item?.nameDistrict
+            this.isUpdate = true
+        },
+        closeModal() {
+            this.isUpdate = false
+            this.formUpdate = { id: "", name: "" }
+        },
+        
     },
     async created() {
-        this.optionsRegister = await this.listDepartment()
+        this.optionsRegister = await this.listCity()
     }
 }
 </script>

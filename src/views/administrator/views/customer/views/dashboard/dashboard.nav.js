@@ -1,5 +1,5 @@
 export default {
-    title: 'Dashboard 1',
+    title: 'Dashboard Cliente',
     icon: 'PieChartIcon',
     route: 'admin-dashboard-customer',
     rol:'administrador',
