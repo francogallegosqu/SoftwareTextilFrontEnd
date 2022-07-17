@@ -42,7 +42,20 @@ export default {
                 },
             )
         },
-
+        showQuestionSwal(buttonText){
+            return this.$swal({
+                title:`Estas seguro de ${buttonText}?`,
+                text:'No se podrá revertir esto!',
+                icon:'warning',
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: `Si, ${buttonText}!`,
+                customClass: {
+                  confirmButton: 'btn btn-warning mr-1',
+                  cancelButton: 'btn btn-danger  ',
+                },
+              })
+        },
         showSuccessSwal(){
             this.$swal({
                 icon:"success",

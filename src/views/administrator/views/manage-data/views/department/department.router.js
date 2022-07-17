@@ -1,18 +1,11 @@
 export default [
-    {
-      path: '/department/createUpdate/admin',
-      name: 'admin-createUpdate-depart',
-      component: () => import('./create-update-depart/CreateupdateDepart.vue'),
+  {
+    path: '/department/admin',
+    name: 'admin-department',
+    component: () =>
+      import('./Department.vue'),
       meta:{
         module:5,
       }
-    },
-    {
-      path: '/department/listDelete/admin',
-      name: 'admin-listDelete-depart',
-      component: () => import('./list-delete-depart/ListDeleteDepart.vue'),
-      meta:{
-        module:5,
-      }
-    }
-  ]
+  }
+]

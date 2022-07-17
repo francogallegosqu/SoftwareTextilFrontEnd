@@ -1,18 +1,12 @@
 export default [
     {
-      path: '/country/createUpdate/admin',
-      name: 'admin-createUpdate-country',
-      component: () => import('./create-update-country/CreateUpdateCountry.vue'),
-      meta:{
-        module:5,
-      }
-    },
-    {
-      path: '/country/createUpdate/admin',
-      name: 'admin-listDelete-country',
-      component: () => import('./list-delete-country/ListDeleteCountry.vue'),
-      meta:{
-        module:5,
-      }
+      path: '/country/admin',
+      name: 'admin-country',
+      component: () =>
+        import('./Country.vue'),
+        meta:{
+          module:5,
+        }
     }
   ]
+  

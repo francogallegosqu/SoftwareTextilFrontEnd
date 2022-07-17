@@ -1,27 +1,30 @@
 import { textilApi } from '@/service/axios'
 
 class CityService {
-    //User Create
+    //Create
     async createCity(params){
         const data = await textilApi.post('/api/cities',params)
         return data.data
     }
+    // List
     async listCity(params){
-        const data = await textilApi.get('/api/cities')
+        const data = await textilApi.get(`/api/cities/${params}`)
         return data.data
     }
+    // Update
+    async updateCity(id,params){
+        const data = await textilApi.put(`/api/cities/${id}`,params)
+        return data.data
+    }
+    // Delete
     async deleteCity(id){
-        const data = await textilApi.delete('/api/cities/'+id)
+        const data = await textilApi.delete(`/api/cities/${id}`)
         return data.data
     }
-    async  updateCity(id){
-        const data = await textilApi.put('/api/cities/'+id)
+    // Options
+    async listDepartment(params){
+        const data = await textilApi.get(`/api/departments?${params}`)
         return data.data
     }
-    async  getCity(id){
-        const data = await textilApi.get('/api/cities/'+id)
-        return data.data
-    }
-
 }
 export default new CityService()

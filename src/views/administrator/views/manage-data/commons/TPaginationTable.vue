@@ -15,9 +15,6 @@
 <script>
 export default {
   props: {
-    items: {
-      type: [],
-    },
     paginate: {
       type: Object,
     },

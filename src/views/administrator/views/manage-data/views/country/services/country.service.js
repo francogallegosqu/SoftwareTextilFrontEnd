@@ -12,8 +12,14 @@ class CountryService {
         return data.data
     }
     // Update
-    async updateCountry(id){
-        const data = await textilApi.put(`/api/countries/${id}`)
+    async updateCountry(id,params){
+        const data = await textilApi.put(`/api/countries/${id}`,params)
+        return data.data
+    }
+    // Delete
+    async deleteCountry(id){
+        const data = await textilApi.delete(`/api/countries/${id}`)
+        return data.data
     }
 }
 export default new CountryService()

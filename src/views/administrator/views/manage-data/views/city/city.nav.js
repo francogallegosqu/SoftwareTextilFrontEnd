@@ -1,13 +1,8 @@
 
-import createCity from './create-update-city/create.update.city.nav'
-import listCity from './list-delete-city/list.delete.city.nav'
-export default{
-    title: 'City',
+export default {
+    title: 'Ciudad',
     icon: 'HomeIcon',
+    route: 'admin-city',
     rol:'administrador',
-    route: 'admin-create-city',
-    children: [
-        createCity,
-        listCity,
-    ],
+    module:5,
 }

@@ -44,7 +44,6 @@
                 <v-select
                   v-model="formRegister.value"
                   :options="optionsRegister"
-                  :reduce="(val) => val.id"
                   :label="nameLabelRegister"
                   class="w-100"
                   :state="errors.length > 0 ? false : null"
@@ -70,7 +69,11 @@
 </template>
 
 <script>
+import vSelect from "vue-select";
 export default {
+  components:{
+    vSelect,
+  },
   props: {
     isAvailable: {
       type: Boolean,

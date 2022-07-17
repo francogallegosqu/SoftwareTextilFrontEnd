@@ -1,17 +1,18 @@
 <template>
-<b-modal
-      modal
-      :title="`Actualizar ${nameTitle}`"
-      v-model="isOpenUpdate"
-      modal-class="modal-primary"
-      hide-footer
-      body-class="mb-2"
-      @hidden="closeModal"
-      title-tag="h3"
-    >
-  <b-row class="w-100 m-0 p-0">
-    <b-col cols="12">
-      <b-card class="w-100">
+  <b-modal
+    modal
+    :title="`Actualizar ${nameTitle}`"
+    v-model="isOpenUpdate"
+    header-bg-variant="warning"
+    modal-class="modal-warning"
+    hide-footer
+    body-class="mb-2"
+    @hidden="closeModal"
+    title-tag="h3"
+    no-close-on-backdrop
+  >
+    <b-row class="w-100 m-0 p-0">
+      <b-col cols="12">
         <b-row class="w-100 m-0">
           <!-- name -->
           <b-col cols="12">
@@ -55,25 +56,24 @@
           </b-col>
           <b-col cols="12" class="d-flex justify-content-end">
             <b-button
-              variant="primary"
+              variant="warning"
               type="submit"
               @click="validationFormUpdate"
             >
-              Crear
+              Actualizar
             </b-button>
           </b-col>
         </b-row>
-      </b-card>
-    </b-col>
-  </b-row>
-</b-modal>
+      </b-col>
+    </b-row>
+  </b-modal>
 </template>
 
 <script>
 export default {
   props: {
-    isUpdate:{
-        type:Boolean
+    isUpdate: {
+      type: Boolean,
     },
     isAvailable: {
       type: Boolean,
@@ -91,18 +91,18 @@ export default {
       type: String,
     },
   },
-  data(){
+  data() {
     return {
-        isOpenUpdate:this.isUpdate
-    }
+      isOpenUpdate: this.isUpdate,
+    };
   },
   methods: {
     validationFormUpdate() {
       this.$emit("validationFormUpdate");
     },
-    closeModal(){
-        this.$emit("closeModal")
-    }
+    closeModal() {
+      this.$emit("closeModal");
+    },
   },
 };
 </script>
