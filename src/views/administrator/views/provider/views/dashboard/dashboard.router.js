@@ -5,7 +5,7 @@ export default [
       component: () =>
         import('./Dashboard.vue'),
         meta:{
-          module:2,
+          module:4,
         }
     }
   ]

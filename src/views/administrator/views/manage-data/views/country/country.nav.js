@@ -4,7 +4,7 @@ import listDeleteCountry from './list-delete-country/list.delete.country.nav'
 export default{
     title: 'Country',
     icon: 'FlagIcon',
-    rol:'admin',
+    rol:'administrador',
     route: 'admin-createUpdate-country',
     children: [
         createUpdateCountry,

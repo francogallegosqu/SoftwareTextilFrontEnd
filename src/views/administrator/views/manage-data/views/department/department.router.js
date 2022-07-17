@@ -4,7 +4,7 @@ export default [
       name: 'admin-createUpdate-depart',
       component: () => import('./create-update-depart/CreateupdateDepart.vue'),
       meta:{
-        module:3,
+        module:5,
       }
     },
     {
@@ -12,7 +12,7 @@ export default [
       name: 'admin-listDelete-depart',
       component: () => import('./list-delete-depart/ListDeleteDepart.vue'),
       meta:{
-        module:3,
+        module:5,
       }
     }
   ]

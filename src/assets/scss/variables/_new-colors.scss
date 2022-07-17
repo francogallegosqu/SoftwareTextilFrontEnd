@@ -6,10 +6,13 @@ $important: #FF3D60 !default;
 $primary-light: #3764FF !default;
 $warning-light: rgb(255 129 9) !default;
 
+$main-color: #3e6552 !default;
+
 $theme-colors: (
   "important": $important,
   "primary-light": $primary-light,
   "warning-light": $warning-light,
+  "mainColor":$main-color,
 );
 
 @import "../../../@core/scss/core.scss";

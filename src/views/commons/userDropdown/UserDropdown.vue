@@ -44,7 +44,7 @@
     </b-dropdown-item>
     <b-dropdown-item
       v-if="isAdmin"
-      :to="{ name: 'admin-chooser' }"
+      :to="{ name: 'admin-dashboard-customer' }"
       link-class="d-flex align-items-center"
     >
       <feather-icon size="16" icon="BriefcaseIcon" class="mr-50" />

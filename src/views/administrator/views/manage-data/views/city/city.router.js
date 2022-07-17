@@ -4,7 +4,7 @@ export default [
     name: 'admin-create-city',
     component: () => import('./create-update-city/CreateUpdateCity.vue'),
     meta:{
-      module:3,
+      module:5,
     }
   },
   {
@@ -12,7 +12,7 @@ export default [
     name: 'admin-list-city',
     component: () => import('./list-delete-city/ListDeleteCity.vue'),
     meta:{
-      module:3,
+      module:5,
     }
   }
 ]
