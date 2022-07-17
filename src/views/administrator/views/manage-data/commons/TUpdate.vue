@@ -1,18 +1,17 @@
 <template>
+<b-modal
+      modal
+      :title="`Actualizar ${nameTitle}`"
+      v-model="isOpenUpdate"
+      modal-class="modal-primary"
+      hide-footer
+      body-class="mb-2"
+      @hidden="closeModal"
+      title-tag="h3"
+    >
   <b-row class="w-100 m-0 p-0">
     <b-col cols="12">
       <b-card class="w-100">
-        <h1
-          class="
-            title-card-register
-            bg-mainColor
-            p-1
-            mb-4
-            text-white text-center
-          "
-        >
-          Registra Tu {{ nameTitle }}
-        </h1>
         <b-row class="w-100 m-0">
           <!-- name -->
           <b-col cols="12">
@@ -24,7 +23,7 @@
               >
                 <b-form-input
                   id="name"
-                  v-model="formRegister.name"
+                  v-model="formUpdate.name"
                   :state="errors.length > 0 ? false : null"
                   :placeholder="nameTitle"
                 />
@@ -42,8 +41,8 @@
                 rules="required"
               >
                 <v-select
-                  v-model="formRegister.value"
-                  :options="optionsRegister"
+                  v-model="formUpdate.value"
+                  :options="optionsUpdate"
                   :reduce="(val) => val.id"
                   :label="nameLabelRegister"
                   class="w-100"
@@ -58,7 +57,7 @@
             <b-button
               variant="primary"
               type="submit"
-              @click="validationFormRegister"
+              @click="validationFormUpdate"
             >
               Crear
             </b-button>
@@ -67,31 +66,43 @@
       </b-card>
     </b-col>
   </b-row>
+</b-modal>
 </template>
 
 <script>
 export default {
   props: {
+    isUpdate:{
+        type:Boolean
+    },
     isAvailable: {
       type: Boolean,
     },
     nameTitle: {
       type: String,
     },
-    formRegister: {
+    formUpdate: {
       type: Object,
     },
-    optionsRegister: {
+    optionsUpdate: {
       type: Array,
     },
     nameLabelRegister: {
       type: String,
     },
   },
+  data(){
+    return {
+        isOpenUpdate:this.isUpdate
+    }
+  },
   methods: {
-    validationFormRegister() {
-      this.$emit("validationFormRegister");
+    validationFormUpdate() {
+      this.$emit("validationFormUpdate");
     },
+    closeModal(){
+        this.$emit("closeModal")
+    }
   },
 };
 </script>
