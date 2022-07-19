@@ -25,8 +25,8 @@ class ProductionService {
 
     async registerProduction(body) {
         try {
-            const response = await textilApi.post('api/productions', body)
-            return response
+            const { data, status } = await textilApi.post('api/productions', body)
+            return { data, status }
         } catch (error) {
             console.log("Something went wrong on registerProduction ", error)
             throw error

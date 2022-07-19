@@ -2,24 +2,17 @@
   <b-card-group columns>
     <b-card
       class="shadow"
-      v-for="(item, index) of accessories.data"
+      v-for="(item, index) of productions.data"
       :key="index"
-      :title="item.nameAccessory"
+      :title="item.nameProduction"
     >
       <b-card-text>
-        {{ item.descriptionAccessory }}
-
-        <h1 class="mt-2">{{ item.priceAccesory | formatPen }}</h1>
-        <small>
-          {{ $moment(item.created_at).format("L LTS") }}
-        </small>
-
         <div style="white-space: nowrap" class="mt-1">
           <b-button
             class="btn-icon"
             size="sm"
             variant="flat-primary"
-            @click="viewDetails(item.idAccessory)"
+            @click="viewDetails(item.idProductions)"
           >
             <feather-icon
               icon="EyeIcon"
@@ -31,7 +24,7 @@
             class="btn-icon"
             size="sm"
             variant="flat-warning"
-            @click="update(item.idAccessory)"
+            @click="update(item.idProductions)"
           >
             <feather-icon
               icon="EditIcon"
@@ -43,7 +36,7 @@
             class="btn-icon"
             size="sm"
             variant="flat-danger"
-            @click="remove(item.idAccessory)"
+            @click="remove(item.idProductions)"
           >
             <feather-icon
               icon="TrashIcon"
@@ -59,7 +52,7 @@
 <script>
 export default {
   props: {
-    accessories: {
+    productions: {
       type: Object,
       required: true,
     },

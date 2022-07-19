@@ -27,6 +27,9 @@ import sharedCategory from '@/store/shared/category.store'
 import sharedSubcategory from '@/store/shared/subcategory.store'
 import sharedFit from '@/store/shared/fit.store'
 
+// Customer
+import custProduction from "@/views/customer/production/production.store"
+
 // Provider
 import provMyPostsFabrics from "@/views/provider/my-posts/fabrics/fabric.store"
 import provMyPostsAccessories from "@/views/provider/my-posts/accessories/accessories.store"
@@ -61,6 +64,9 @@ export default new Vuex.Store({
     sharedSubcategory,
     sharedFit,
 
+    // Customer
+    custProduction,
+    
     // Provider
     provMyPostsAccessories,
     provMyPostsFabrics,

@@ -7,21 +7,8 @@
     class="text-center"
     empty-text="No hay datos para mostrar"
     :fields="table.fields"
-    :items="accessories.data"
+    :items="productions.data"
   >
-    <!-- Column: Price -->
-    <template #cell(priceAccesory)="data">
-      <span style="white-space: nowrap">
-        {{ data.item.priceAccesory | formatPen }}
-      </span>
-    </template>
-
-    <template #cell(created_at)="data">
-      <small style="white-space: nowrap">
-        {{ $moment(data.item.created_at).format("L LTS") }}
-      </small>
-    </template>
-
     <!-- Column: Actions -->
     <template #cell(actions)="data">
       <div style="white-space: nowrap">
@@ -29,7 +16,7 @@
           class="btn-icon"
           size="sm"
           variant="flat-primary"
-          @click="viewDetails(data.item.idAccessory)"
+          @click="viewDetails(data.item.idProduction)"
         >
           <feather-icon
             icon="EyeIcon"
@@ -41,11 +28,11 @@
           class="btn-icon"
           size="sm"
           variant="flat-warning"
-          @click="update(data.item.idAccessory)"
+          @click="update(data.item.idProduction)"
         >
           <feather-icon
             icon="EditIcon"
-            v-b-tooltip.hover.bottom="'Actualizar Avío'"
+            v-b-tooltip.hover.bottom="'Actualizar producción'"
           ></feather-icon>
         </b-button>
 
@@ -53,11 +40,11 @@
           class="btn-icon"
           size="sm"
           variant="flat-danger"
-          @click="remove(data.item.idAccessory)"
+          @click="remove(data.item.idProduction)"
         >
           <feather-icon
             icon="TrashIcon"
-            v-b-tooltip.hover.bottom="'Eliminar Avío'"
+            v-b-tooltip.hover.bottom="'Eliminar producción'"
           ></feather-icon>
         </b-button>
       </div>
@@ -72,7 +59,7 @@ export default {
       type: Object,
       required: true,
     },
-    accessories: {
+    productions: {
       type: Object,
       required: true,
     },
@@ -84,7 +71,7 @@ export default {
     update(id) {
       this.$emit("onUpdate", id);
     },
-    remove(id) {
+    delete(id) {
       this.$emit("onDelete", id);
     },
   },

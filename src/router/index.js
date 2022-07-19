@@ -21,6 +21,9 @@ import systemMyPostsRouter from "@/modules/system/my-posts/my-posts.router"
 import systemProductionRouter from "@/modules/system/production/production.router"
 import systemUtilsRouter from "@/modules/system/utils/utils.router";
 
+// Customer
+import appCustomerRouter from "@/views/customer/module/customer.router"
+
 // Provider
 import appProviderRouter from "@/views/provider/module/provider.router"
 
@@ -50,6 +53,9 @@ const router = new VueRouter({
     ...systemUtilsRouter,
 
     ...uiElements,
+
+    // Customer
+    ...appCustomerRouter,
 
     // Provider
     ...appProviderRouter,

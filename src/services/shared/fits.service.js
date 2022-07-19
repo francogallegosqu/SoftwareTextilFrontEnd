@@ -4,10 +4,6 @@ class FitsService {
 
     async getFits(params) {
         try {
-
-            params.sortDir = "asc";
-            params.sort = "nameFit";
-
             const { data, status } = await textilApi.get('api/fits', {
                 params: params
             })
