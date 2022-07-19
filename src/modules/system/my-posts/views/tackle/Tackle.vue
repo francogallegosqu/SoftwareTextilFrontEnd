@@ -6,23 +6,17 @@
           <b-button
             variant="outline-primary"
             class="mr-2"
-            @click="openModalRegisterFabric"
+            @click="openModalRegisterAccesory"
           >
             <feather-icon icon="PlusCircleIcon" class="mr-50" />
             Agregar Avio
           </b-button>
 
           <b-button-group class="mr-2">
-            <b-button
-              v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-              variant="outline-dark"
-            >
+            <b-button variant="outline-dark">
               <feather-icon icon="GridIcon" />
             </b-button>
-            <b-button
-              v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-              variant="outline-dark"
-            >
+            <b-button variant="outline-dark">
               <feather-icon icon="ColumnsIcon" />
             </b-button>
           </b-button-group>
@@ -32,12 +26,12 @@
       <filter-slot
         :filter="table.filters"
         :filter-principal="filterPrincipal"
-        :total-rows="fabrics.total"
+        :total-rows="accesories.total"
         :paginate="paginate"
-        :start-page="fabrics.fromPage"
-        :to-page="fabrics.toPage"
-        @reload="getFabrics"
-        @onChangeCurrentPage="getFabrics"
+        :start-page="accesories.fromPage"
+        :to-page="accesories.toPage"
+        @reload="getAccesories"
+        @onChangeCurrentPage="getAccesories"
       >
         <b-table
           slot="table"
@@ -50,7 +44,7 @@
           small
           empty-text="No hay datos para mostrar"
           :fields="table.fields"
-          :items="fabrics.data"
+          :items="accesories.data"
         >
           <!-- Column: Actions -->
           <template #cell(actions)="data">
@@ -65,40 +59,44 @@
 
               <b-dropdown-item
                 :to="{
-                  name: 'app-my-posts-fabrics-details',
-                  params: { id: data.item.idFabric },
+                  name: 'app-my-posts-tackle-details',
+                  params: { id: data.item.idAccessory },
                 }"
               >
                 <feather-icon icon="EyeIcon" />
-                <span class="align-middle ml-50">Ver tela</span>
+                <span class="align-middle ml-50">Ver avio</span>
               </b-dropdown-item>
 
               <b-dropdown-item
-                @click="openModalUpdateFabric(data.item.idFabric)"
+                @click="openModalUpdateAccesory(data.item.idAccessory)"
               >
                 <feather-icon icon="EditIcon" />
                 <span class="align-middle ml-50">Actualizar</span>
               </b-dropdown-item>
 
-              <b-dropdown-item @click="deleteUser(data.item.code)">
+              <b-dropdown-item @click="deleteAccesory(data.item.idAccessory)">
                 <feather-icon icon="Trash2Icon" class="text-danger" />
                 <span class="align-middle ml-50 text-danger">Eliminar</span>
               </b-dropdown-item>
             </b-dropdown>
           </template>
+
+          <template #cell(created_at)="data">
+            {{ $moment(data.item.created_at).format("dddd, MMMM Do YYYY") }}
+          </template>
         </b-table>
       </filter-slot>
     </b-card>
 
-    <modal-register-fabric
-      v-if="showModalRegisterFabric"
-      @onClose="closeModalRegisterFabric"
+    <modal-register-tackle
+      v-if="showModalRegisterAccesory"
+      @onClose="closeModalRegisterAccesory"
     />
 
-    <modal-update-fabric
-      v-if="showModalUpdateFabric"
-      :fabric-code="fabricCodeSelected"
-      @onClose="closeModalUpdateFabric"
+    <modal-update-tackle
+      v-if="showModalUpdateAccesory"
+      :tackle-code="tackleCodeSelected"
+      @onClose="closeModalUpdateAccesory"
     />
   </div>
 </template>
@@ -141,18 +139,18 @@ export default {
       selectAll: false,
       isBusy: false,
 
-      fabrics: {
+      accesories: {
         data: [],
         total: 0,
         fromPage: 0,
         toPage: 0,
       },
 
-      fabricCodeSelected: null,
+      tackleCodeSelected: null,
 
       // Modals
-      showModalRegisterFabric: false,
-      showModalUpdateFabric: false,
+      showModalRegisterAccesory: false,
+      showModalUpdateAccesory: false,
     };
   },
   computed: {
@@ -162,37 +160,65 @@ export default {
   },
   methods: {
     ...mapActions({
-      A_GET_FABRICS_BY_USER: "myPosts/A_GET_FABRICS_BY_USER",
+      A_GET_ACCESSORIES_BY_USER: "myPosts/A_GET_ACCESSORIES_BY_USER",
+      A_DELETE_ACCESSORY: "myPosts/A_DELETE_ACCESSORY",
     }),
-    openModalRegisterFabric() {
-      this.showModalRegisterFabric = true;
+    openModalRegisterAccesory() {
+      this.showModalRegisterAccesory = true;
     },
-    closeModalRegisterFabric() {
-      this.showModalRegisterFabric = false;
+    async closeModalRegisterAccesory(saved) {
+      if (saved) await this.getAccesories();
+
+      this.showModalRegisterAccesory = false;
     },
-    openModalUpdateFabric(id) {
-      this.fabricCodeSelected = id;
-      this.showModalUpdateFabric = true;
+    openModalUpdateAccesory(id) {
+      this.tackleCodeSelected = id;
+      this.showModalUpdateAccesory = true;
     },
-    closeModalUpdateFabric() {
-      this.showModalUpdateFabric = false;
+    async closeModalUpdateAccesory(saved) {
+      if (saved) await this.getAccesories();
+
+      this.showModalUpdateAccesory = false;
     },
-    async getFabrics() {
+    async getAccesories() {
       try {
-        const response = await this.A_GET_FABRICS_BY_USER(
+        const response = await this.A_GET_ACCESSORIES_BY_USER(
           this.currentUser.idUsuario
         );
 
         if (response.status == 200) {
-          this.fabrics.data = response.data;
+          this.accesories.data = response.data;
         }
       } catch (error) {
         throw error;
       }
     },
+    async deleteAccesory(id) {
+      try {
+        const confirm = await this.showGenericConfirmSwal({});
+
+        if (confirm.value) {
+          this.addPreloader();
+
+          const response = await this.A_DELETE_ACCESSORY(id);
+
+          if (response.status == 200) {
+            this.showGenericToast({ type: "delete" });
+
+            await this.getAccesories();
+          }
+
+          this.removePreloader();
+        }
+      } catch (error) {
+        this.removePreloader();
+
+        throw error;
+      }
+    },
   },
   async created() {
-    await this.getFabrics();
+    await this.getAccesories();
   },
 };
 </script>

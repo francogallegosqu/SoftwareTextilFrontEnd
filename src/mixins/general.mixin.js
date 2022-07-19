@@ -2,6 +2,29 @@ import ToastificationContent from '@core/components/toastification/Toastificatio
 
 export default {
     methods: {
+        showErrorToast({
+            variant = "danger",
+            position = "top-right",
+            title = "Error",
+            icon = "XIcon",
+            text = Error,
+        }) {
+            this.$toast(
+                {
+                    component: ToastificationContent,
+                    props: {
+                        title,
+                        icon,
+                        text,
+                        variant,
+                    },
+                },
+                {
+                    position,
+                },
+            )
+        },
+
         showGenericToast({
             variant = "success",
             position = "top-right",
@@ -42,43 +65,65 @@ export default {
                 },
             )
         },
-        showQuestionSwal(buttonText){
+        showQuestionSwal(buttonText) {
             return this.$swal({
-                title:`Estas seguro de ${buttonText}?`,
-                text:'No se podrá revertir esto!',
-                icon:'warning',
+                title: `Estas seguro de ${buttonText}?`,
+                text: 'No se podrá revertir esto!',
+                icon: 'warning',
                 showCancelButton: true,
                 buttonsStyling: false,
                 confirmButtonText: `Si, ${buttonText}!`,
                 customClass: {
-                  confirmButton: 'btn btn-warning mr-1',
-                  cancelButton: 'btn btn-danger  ',
+                    confirmButton: 'btn btn-warning mr-1',
+                    cancelButton: 'btn btn-danger  ',
                 },
-              })
+            })
         },
-        showSuccessSwal(){
+        showSuccessSwal() { },
+
+        showGenericConfirmSwal({
+            title = "Estás seguro?",
+            text = "¡No podrás revertir esto!",
+        }) {
+            return this.$swal({
+                icon: "question",
+                title,
+                text,
+                imageWidth: 70,
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "Confirmar",
+                cancelButtonText: "Cancelar",
+                customClass: {
+                    confirmButton: "btn btn-primary mr-1",
+                    cancelButton: "btn btn-outline-danger  ",
+                },
+            });
+        },
+
+        showSuccessSwal() {
             this.$swal({
-                icon:"success",
-                title:"Operación exitosa!",
+                icon: "success",
+                title: "Operación exitosa!",
                 showConfirmButton: false,
                 timer: 1500,
                 customClass: {
-                confirmButton: 'btn btn-primary',
+                    confirmButton: 'btn btn-primary',
                 },
                 buttonsStyling: false,
             })
         },
 
-        showErrorSwal(){
+        showErrorSwal() {
             this.$swal({
                 title: 'Ups...!!',
                 text: 'Al parecer algo salió mal!, Intenta de nuevo por favor.',
                 icon: 'error',
                 customClass: {
-                  confirmButton: 'btn btn-danger',
+                    confirmButton: 'btn btn-danger',
                 },
                 buttonsStyling: false,
-              })
+            })
         },
 
         addPreloader() {

@@ -102,3 +102,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.dropdown-menu {
+  li {
+    padding-top: 7px !important;
+    padding-left: 15px !important;
+  }
+}
+</style>

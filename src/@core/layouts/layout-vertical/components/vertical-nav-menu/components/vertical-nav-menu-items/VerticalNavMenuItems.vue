@@ -2,13 +2,16 @@
   <ul>
     <template v-for="item in items">
       <component
-      :is="resolveNavItemComponent(item)"
-      v-if="item.route ? showTabNavigation(item) && onSameModuleItem(item): onSameModuleHeader(item)"
-      :key="item.header || item.title"
-      :item="item"
-    />
+        :is="resolveNavItemComponent(item)"
+        v-if="
+          item.route
+            ? showTabNavigation(item) && onSameModuleItem(item)
+            : onSameModuleHeader(item)
+        "
+        :key="item.header || item.title"
+        :item="item"
+      />
     </template>
-    
   </ul>
 </template>
 
@@ -33,11 +36,11 @@ export default {
     },
   },
   setup() {
-    provide('openGroups', ref([]))
+    provide("openGroups", ref([]));
 
     return {
       resolveNavItemComponent,
-    }
+    };
   },
   computed:{
     ...mapGetters({
@@ -67,8 +70,8 @@ export default {
       if (this.modulesPermitted.includes(moduleHeader)) {
         return true
       }
-      return false
+      return false;
     },
-  }, 
-}
+  },
+};
 </script>

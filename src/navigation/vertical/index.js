@@ -1,3 +1,5 @@
+import ProductionNavigation from "@/modules/system/production/production.nav"
+import UtilsNavigation from "@/modules/system/utils/utils.nav";
 /*
 
 Array of object
@@ -36,6 +38,8 @@ import administrator from '@/views/administrator/navigation/index'
 // Array of sections
 export default [
     ...MyPostsNavigation,
+    ...ProductionNavigation,
+    ...UtilsNavigation,
     ...administrator,
 
 ]

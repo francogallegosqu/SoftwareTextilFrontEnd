@@ -20,6 +20,20 @@ import roles from './user/roles.store'
 
 // System
 import myPosts from '@/modules/system/my-posts/my-posts.store'
+import production from '@/modules/system/production/production.store'
+import fit from '@/modules/system/fits/fit.store'
+
+import sharedCategory from '@/store/shared/category.store'
+import sharedSubcategory from '@/store/shared/subcategory.store'
+import sharedFit from '@/store/shared/fit.store'
+
+// Customer
+import custProduction from "@/views/customer/production/production.store"
+
+// Provider
+import provMyPostsFabrics from "@/views/provider/my-posts/fabrics/fabric.store"
+import provMyPostsAccessories from "@/views/provider/my-posts/accessories/accessories.store"
+import provMyPostsServices from "@/views/provider/my-posts/services/services.store"
 
 Vue.use(Vuex)
 
@@ -43,6 +57,21 @@ export default new Vuex.Store({
 
     // System
     myPosts,
+    production,
+    fit,
+
+    sharedCategory,
+    sharedSubcategory,
+    sharedFit,
+
+    // Customer
+    custProduction,
+    
+    // Provider
+    provMyPostsAccessories,
+    provMyPostsFabrics,
+    provMyPostsServices,
+
   },
   strict: process.env.DEV,
 })
