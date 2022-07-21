@@ -3,11 +3,12 @@
     v-model="show"
     no-close-on-backdrop
     no-close-on-esc
-    title="Agregar Tela"
+    title="Seleccionar Tela"
     title-tag="h3"
     size="lg"
     @hide="close"
     hide-footer
+    body-class="px-0"
   >
     <b-table
       small
@@ -66,6 +67,9 @@ export default {
           this.fabrics.data = response.data;
         }
       } catch (error) {
+        this.removePreloader();
+        this.showErrorToast({ text: error });
+
         throw error;
       }
     },

@@ -7,6 +7,15 @@
       :title="item.nameProduction"
     >
       <b-card-text>
+        <h3><b>Cantidad: </b>{{ item.quantityProduction }}</h3>
+
+        <h1 class="mt-2">
+          <b>Costo total: </b>{{ item.priceAccesory | formatPen }}
+        </h1>
+        <small>
+          {{ $moment(item.created_at).format("L LTS") }}
+        </small>
+
         <div style="white-space: nowrap" class="mt-1">
           <b-button
             class="btn-icon"

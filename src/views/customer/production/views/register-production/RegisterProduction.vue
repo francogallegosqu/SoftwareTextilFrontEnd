@@ -136,7 +136,7 @@ export default {
         totalCostProduction: null,
         created_at: new Date().toString(),
         created_by: "",
-        idFit: "",
+        idFit: "16ff7f27-e16e-4f45-b970-16e1dd2a6e14",
         idSubCategory: "",
         idUsuario: "",
       },
@@ -199,8 +199,6 @@ export default {
         const response = await this.A_GET_FITS({
           page: 0,
           size: 100,
-          sortDir: "asc",
-          sort: "nameFit",
         });
 
         if (response.status == 200) {

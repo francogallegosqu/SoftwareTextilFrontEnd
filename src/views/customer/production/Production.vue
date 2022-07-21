@@ -29,9 +29,13 @@
     </header-slot>
 
     <b-card body-class="px-0">
-      <template v-if="typeGridView == 'cards'"> </template>
+      <template v-if="typeGridView == 'cards'">
+        <card-group-productions :productions="productions" />
+      </template>
 
-      <template v-if="typeGridView == 'table'"> </template>
+      <template v-if="typeGridView == 'table'">
+        <table-productions :table="table" :productions="productions" />
+      </template>
     </b-card>
   </div>
 </template>
