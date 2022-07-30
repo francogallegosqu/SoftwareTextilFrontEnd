@@ -10,9 +10,10 @@
         <b-button
           v-ripple.400="'rgba(113, 102, 240, 0.15)'"
           variant="outline-primary"
+          @click="openModalAddService"
         >
           <feather-icon icon="PlusIcon" size="14" />
-          Agregar tela
+          Agregar servicio
         </b-button>
       </b-button-group>
     </template>
@@ -29,11 +30,63 @@
         ]"
       ></b-table>
     </div>
+
+    <modal-add-service
+      v-if="showModalAddService"
+      @onClose="closeModalAddService"
+    />
   </b-card>
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+import Ripple from "vue-ripple-directive";
+
+// Components
+import ModalAddService from "@/views/customer/production/components/ModalAddService.vue";
+
+export default {
+  components: {
+    ModalAddService,
+  },
+  directives: {
+    Ripple,
+  },
+  data() {
+    return {
+      services: {
+        data: [],
+      },
+
+      // Modals
+      showModalAddService: false,
+    };
+  },
+  methods: {
+    ...mapActions({
+      A_GET_PRODUCTION_SERVICES: "custProduction/A_GET_PRODUCTION_SERVICES",
+    }),
+    openModalAddService() {
+      this.showModalAddService = true;
+    },
+    async closeModalAddService(saved) {
+      if (services) await this.getProductionServices();
+      this.showModalAddService = false;
+    },
+    async getProductionServices() {
+      try {
+      } catch (error) {
+        this.removePreloader();
+        this.showErrorToast({ text: error });
+
+        throw error;
+      }
+    },
+  },
+  async created() {
+    await this.getProductionServices();
+  },
+};
 </script>
 
 <style>

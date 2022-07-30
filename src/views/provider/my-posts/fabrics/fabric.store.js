@@ -21,6 +21,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_FABRICS_PAGINATE({ commit }, { params, page }) {
+        try {
+            const response = await fabricsService.getFabricsPaginate(params, page)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_FABRIC_BY_ID({ commit }, id) {
         try {
             const response = await fabricsService.getFabricById(id)

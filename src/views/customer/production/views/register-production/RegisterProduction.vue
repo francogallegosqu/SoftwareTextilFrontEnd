@@ -199,8 +199,6 @@ export default {
         const response = await this.A_GET_FITS({
           page: 0,
           size: 100,
-          sortDir: "asc",
-          sort: "nameFit",
         });
 
         if (response.status == 200) {
@@ -230,7 +228,7 @@ export default {
           this.showGenericToast({ type: "register" });
 
           this.$router.push({
-            name: "app-customer-production",
+            name: "app-customer-productions",
           });
         }
 

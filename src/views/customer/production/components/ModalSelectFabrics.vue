@@ -3,11 +3,12 @@
     v-model="show"
     no-close-on-backdrop
     no-close-on-esc
-    title="Agregar Tela"
+    title="Seleccionar Tela"
     title-tag="h3"
     size="lg"
     @hide="close"
     hide-footer
+    body-class="px-0"
   >
     <b-table
       small
@@ -49,23 +50,33 @@ export default {
   },
   methods: {
     ...mapActions({
-      A_GET_FABRICS: "provMyPostsFabrics/A_GET_FABRICS",
+      A_GET_FABRICS_PAGINATE: "provMyPostsFabrics/A_GET_FABRICS_PAGINATE",
     }),
     async getFabrics() {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_FABRICS({
-          page: 0,
-          size: 100,
-          sortDir: "asc",
-          sort: "nameFabric",
+        const response = await this.A_GET_FABRICS_PAGINATE({
+          params: {
+            pageNo: 0,
+            pageSize: 100,
+            sortDir: "asc",
+            sortField: "idFabric",
+          },
+          page: 1,
         });
 
         if (response.status == 200) {
-          this.fabrics.data = response.data;
+          console.log(response.data["com.anderson.textil.model.Fabric@4624d882"].content);
+          this.fabrics.data =
+            response.data["com.anderson.textil.model.Fabric@4624d882"].content;
         }
+
+        this.removePreloader();
       } catch (error) {
+        this.removePreloader();
+        this.showErrorToast({ text: error });
+
         throw error;
       }
     },

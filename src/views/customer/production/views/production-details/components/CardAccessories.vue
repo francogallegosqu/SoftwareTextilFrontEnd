@@ -10,6 +10,7 @@
         <b-button
           v-ripple.400="'rgba(113, 102, 240, 0.15)'"
           variant="outline-primary"
+          @click="openModalAddAccessory"
         >
           <feather-icon icon="PlusIcon" size="14" />
           Agregar avío
@@ -29,11 +30,73 @@
         ]"
       ></b-table>
     </div>
+
+    <modal-add-accessory
+      v-if="showModalAddAccessory"
+      @onClose="closeModalAddAccessory"
+    />
   </b-card>
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+import Ripple from "vue-ripple-directive";
+
+// Components
+import ModalAddAccessory from "@/views/customer/production/components/ModalAddAccessory.vue";
+
+export default {
+  components: {
+    ModalAddAccessory,
+  },
+  directives: {
+    Ripple,
+  },
+  data() {
+    return {
+      accessories: {
+        data: [],
+      },
+
+      // Modals
+      showModalAddAccessory: false,
+    };
+  },
+  methods: {
+    ...mapActions({
+      A_GET_PRODUCTION_ACCESSORIES:
+        "custProduction/A_GET_PRODUCTION_ACCESSORIES",
+    }),
+    openModalAddAccessory() {
+      this.showModalAddAccessory = true;
+    },
+    async closeModalAddAccessory(saved) {
+      if (saved) await this.getProductionAccessories();
+      this.showModalAddAccessory = false;
+    },
+    async getProductionAccessories() {
+      try {
+        this.addPreloader();
+
+        const response = await this.A_GET_PRODUCTION_ACCESSORIES({});
+
+        if (response.status == 200) {
+          this.accessories.data = response.data;
+        }
+
+        this.removePreloader();
+      } catch (error) {
+        this.removePreloader();
+        this.showErrorToast({ text: error });
+
+        throw error;
+      }
+    },
+  },
+  async created() {
+    await this.getProductionAccessories();
+  },
+};
 </script>
 
 <style>
