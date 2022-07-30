@@ -24,34 +24,84 @@
       </b-col>
     </b-row>
 
-    <b-row class="mt-1">
-      <b-col cols="8">
-        <b-form-group label="Avío">
-          <b-form-input readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="4">
-        <b-form-group label="Precio">
-          <b-form-input type="number" readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="12">
-        <b-form-group label="Unidad">
-          <b-form-input></b-form-input>
-        </b-form-group>
-      </b-col>
+    <ValidationObserver ref="form">
+      <b-row class="mt-1">
+        <b-col cols="8">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Avío"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                readonly
+                :value="form.nameAccessory"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes seleccionar un avio
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
+        <b-col cols="4">
+          <b-form-group label="Precio">
+            <b-input-group prepend="S./">
+              <b-form-input
+                type="number"
+                readonly
+                :value="form.unitPriceAccessory"
+              />
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col cols="12">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Unidad"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                v-model="form.unit"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes ingresar la unidad
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
 
-      <b-col cols="6">
-        <b-form-group label="Cantidad">
-          <b-form-input type="number"></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="6">
-        <b-form-group label="Precio total">
-          <b-form-input type="number" readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
+        <b-col cols="6">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Cantidad"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                v-model="form.quantityAccesory"
+                type="number"
+                :disabled="form.nameAccessory == ''"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes ingresar la cantidad
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
+        <b-col cols="6">
+          <b-form-group label="Precio total">
+            <b-input-group prepend="S./">
+              <b-form-input
+                type="number"
+                readonly
+                :value="form.priceAccesory"
+              />
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </ValidationObserver>
 
     <b-container class="mt-2 text-center">
       <b-button variant="secondary" class="mr-1" @click="close(false)">
@@ -65,7 +115,7 @@
 
     <modal-select-accessories
       v-if="showModalSelectAccessories"
-      @onSelectItem="selectFabric"
+      @onSelectItem="selectAccessory"
       @onClose="closeModalSelectAccessories"
     />
   </b-modal>
@@ -77,6 +127,7 @@ import Ripple from "vue-ripple-directive";
 
 // Components
 import ModalSelectAccessories from "./ModalSelectAccessories.vue";
+import { ValidationProvider } from "vee-validate";
 
 export default {
   components: {
@@ -113,6 +164,13 @@ export default {
       return this.$route.params.id;
     },
   },
+  watch: {
+    "form.quantityAccesory"(newVal) {
+      if (newVal != "") {
+        this.form.priceAccesory = newVal * this.form.unitPriceAccessory;
+      }
+    },
+  },
   methods: {
     ...mapActions({
       A_REGISTER_PRODUCTION_ACCESSORY:
@@ -124,19 +182,13 @@ export default {
     closeModalSelectAccessories() {
       this.showModalSelectAccessories = false;
     },
-    selectFabric(item) {
+    selectAccessory(item) {
       this.form.idAccessory = item.idAccessory;
       this.form.nameAccessory = item.nameAccessory;
       this.form.unitPriceAccessory = item.priceAccesory;
     },
     async addProductionFabric() {
       try {
-        if (this.form.idFabric == "") {
-          return this.showErrorToast({
-            text: "Debes seleccionar un avío",
-          });
-        }
-
         const validate = await this.$refs.form.validate();
 
         if (validate) {
@@ -146,8 +198,11 @@ export default {
             this.addPreloader();
 
             this.form.idProduction = this.productionId;
+            this.form.created_by = this.currentUser.idUsuario;
 
-            const response = await this.A_REGISTER_PRODUCTION_ACCESSORY({});
+            const response = await this.A_REGISTER_PRODUCTION_ACCESSORY(
+              this.form
+            );
 
             if (response.status == 201) {
               this.showGenericToast({ type: "register" });

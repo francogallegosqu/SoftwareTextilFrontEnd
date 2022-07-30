@@ -14,18 +14,22 @@
       small
       class="text-center"
       :fields="[
-        { key: 'nameFabric', label: 'Nombre' },
-        { key: 'priceFabric', label: 'Precio' },
+        { key: 'nameAccessory', label: 'Nombre' },
+        { key: 'priceAccesory', label: 'Precio' },
         { key: 'actions', label: 'Acciones' },
       ]"
-      :items="fabrics.data"
+      :items="accessories.data"
     >
+      <template #cell(priceAccesory)="data">
+        <p>{{ data.item.priceAccesory | formatPen }}</p>
+      </template>
+
       <!-- Cell => Actions -->
       <template #cell(actions)="data">
         <b-button
           variant="outline-primary"
           size="sm"
-          @click="selectFabric(data.item)"
+          @click="selectAccesory(data.item)"
         >
           Seleccionar
         </b-button>
@@ -43,29 +47,31 @@ export default {
     return {
       show: false,
 
-      fabrics: {
+      accessories: {
         data: [],
       },
     };
   },
   methods: {
     ...mapActions({
-      A_GET_FABRICS: "provMyPostsFabrics/A_GET_FABRICS",
+      A_GET_ACCESSORIES: "provMyPostsAccessories/A_GET_ACCESSORIES",
     }),
-    async getFabrics() {
+    async getAccessories() {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_FABRICS({
+        const response = await this.A_GET_ACCESSORIES({
           page: 0,
           size: 100,
           sortDir: "asc",
-          sort: "nameFabric",
+          sort: "idAccessory",
         });
 
         if (response.status == 200) {
-          this.fabrics.data = response.data;
+          this.accessories.data = response.data;
         }
+
+        this.removePreloader();
       } catch (error) {
         this.removePreloader();
         this.showErrorToast({ text: error });
@@ -73,8 +79,9 @@ export default {
         throw error;
       }
     },
-    selectFabric(fabric) {
-      this.$emit("onSelectItem", fabric);
+    selectAccesory(accessory) {
+      this.$emit("onSelectItem", accessory);
+      this.close(true);
     },
     close(saved = false) {
       this.$emit("onClose", saved);
@@ -82,7 +89,7 @@ export default {
   },
   async created() {
     this.show = true;
-    await this.getFabrics();
+    await this.getAccessories();
   },
 };
 </script>

@@ -10,7 +10,8 @@ export default [
                     text: 'Producción',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -28,7 +29,8 @@ export default [
                     text: 'Agregar producción',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -46,7 +48,8 @@ export default [
                     text: 'Editar producción',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -64,7 +67,8 @@ export default [
                     text: 'Detalles de la producción',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     }
 ]

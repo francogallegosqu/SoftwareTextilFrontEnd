@@ -37,13 +37,16 @@
       </b-col>
       <b-col cols="12">
         <b-form-group label="Unidad">
-          <b-form-input></b-form-input>
+          <b-form-input :disabled="form.nameFabric == ''"></b-form-input>
         </b-form-group>
       </b-col>
 
       <b-col cols="6">
         <b-form-group label="Cantidad">
-          <b-form-input type="number"></b-form-input>
+          <b-form-input
+            :disabled="form.nameFabric == ''"
+            type="number"
+          ></b-form-input>
         </b-form-group>
       </b-col>
       <b-col cols="6">
@@ -147,8 +150,9 @@ export default {
             this.addPreloader();
 
             this.form.idProduction = this.productionId;
+            this.form.created_by = this.currentUser.idUsuario;
 
-            const response = await this.A_REGISTER_PRODUCTION_FABRIC({});
+            const response = await this.A_REGISTER_PRODUCTION_FABRIC(this.form);
 
             if (response.status == 201) {
               this.showGenericToast({ type: "register" });

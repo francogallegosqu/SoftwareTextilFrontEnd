@@ -136,7 +136,7 @@ export default {
         totalCostProduction: null,
         created_at: new Date().toString(),
         created_by: "",
-        idFit: "16ff7f27-e16e-4f45-b970-16e1dd2a6e14",
+        idFit: "",
         idSubCategory: "",
         idUsuario: "",
       },
@@ -228,7 +228,7 @@ export default {
           this.showGenericToast({ type: "register" });
 
           this.$router.push({
-            name: "app-customer-production",
+            name: "app-customer-productions",
           });
         }
 

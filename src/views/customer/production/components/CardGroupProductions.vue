@@ -7,11 +7,9 @@
       :title="item.nameProduction"
     >
       <b-card-text>
-        <h3><b>Cantidad: </b>{{ item.quantityProduction }}</h3>
+        <p><b>Cantidad: </b>{{ item.quantityProduction }}</p>
 
-        <h1 class="mt-2">
-          <b>Costo total: </b>{{ item.priceAccesory | formatPen }}
-        </h1>
+        <p><b>Costo total: </b>{{ item.totalCostProduction | formatPen }}</p>
         <small>
           {{ $moment(item.created_at).format("L LTS") }}
         </small>
@@ -37,7 +35,7 @@
           >
             <feather-icon
               icon="EditIcon"
-              v-b-tooltip.hover.bottom="'Actualizar avio'"
+              v-b-tooltip.hover.bottom="'Actualizar producción'"
             ></feather-icon>
           </b-button>
 
@@ -49,7 +47,7 @@
           >
             <feather-icon
               icon="TrashIcon"
-              v-b-tooltip.hover.bottom="'Eliminar avio'"
+              v-b-tooltip.hover.bottom="'Eliminar producción'"
             ></feather-icon>
           </b-button>
         </div>

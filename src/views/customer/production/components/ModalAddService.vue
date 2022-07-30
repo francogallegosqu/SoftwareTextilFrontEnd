@@ -24,34 +24,84 @@
       </b-col>
     </b-row>
 
-    <b-row class="mt-1">
-      <b-col cols="8">
-        <b-form-group label="Servicio">
-          <b-form-input readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="4">
-        <b-form-group label="Precio">
-          <b-form-input type="number" readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="12">
-        <b-form-group label="Unidad">
-          <b-form-input></b-form-input>
-        </b-form-group>
-      </b-col>
+    <ValidationObserver ref="form">
+      <b-row class="mt-1">
+        <b-col cols="8">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Servicio"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                readonly
+                :value="form.nameService"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes seleccionar un servicio
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
+        <b-col cols="4">
+          <b-form-group label="Precio">
+            <b-input-group prepend="S./">
+              <b-form-input
+                type="number"
+                readonly
+                :value="form.unitPriceService"
+              />
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col cols="12">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Unidad"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                v-model="form.unit"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes ingresar la unidad
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
 
-      <b-col cols="6">
-        <b-form-group label="Cantidad">
-          <b-form-input type="number"></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="6">
-        <b-form-group label="Precio total">
-          <b-form-input type="number" readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
+        <b-col cols="6">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Cantidad"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                v-model="form.quantityService"
+                type="number"
+                :disabled="form.nameService == ''"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes ingresar la cantidad
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
+        <b-col cols="6">
+          <b-form-group label="Precio total">
+            <b-input-group prepend="S./">
+              <b-form-input
+                type="number"
+                readonly
+                v-model="form.priceService"
+              />
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </ValidationObserver>
 
     <b-container class="mt-2 text-center">
       <b-button variant="secondary" class="mr-1" @click="close(false)">
@@ -63,9 +113,9 @@
       </b-button>
     </b-container>
 
-    <modal-select-fabrics
-      v-if="showModalSelectFabrics"
-      @onSelectItem="selectFabric"
+    <modal-select-services
+      v-if="showModalSelectServices"
+      @onSelectItem="selectService"
       @onClose="closeModalSelectFabrics"
     />
   </b-modal>
@@ -76,12 +126,12 @@ import { mapActions, mapGetters } from "vuex";
 import Ripple from "vue-ripple-directive";
 
 // Components
-import ModalSelectFabrics from "./ModalSelectFabrics.vue";
+import ModalSelectServices from "./ModalSelectServices.vue";
 
 export default {
   props: {},
   components: {
-    ModalSelectFabrics,
+    ModalSelectServices,
   },
   directives: {
     Ripple,
@@ -91,19 +141,19 @@ export default {
       show: false,
 
       form: {
-        nameFabric: "",
-        unitPriceFabric: "",
-        unitFabric: "",
-        quantityFabric: "",
-        priceFabric: "",
+        nameService: "",
+        unitPriceService: "",
+        priceService: "",
+        quantityService: "",
+        unit: "",
+        idProduction: "",
+        idService: "",
         created_at: new Date().toString(),
         created_by: "",
-        idProduction: "",
-        idFabric: "",
       },
 
       // Modals
-      showModalSelectFabrics: false,
+      showModalSelectServices: false,
     };
   },
   computed: {
@@ -114,30 +164,31 @@ export default {
       return this.$route.params.id;
     },
   },
+  watch: {
+    "form.quantityService"(newVal) {
+      if (this.form.quantityService != "") {
+        this.form.priceService = newVal * this.form.unitPriceService;
+      }
+    },
+  },
   methods: {
     ...mapActions({
-      A_REGISTER_PRODUCTION_FABRIC:
-        "custProduction/A_REGISTER_PRODUCTION_FABRIC",
+      A_REGISTER_PRODUCTION_SERVICE:
+        "custProduction/A_REGISTER_PRODUCTION_SERVICE",
     }),
     openModalSelectServices() {
-      this.showModalSelectFabrics = true;
+      this.showModalSelectServices = true;
     },
     closeModalSelectFabrics() {
-      this.showModalSelectFabrics = false;
+      this.showModalSelectServices = false;
     },
-    selectFabric(item) {
-      this.form.idFabric = item.idFabric;
-      this.form.nameFabric = item.nameFabric;
-      this.form.unitPriceFabric = item.priceFabric;
+    selectService(item) {
+      this.form.idService = item.idService;
+      this.form.nameService = item.nameService;
+      this.form.unitPriceService = item.priceService;
     },
     async addProductionService() {
       try {
-        if (this.form.idFabric == "") {
-          return this.showErrorToast({
-            text: "Debes seleccionar una tela",
-          });
-        }
-
         const validate = await this.$refs.form.validate();
 
         if (validate) {
@@ -147,8 +198,11 @@ export default {
             this.addPreloader();
 
             this.form.idProduction = this.productionId;
+            this.form.created_by = this.currentUser.idUsuario;
 
-            const response = await this.A_REGISTER_PRODUCTION_FABRIC({});
+            const response = await this.A_REGISTER_PRODUCTION_SERVICE(
+              this.form
+            );
 
             if (response.status == 201) {
               this.showGenericToast({ type: "register" });

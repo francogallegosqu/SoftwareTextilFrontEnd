@@ -9,6 +9,19 @@
     :fields="table.fields"
     :items="productions.data"
   >
+    <!-- Column: Price -->
+    <template #cell(totalCostProduction)="data">
+      <span style="white-space: nowrap">
+        {{ data.item.totalCostProduction | formatPen }}
+      </span>
+    </template>
+
+    <template #cell(created_at)="data">
+      <small class="text-nowrap">
+        {{ $moment(data.item.created_at).format("L LTS") }}
+      </small>
+    </template>
+
     <!-- Column: Actions -->
     <template #cell(actions)="data">
       <div style="white-space: nowrap">
@@ -71,7 +84,7 @@ export default {
     update(id) {
       this.$emit("onUpdate", id);
     },
-    delete(id) {
+    remove(id) {
       this.$emit("onDelete", id);
     },
   },

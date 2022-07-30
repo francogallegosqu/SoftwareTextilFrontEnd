@@ -5,7 +5,7 @@ import servicesNav from "./services/services.nav"
 export default [
     {
         header: 'Clientes',
-        rol: 'admin',
+        rol: 'provider',
         module: 2,
     },
     ...accessoriesNav,

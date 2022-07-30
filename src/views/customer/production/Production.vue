@@ -30,11 +30,24 @@
 
     <b-card body-class="px-0">
       <template v-if="typeGridView == 'cards'">
-        <card-group-productions :productions="productions" />
+        <b-container>
+          <card-group-productions
+            :productions="productions"
+            @onUpdate="redirectToUpdateProduction"
+            @onViewDetails="redirectToViewDetails"
+            @onDelete="deleteProduction"
+          />
+        </b-container>
       </template>
 
       <template v-if="typeGridView == 'table'">
-        <table-productions :table="table" :productions="productions" />
+        <table-productions
+          :table="table"
+          :productions="productions"
+          @onUpdate="redirectToUpdateProduction"
+          @onViewDetails="redirectToViewDetails"
+          @onDelete="deleteProduction"
+        />
       </template>
     </b-card>
   </div>
@@ -107,13 +120,14 @@ export default {
         this.addPreloader();
 
         const response = await this.A_GET_PRODUCTIONS({
-          page: 1,
+          page: 0,
           size: 100,
           sortDir: "asc",
-          sort: "nameProduction",
+          sort: "idProduction",
         });
 
         if (response.status == 200) {
+          this.productions.data = response.data;
         }
 
         this.removePreloader();
@@ -124,17 +138,21 @@ export default {
         throw error;
       }
     },
-    async deleteProduction() {
+    async deleteProduction(id) {
       try {
-        this.addPreloader();
+        const confirm = await this.showGenericConfirmSwal({});
 
-        const response = await this.A_DELETE_PRODUCTION(id);
+        if (confirm.value) {
+          this.addPreloader();
 
-        if (response.status == 200) {
-          await this.getProductions();
+          const response = await this.A_DELETE_PRODUCTION(id);
+
+          if (response.status == 200) {
+            await this.getProductions();
+          }
+
+          this.removePreloader();
         }
-
-        this.removePreloader();
       } catch (error) {
         this.removePreloader();
         this.showErrorToast({ text: error });

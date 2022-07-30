@@ -1,3 +1,5 @@
+import { textilApi } from "@/service/axios"
+
 class ProductionServiceService {
 
     async getServices(params) {
@@ -24,7 +26,7 @@ class ProductionServiceService {
 
     async registerService(body) {
         try {
-            const { data, status } = await textilApi.post('api/productionservices/', body)
+            const { data, status } = await textilApi.post('api/productionservices', body)
             return { data, status }
         } catch (error) {
             console.log("Something went wrong on registerService ", error)

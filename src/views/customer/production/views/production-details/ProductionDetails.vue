@@ -4,7 +4,7 @@
 
     <b-row class="card-group">
       <b-col cols="12">
-        <card-information />
+        <card-information :production="production" />
       </b-col>
       <b-col md="6">
         <card-fabrics />
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 // Components
 import CardInformation from "./components/CardInformation.vue";
 import CardFabrics from "./components/CardFabrics.vue";
@@ -32,6 +34,43 @@ export default {
     CardFabrics,
     CardAccessories,
     CardServices,
+  },
+  data() {
+    return {
+      production: {},
+    };
+  },
+  computed: {
+    productionId() {
+      return this.$route.params.id;
+    },
+  },
+  methods: {
+    ...mapActions({
+      A_GET_PRODUCTION_BY_ID: "custProduction/A_GET_PRODUCTION_BY_ID",
+    }),
+    async getProduction() {
+      try {
+        this.addPreloader();
+
+        const response = await this.A_GET_PRODUCTION_BY_ID(this.productionId);
+
+        if (response.status == 200) {
+          this.production = response.data;
+        }
+
+        this.removePreloader();
+      } catch (error) {
+        this.removePreloader();
+        this.showErrorToast({ text: error });
+
+        throw error;
+      }
+    },
+  },
+  async created() {
+    await this.getProduction();
+    console.log(this.productionId);
   },
 };
 </script>

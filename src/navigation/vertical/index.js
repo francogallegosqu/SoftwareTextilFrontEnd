@@ -35,6 +35,9 @@ tagVariant
 import MyPostsNavigation from "@/modules/system/my-posts/my-posts.nav"
 import administrator from '@/views/administrator/navigation/index'
 
+import providerNav from "@/views/provider/module/provider.nav";
+import customerNav from "@/views/customer/module/customer.nav";
+
 // Array of sections
 export default [
     ...MyPostsNavigation,
@@ -42,4 +45,6 @@ export default [
     ...UtilsNavigation,
     ...administrator,
 
+    ...providerNav,
+    ...customerNav,
 ]

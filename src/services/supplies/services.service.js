@@ -2,6 +2,18 @@ import { textilApi } from "@/service/axios";
 
 class ServicesService {
 
+    async getServices(params) {
+        try {
+            const { data, status } = await textilApi.get('api/services', {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getServices ", error)
+            throw error
+        }
+    }
+
     async getServicesByUser(userId) {
         try {
             const { data, status } = await textilApi.get('api/services/user/' + userId)

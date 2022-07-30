@@ -13,7 +13,8 @@ export default [
                     text: 'Telas',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -34,7 +35,8 @@ export default [
                     text: 'Crear Tela',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -55,7 +57,8 @@ export default [
                     text: 'Editar Tela',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -76,7 +79,8 @@ export default [
                     text: 'Detalles de la Tela',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     }
 ]
