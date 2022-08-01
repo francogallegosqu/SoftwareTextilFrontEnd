@@ -13,7 +13,8 @@ export default [
                     text: 'Servicios',
                     active: true
                 }
-            ]
+            ],
+            module:2,
         }
     },
     {
@@ -34,7 +35,9 @@ export default [
                     text: 'Crear Servicio',
                     active: true
                 }
-            ]
+            ],
+            module:2,
+
         }
     },
     {
@@ -55,7 +58,8 @@ export default [
                     text: 'Editar Servicio',
                     active: true
                 }
-            ]
+            ],
+            module:2,
         }
     },
     {
@@ -76,7 +80,8 @@ export default [
                     text: 'Detalles del Servicio',
                     active: true
                 }
-            ]
+            ],
+            module:2,
         }
     }
 ]

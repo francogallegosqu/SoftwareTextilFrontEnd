@@ -4,6 +4,6 @@ export default [
         icon: 'UserPlusIcon',
         route: 'app-provider-my-posts-accessories',
         rol: 'proveedor',
-        module: 5,
+        module: 2,
     },
 ]

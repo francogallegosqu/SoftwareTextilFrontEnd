@@ -11,7 +11,7 @@ export default [
                     active: true
                 }
             ],
-            module: 2,
+            module: 1,
         }
     },
     {
@@ -30,7 +30,7 @@ export default [
                     active: true
                 }
             ],
-            module: 2,
+            module: 1,
         }
     },
     {
@@ -49,7 +49,7 @@ export default [
                     active: true
                 }
             ],
-            module: 2,
+            module: 1,
         }
     },
     {
@@ -68,7 +68,7 @@ export default [
                     active: true
                 }
             ],
-            module: 2,
+            module: 1,
         }
     }
 ]

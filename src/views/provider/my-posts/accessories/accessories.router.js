@@ -13,7 +13,8 @@ export default [
                     text: 'Avios',
                     active: true,
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -34,7 +35,8 @@ export default [
                     text: 'Crear Avio',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -55,7 +57,8 @@ export default [
                     text: 'Editar Avio',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     },
     {
@@ -76,7 +79,8 @@ export default [
                     text: 'Detalles del Avio',
                     active: true
                 }
-            ]
+            ],
+            module: 2,
         }
     }
 ]
