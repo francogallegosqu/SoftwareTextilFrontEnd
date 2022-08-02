@@ -22,7 +22,10 @@ export const getUserToken = () => localStorage.getItem('accessToken')
  * @param {String} userRole Role of user
  */
 export const getHomeRouteForLoggedInUser = userRole => {
-  if (userRole.toLowerCase() === 'proveedor' || userRole.toLowerCase() === 'comprador') return { name: 'app-profile' }
-  if (userRole === 'administrador') return '/'
+  if (userRole.toLowerCase() === 'proveedor') {
+    return { name: 'app-provider-my-posts-fabrics' }
+  } else if (userRole.toLowerCase() === 'comprador') {
+    return { name: 'app-customer-productions' }
+  } else if (userRole === 'administrador') return '/'
   return { name: 'auth-login' }
 }

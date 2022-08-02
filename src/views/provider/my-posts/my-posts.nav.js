@@ -4,11 +4,11 @@ import servicesNav from "./services/services.nav"
 
 export default [
     {
-        header: 'Clientes',
-        rol: 'comprador',
+        header: 'Mis publicaciones',
+        rol: 'proveedor',
         module: 2,
     },
-    ...accessoriesNav,
     ...fabricsNav,
+    ...accessoriesNav,
     ...servicesNav,
 ]
