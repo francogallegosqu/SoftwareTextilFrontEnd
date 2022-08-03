@@ -1,42 +1,67 @@
 <template>
   <div class="auth-wrapper auth-v2">
     <b-row class="auth-inner m-0">
-       <!-- /Brand logo-->
-     <b-link :to="{ name: 'web' }" class="brand-logo">
-        <logo style="width:100%"/>
+      <!-- /Brand logo-->
+      <b-link
+        :to="{ name: 'web' }"
+        class="brand-logo"
+      >
+        <logo />
       </b-link>
 
       <!-- Left Image-->
-      <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
+      <b-col
+        lg="8"
+        class="d-none d-lg-flex align-items-center p-5"
+      >
         <div
           class="w-100 d-lg-flex align-items-center justify-content-center px-5"
         >
-          <b-img style="border-radius: 5px ;" fluid src="@/assets/images/profile/post-media/signIn.jpg" alt="Login V2" />
+          <b-img
+            style="border-radius: 5px ;"
+            fluid
+            src="@/assets/images/profile/post-media/signIn.jpg"
+            alt="Login V2"
+          />
         </div>
       </b-col>
       <!-- Login-->
-      <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
-        <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
-          <b-card-title class="mb-1 font-weight-bold" title-tag="h2">
+      <b-col
+        lg="4"
+        class="d-flex align-items-center auth-bg px-2 p-lg-5"
+      >
+        <b-col
+          sm="8"
+          md="6"
+          lg="12"
+          class="px-xl-2 mx-auto"
+        >
+          <b-card-title
+            class="mb-1 font-weight-bold"
+            title-tag="h2"
+          >
             Bienvenido de Nuevo 👋
           </b-card-title>
           <b-card-text class="mb-2">
             Por favor inicia sesión con tu cuenta y empieza tu producción
           </b-card-text>
 
-          <b-alert variant="primary" show>
+          <b-alert
+            variant="primary"
+            show
+          >
             <div class="alert-body font-small-2">
               <p>
-                <small class="mr-50"
-                  ><span class="font-weight-bold">Client:</span>
-                  inversionesroahn@gmail.com | client</small
-                >
+                <small
+                  class="mr-50"
+                ><span class="font-weight-bold">Client:</span>
+                  inversionesroahn@gmail.com | client</small>
               </p>
               <p>
-                <small class="mr-50"
-                  ><span class="font-weight-bold">Password:</span>
-                  roahn123456</small
-                >
+                <small
+                  class="mr-50"
+                ><span class="font-weight-bold">Password:</span>
+                  roahn123456</small>
               </p>
             </div>
             <feather-icon
@@ -50,9 +75,15 @@
 
           <!-- form -->
           <validation-observer ref="loginForm">
-            <b-form class="auth-login-form mt-2" @submit.prevent="login">
+            <b-form
+              class="auth-login-form mt-2"
+              @submit.prevent="login"
+            >
               <!-- email -->
-              <b-form-group label="Email" label-for="login-email">
+              <b-form-group
+                label="Email"
+                label-for="login-email"
+              >
                 <validation-provider
                   #default="{ errors }"
                   name="Email"
@@ -127,7 +158,10 @@
                 block
                 :disabled="spinner"
               >
-                 {{spinner == true? 'Iniciando... ':'Iniciar Sesión'}} <b-spinner v-if="spinner" small></b-spinner>
+                {{ spinner == true? 'Iniciando... ':'Iniciar Sesión' }} <b-spinner
+                  v-if="spinner"
+                  small
+                />
               </b-button>
             </b-form>
           </validation-observer>
@@ -146,74 +180,45 @@
 
 <script>
 // import Components
-import Logo from "../../../commons/logo/Logo.vue"
 import {
-  BRow,
-  BCol,
-  BLink,
-  BFormGroup,
-  BFormInput,
-  BInputGroupAppend,
-  BInputGroup,
-  BFormCheckbox,
-  BCardText,
-  BCardTitle,
-  BImg,
-  BForm,
-  BButton,
-  BAlert,
   VBTooltip,
-} from "bootstrap-vue";
-import useJwt from "@/auth/jwt/useJwt";
-import { required, email } from "@validations";
-import { togglePasswordVisibility } from "@core/mixins/ui/forms";
+} from 'bootstrap-vue'
+import useJwt from '@/auth/jwt/useJwt'
+import { required, email } from '@validations'
+import { togglePasswordVisibility } from '@core/mixins/ui/forms'
 import { getHomeRouteForLoggedInUser } from '@/auth/utils'
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-import store from "@/store/index";
+import Logo from '@/commons/logo/Logo.vue'
+
 export default {
   directives: {
-    "b-tooltip": VBTooltip,
+    'b-tooltip': VBTooltip,
   },
   components: {
     Logo,
-    BRow,
-    BCol,
-    BLink,
-    BFormGroup,
-    BFormInput,
-    BInputGroupAppend,
-    BInputGroup,
-    BFormCheckbox,
-    BCardText,
-    BCardTitle,
-    BImg,
-    BForm,
-    BButton,
-    BAlert,
-    
   },
   mixins: [togglePasswordVisibility],
   data() {
     return {
-      status: "",
-      password: "roahn123456",
-      userEmail: "inversionesroahn@gmail.com",
-      sideImg: require("@/assets/images/pages/login-v2.svg"),
-
+      status: '',
+      password: 'roahn123456',
+      userEmail: 'inversionesroahn@gmail.com',
+      // eslint-disable-next-line global-require
+      sideImg: require('@/assets/images/pages/login-v2.svg'),
       // validation rules
       required,
       email,
-      spinner:false,
-    };
+      spinner: false,
+    }
   },
   computed: {
     passwordToggleIcon() {
-      return this.passwordFieldType === "password" ? "EyeIcon" : "EyeOffIcon";
+      return this.passwordFieldType === 'password' ? 'EyeIcon' : 'EyeOffIcon'
     },
   },
   methods: {
     login() {
-      this.$refs.loginForm.validate().then((success) => {
+      this.$refs.loginForm.validate().then(success => {
         if (success) {
           this.spinner = true
           useJwt
@@ -221,46 +226,43 @@ export default {
               usernameOrEmail: this.userEmail,
               password: this.password,
             })
-            .then((response) => {
-              let userData = response.data.user;
-              const userToken = response.data.jwt;
-              useJwt.setToken(userToken);
-              localStorage.setItem("userData", JSON.stringify(userData));
-              
-              this.$store.dispatch(
-                "authentication/updateCurrentUser",
-                userData
-              );
+            .then(response => {
+              const userData = response.data.user
+              const userToken = response.data.jwt
+              useJwt.setToken(userToken)
+              localStorage.setItem('userData', JSON.stringify(userData))
 
-              this.$store.dispatch("authentication/updateToken", userToken);
+              this.$store.dispatch(
+                'authentication/updateCurrentUser',
+                userData,
+              )
+
+              this.$store.dispatch('authentication/updateToken', userToken)
 
               this.$router
                 .replace(getHomeRouteForLoggedInUser(userData.role.role_name))
                 .then(() => {
                   this.$toast({
                     component: ToastificationContent,
-                    position: "top-right",
+                    position: 'top-right',
                     props: {
                       title: `Bienvenido 
-                      ${userData.businessName.substr(0, 13)}${
-                        userData.businessName.length > 13 ? "..." : ""
-                      }`,
-                      icon: "CoffeeIcon",
-                      variant: "success",
+                      ${userData.businessName.substr(0, 13)}${userData.businessName.length > 13 ? '...' : ''}`,
+                      icon: 'CoffeeIcon',
+                      variant: 'success',
                     },
-                  });
+                  })
                 })
-
             })
-            .catch((error) => {
+            .catch(error => {
               this.spinner = false
               console.log(error)
-            });
+            })
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 <template>
-    <b-card
+  <b-card
     v-if="data"
     class="card-congratulation-medal"
   >

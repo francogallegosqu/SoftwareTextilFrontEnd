@@ -17,38 +17,47 @@
           <div v-if="isLogged">
             <user-dropdown />
           </div>
-          <b-navbar-toggle v-if="!isLogged" target="navbar-toggle-collapse">
+          <b-navbar-toggle
+            v-if="!isLogged"
+            target="navbar-toggle-collapse"
+          >
             <template #default="{ expanded }">
               <feather-icon
-                class="text-success"
                 v-if="expanded"
+                class="bg-main-color"
                 icon="ChevronsUpIcon"
                 size="25"
               />
               <feather-icon
-                class="text-success"
                 v-else
+                class="bg-main-color"
                 icon="ChevronsDownIcon"
                 size="25"
               />
             </template>
           </b-navbar-toggle>
 
-          <b-collapse v-if="!isLogged" id="navbar-toggle-collapse" is-nav>
+          <b-collapse
+            v-if="!isLogged"
+            id="navbar-toggle-collapse"
+            is-nav
+          >
             <b-navbar-nav
               class="ml-auto"
               :class="currentSizeDirect ? 'd-flex flex-column' : ''"
             >
               <b-nav-item href="#">
-                <b-link class="web-button-1" @click="redirectToSignIn"
-                  >Iniciar Sesión
-                </b-link></b-nav-item
+                <b-link
+                  class="web-button-1"
+                  @click="redirectToSignIn"
+                >Iniciar Sesión
+                </b-link></b-nav-item>
+              <b-nav-item><b-link
+                class="web-button-1"
+                @click="redirectToSignUp"
               >
-              <b-nav-item
-                ><b-link class="web-button-1" @click="redirectToSignUp">
-                  Regístrate gratis
-                </b-link></b-nav-item
-              >
+                Regístrate gratis
+              </b-link></b-nav-item>
             </b-navbar-nav>
           </b-collapse>
         </b-navbar>
@@ -56,7 +65,13 @@
     </b-row>
     <!-- Home -->
     <b-row class="d-flex justify-content-center align-item-center mt-1 pt-2">
-      <b-col cols="10" md="5" lg="5" xl="5" class="d-flex align-item-center">
+      <b-col
+        cols="10"
+        md="5"
+        lg="5"
+        xl="5"
+        class="d-flex align-item-center"
+      >
         <div
           class="d-flex flex-column justify-content-center align-items-center"
         >
@@ -70,20 +85,42 @@
             </p>
           </div>
           <div class="w-100">
-            <b-button class="web-button" @click="redirectToSignUp"
-              >Registrate ahora <feather-icon icon="ArrowUpRightIcon"
+            <b-button
+              class="web-button"
+              @click="redirectToSignUp"
+            >Registrate ahora <feather-icon
+              icon="ArrowUpRightIcon"
             /></b-button>
           </div>
         </div>
       </b-col>
-      <b-col cols="10" md="5" lg="5" xl="5">
-        <b-img src="@/assets/images/manos.png" alt="Manos" fluid />
+      <b-col
+        cols="10"
+        md="5"
+        lg="5"
+        xl="5"
+      >
+        <b-img
+          src="@/assets/images/manos.png"
+          alt="Manos"
+          fluid
+        />
       </b-col>
     </b-row>
     <!-- About -->
     <b-row class="d-flex justify-content-center align-item-center mt-1">
-      <b-col cols="10" sm="6" md="5" lg="5" xl="5">
-        <b-img src="@/assets/images/Somos.png" alt="Somos" fluid />
+      <b-col
+        cols="10"
+        sm="6"
+        md="5"
+        lg="5"
+        xl="5"
+      >
+        <b-img
+          src="@/assets/images/Somos.png"
+          alt="Somos"
+          fluid
+        />
       </b-col>
       <b-col
         cols="10"
@@ -95,7 +132,7 @@
       >
         <div>
           <h2 style="font-size: 2rem">
-            Quienes somos realmente <br />
+            Quienes somos realmente <br>
             & Por qué elegirnos
           </h2>
           <p style="font-size: 1rem">
@@ -128,19 +165,36 @@
     <!-- Steps Client -->
     <b-row class="mt-2 d-flex justify-content-center">
       <b-col cols="10">
-        <b-card no-body class="card-content-cards">
+        <b-card
+          no-body
+          class="card-content-cards"
+        >
           <h2
             class="text-center text-white mt-2"
             style="font-size: 2rem; font-weight: 700"
           >
             ¿Cómo funciona?
           </h2>
-          <h3 class="text-white text-center">Si buscas proveedores</h3>
+          <h3 class="text-white text-center">
+            Si buscas proveedores
+          </h3>
 
           <b-row class="m-1 d-flex justify-content-center">
-            <b-col cols="10" sm="5" md="4" lg="3" xl="3" class="mb-1">
-              <b-card no-body class="sub-card-body">
-                <div class="sub-card-number">01</div>
+            <b-col
+              cols="10"
+              sm="5"
+              md="4"
+              lg="3"
+              xl="3"
+              class="mb-1"
+            >
+              <b-card
+                no-body
+                class="sub-card-body"
+              >
+                <div class="sub-card-number">
+                  01
+                </div>
                 <div :class="cardContentItem">
                   <h3>Registra tu negocio</h3>
                   <p>
@@ -149,18 +203,42 @@
                 </div>
               </b-card>
             </b-col>
-            <b-col cols="10" sm="5" md="4" lg="3" xl="3" class="mb-1">
-              <b-card no-body class="sub-card-body">
-                <div class="sub-card-number">02</div>
+            <b-col
+              cols="10"
+              sm="5"
+              md="4"
+              lg="3"
+              xl="3"
+              class="mb-1"
+            >
+              <b-card
+                no-body
+                class="sub-card-body"
+              >
+                <div class="sub-card-number">
+                  02
+                </div>
                 <div :class="cardContentItem">
                   <h3>Crea tu pedido</h3>
                   <p>Registra el producto o servicio que estas buscando.</p>
                 </div>
               </b-card>
             </b-col>
-            <b-col cols="10" sm="5" md="4" lg="3" xl="3" class="mb-1">
-              <b-card no-body class="sub-card-body">
-                <div class="sub-card-number">03</div>
+            <b-col
+              cols="10"
+              sm="5"
+              md="4"
+              lg="3"
+              xl="3"
+              class="mb-1"
+            >
+              <b-card
+                no-body
+                class="sub-card-body"
+              >
+                <div class="sub-card-number">
+                  03
+                </div>
                 <div :class="cardContentItem">
                   <h3>Recibe alertas</h3>
                   <p>
@@ -177,13 +255,30 @@
     <!-- Steps Provider -->
     <b-row class="mt-2 d-flex justify-content-center">
       <b-col cols="10 ">
-        <b-card no-body class="card-content-cards">
-          <h3 class="text-white text-center mt-2">Si buscas clientes</h3>
+        <b-card
+          no-body
+          class="card-content-cards"
+        >
+          <h3 class="text-white text-center mt-2">
+            Si buscas clientes
+          </h3>
 
           <b-row class="m-1 d-flex justify-content-center">
-            <b-col cols="10" sm="5" md="4" lg="3" xl="3" class="mb-1">
-              <b-card no-body class="sub-card-body">
-                <div class="sub-card-number">01</div>
+            <b-col
+              cols="10"
+              sm="5"
+              md="4"
+              lg="3"
+              xl="3"
+              class="mb-1"
+            >
+              <b-card
+                no-body
+                class="sub-card-body"
+              >
+                <div class="sub-card-number">
+                  01
+                </div>
                 <div :class="cardContentItem">
                   <h3>Registra tu negocio</h3>
                   <p>
@@ -192,18 +287,42 @@
                 </div>
               </b-card>
             </b-col>
-            <b-col cols="10" sm="5" md="4" lg="3" xl="3" class="mb-1">
-              <b-card no-body class="sub-card-body">
-                <div class="sub-card-number">02</div>
+            <b-col
+              cols="10"
+              sm="5"
+              md="4"
+              lg="3"
+              xl="3"
+              class="mb-1"
+            >
+              <b-card
+                no-body
+                class="sub-card-body"
+              >
+                <div class="sub-card-number">
+                  02
+                </div>
                 <div :class="cardContentItem">
                   <h3>Publica tus productos</h3>
                   <p>Registra lo que ofreces a tus clientes.</p>
                 </div>
               </b-card>
             </b-col>
-            <b-col cols="10" sm="5" md="4" lg="3" xl="3" class="mb-1">
-              <b-card no-body class="sub-card-body">
-                <div class="sub-card-number">03</div>
+            <b-col
+              cols="10"
+              sm="5"
+              md="4"
+              lg="3"
+              xl="3"
+              class="mb-1"
+            >
+              <b-card
+                no-body
+                class="sub-card-body"
+              >
+                <div class="sub-card-number">
+                  03
+                </div>
                 <div :class="cardContentItem">
                   <h3>Recibe alertas</h3>
                   <p>
@@ -212,9 +331,21 @@
                 </div>
               </b-card>
             </b-col>
-            <b-col cols="10" sm="5" md="4" lg="3" xl="3" class="mb-1">
-              <b-card no-body class="sub-card-body">
-                <div class="sub-card-number">04</div>
+            <b-col
+              cols="10"
+              sm="5"
+              md="4"
+              lg="3"
+              xl="3"
+              class="mb-1"
+            >
+              <b-card
+                no-body
+                class="sub-card-body"
+              >
+                <div class="sub-card-number">
+                  04
+                </div>
                 <div :class="cardContentItem">
                   <h3>Responde los pedidos</h3>
                   <p>
@@ -232,10 +363,19 @@
     <b-row class="mt-2 d-flex justify-content-center">
       <b-col cols="10 ">
         <b-row class="w-100 mt-2 mb-2">
-          <b-col cols="12" class="text-center mb-2">
+          <b-col
+            cols="12"
+            class="text-center mb-2"
+          >
             <h1>Algunas preguntas que nos hacen a nosotros.</h1>
           </b-col>
-          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+          <b-col
+            cols="12"
+            sm="6"
+            md="6"
+            lg="6"
+            xl="6"
+          >
             <div class="w-100 m-1">
               <b-card-actions
                 title="Son confiables los proveedores de la plataforma ?"
@@ -243,15 +383,19 @@
                 :collapsed="true"
               >
                 <b-card-text>
-                  <span
-                    >Si, todos los proveedores registrados en nuestra plataforma
-                    han pasado por un filtro de seguridad.</span
-                  >
+                  <span>Si, todos los proveedores registrados en nuestra plataforma
+                    han pasado por un filtro de seguridad.</span>
                 </b-card-text>
               </b-card-actions>
             </div>
           </b-col>
-          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+          <b-col
+            cols="12"
+            sm="6"
+            md="6"
+            lg="6"
+            xl="6"
+          >
             <div class="w-100 m-1">
               <b-card-actions
                 title="Si tengo un problema con mi pedido ?"
@@ -259,15 +403,19 @@
                 :collapsed="true"
               >
                 <b-card-text>
-                  <span
-                    >Si, todos los proveedores registrados en nuestra plataforma
-                    han pasado por un filtro de seguridad.</span
-                  >
+                  <span>Si, todos los proveedores registrados en nuestra plataforma
+                    han pasado por un filtro de seguridad.</span>
                 </b-card-text>
               </b-card-actions>
             </div>
           </b-col>
-          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+          <b-col
+            cols="12"
+            sm="6"
+            md="6"
+            lg="6"
+            xl="6"
+          >
             <div class="w-100 m-1">
               <b-card-actions
                 title="Si tengo un problema con mi pedido ?"
@@ -275,15 +423,19 @@
                 :collapsed="true"
               >
                 <b-card-text>
-                  <span
-                    >Si, todos los proveedores registrados en nuestra plataforma
-                    han pasado por un filtro de seguridad.</span
-                  >
+                  <span>Si, todos los proveedores registrados en nuestra plataforma
+                    han pasado por un filtro de seguridad.</span>
                 </b-card-text>
               </b-card-actions>
             </div>
           </b-col>
-          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+          <b-col
+            cols="12"
+            sm="6"
+            md="6"
+            lg="6"
+            xl="6"
+          >
             <div class="w-100 m-1">
               <b-card-actions
                 title="Si tengo un problema con mi pedido ?"
@@ -291,10 +443,8 @@
                 :collapsed="true"
               >
                 <b-card-text>
-                  <span
-                    >Si, todos los proveedores registrados en nuestra plataforma
-                    han pasado por un filtro de seguridad.</span
-                  >
+                  <span>Si, todos los proveedores registrados en nuestra plataforma
+                    han pasado por un filtro de seguridad.</span>
                 </b-card-text>
               </b-card-actions>
             </div>
@@ -304,77 +454,108 @@
     </b-row>
     <!-- Contact -->
     <b-row class="mt-2 mb-2 d-flex justify-content-center background-contact">
-      <b-col cols="10" sm="8" md="8" lg="8" xl="8" class="m-4">
+      <b-col
+        cols="10"
+        sm="8"
+        md="8"
+        lg="8"
+        xl="8"
+        class="m-4"
+      >
         <b-row>
-          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+          <b-col
+            cols="12"
+            sm="6"
+            md="6"
+            lg="6"
+            xl="6"
+          >
             <div class="d-flex flex-column">
               <h2
                 style="font-size: 2rem; line-height: 4.3rem; font-weight: 600"
               >
-                Comuníquese con nosotros hoy <br />
-                a través de cualquiera de la <br />
+                Comuníquese con nosotros hoy <br>
+                a través de cualquiera de la <br>
                 información dada
               </h2>
               <h3 style="font-size: 1rem">
                 Llamanos para un soporte instantáneo
               </h3>
-              <p class="ml-1">+51 903 207 417</p>
-              <h3 style="font-size: 1rem">enTaller@gmail.com</h3>
-              <p class="ml-1">+51 903 207 417</p>
+              <p class="ml-1">
+                +51 903 207 417
+              </p>
+              <h3 style="font-size: 1rem">
+                enTaller@gmail.com
+              </h3>
+              <p class="ml-1">
+                +51 903 207 417
+              </p>
             </div>
           </b-col>
-          <b-col cols="12" sm="6" md="6" lg="6" xl="6">
+          <b-col
+            cols="12"
+            sm="6"
+            md="6"
+            lg="6"
+            xl="6"
+          >
             <b-row>
               <b-col cols="12">
                 <ValidationObserver ref="form">
                   <ValidationProvider
+                    v-slot="{ errors }"
                     name="Email"
                     :rules="{ email: true, required: true }"
-                    v-slot="{ errors }"
                   >
                     <b-form-group label="Email">
                       <b-form-input
+                        v-model="form.email"
                         class="form-input"
                         name="Email"
-                        v-model="form.email"
-                      >
-                      </b-form-input>
+                      />
                     </b-form-group>
-                    <small class="text-danger" v-if="errors[0]">{{
+                    <small
+                      v-if="errors[0]"
+                      class="text-danger"
+                    >{{
                       errors[0]
                     }}</small>
                   </ValidationProvider>
                   <ValidationProvider
+                    v-slot="{ errors }"
                     name="Subject"
                     :rules="{ required: true }"
-                    v-slot="{ errors }"
                   >
                     <b-form-group label="Subject">
                       <b-form-input
+                        v-model="form.subject"
                         class="form-input"
                         name="Subject"
-                        v-model="form.subject"
-                      >
-                      </b-form-input>
+                      />
                     </b-form-group>
-                    <small class="text-danger" v-if="errors[0]">{{
+                    <small
+                      v-if="errors[0]"
+                      class="text-danger"
+                    >{{
                       errors[0]
                     }}</small>
                   </ValidationProvider>
                   <ValidationProvider
+                    v-slot="{ errors }"
                     name="Message"
                     :rules="{ required: true }"
-                    v-slot="{ errors }"
                   >
                     <b-form-group label="Message">
                       <b-form-input
+                        v-model="form.message"
                         class="form-input"
                         name="Message"
-                        v-model="form.message"
-                      >
-                      </b-form-input>
+                      />
                     </b-form-group>
-                    <small class="text-danger" v-if="errors[0]">{{
+                    <small
+                      v-if="errors[0]"
+                      class="text-danger"
+                    >{{
                       errors[0]
                     }}</small>
                   </ValidationProvider>
@@ -383,9 +564,10 @@
             </b-row>
             <b-row>
               <b-col cols="12">
-                <b-button class="web-button" @click="sendEmail"
-                  >Enviar Mensaje</b-button
-                >
+                <b-button
+                  class="web-button"
+                  @click="sendEmail"
+                >Enviar Mensaje</b-button>
               </b-col>
             </b-row>
           </b-col>
@@ -394,7 +576,14 @@
     </b-row>
     <!-- Footer  -->
     <b-row class="mt-2 mb-4 d-flex justify-content-center">
-      <b-col cols="10" sm="10" md="8" lg="8" xl="8" class="mt-4 mb-4">
+      <b-col
+        cols="10"
+        sm="10"
+        md="8"
+        lg="8"
+        xl="8"
+        class="mt-4 mb-4"
+      >
         <b-row>
           <b-col
             cols="12"
@@ -404,30 +593,37 @@
             xl="4"
             class="mb-1 d-flex flex-column justify-content-start align-item-left"
           >
-            <h2 class="footer-title">En Taller</h2>
+            <h2 class="footer-title">
+              En Taller
+            </h2>
             <h3 class="footer-content">
-              Suscribete para nuestros datos informativos <br />
+              Suscribete para nuestros datos informativos <br>
               para mantenerte actualizado
             </h3>
 
             <div>
               <ValidationObserver ref="formEmail">
                 <ValidationProvider
+                  v-slot="{ errors }"
                   name="FormEmail"
                   :rules="{ email: true, required: true }"
-                  v-slot="{ errors }"
                 >
                   <b-input-group name="FormEmail">
                     <b-form-input
+                      v-model="email"
                       class="input-email"
                       placeholder="Ingresa tu Email"
-                      v-model="email"
                     />
                     <b-input-group-append>
-                      <b-button class="web-button"> Suscribete </b-button>
+                      <b-button class="web-button">
+                        Suscribete
+                      </b-button>
                     </b-input-group-append>
                   </b-input-group>
-                  <small class="text-danger" v-if="errors[0]">{{
+                  <small
+                    v-if="errors[0]"
+                    class="text-danger"
+                  >{{
                     errors[0]
                   }}</small>
                 </ValidationProvider>
@@ -443,10 +639,18 @@
             xl="4"
             class="mb-1 d-flex flex-column justify-content-start align-item-left"
           >
-            <h2 class="footer-title">Nuestra Dirección</h2>
-            <h3 class="footer-content">Lima - Perú</h3>
-            <h3 class="footer-content">Provincia lima</h3>
-            <h3 class="footer-content">En Taller</h3>
+            <h2 class="footer-title">
+              Nuestra Dirección
+            </h2>
+            <h3 class="footer-content">
+              Lima - Perú
+            </h3>
+            <h3 class="footer-content">
+              Provincia lima
+            </h3>
+            <h3 class="footer-content">
+              En Taller
+            </h3>
           </b-col>
           <b-col
             cols="6"
@@ -456,8 +660,12 @@
             xl="4"
             class="d-flex flex-column justify-content-start align-item-left"
           >
-            <h2 class="footer-title">Contáctanos</h2>
-            <h3 class="footer-content">+51 903 207 417</h3>
+            <h2 class="footer-title">
+              Contáctanos
+            </h2>
+            <h3 class="footer-content">
+              +51 903 207 417
+            </h3>
           </b-col>
         </b-row>
       </b-col>
@@ -467,57 +675,57 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
 // Import Components
+import BCardActions from '@core/components/b-card-actions/BCardActions.vue'
 import Logo from '../../../commons/logo/Logo.vue'
 import UserDropdown from '../../commons/userDropdown/UserDropdown.vue'
-import BCardActions from '@core/components/b-card-actions/BCardActions.vue'
+
 export default {
   components: {
     Logo,
     UserDropdown,
-    BCardActions
+    BCardActions,
   },
   data() {
     return {
       form: {
         email: '',
         subject: '',
-        message: ''
+        message: '',
       },
-      email: ''
+      email: '',
     }
   },
   computed: {
     ...mapGetters({
-      currentUser: 'authentication/currentUser'
+      currentUser: 'authentication/currentUser',
     }),
     ...mapGetters({
-      currentSize: 'app/currentBreakPoint'
+      currentSize: 'app/currentBreakPoint',
     }),
     currentSizeDirect() {
-      return ['xs', 'sm'].includes(this.currentSize) ? true : false
+      return !!['xs', 'sm'].includes(this.currentSize)
     },
     isLogged() {
-      return this.currentUser ? true : false
+      return !!this.currentUser
     },
     cardContentItem() {
       return 'm-1 d-flex flex-column justify-content-left'
-    }
+    },
   },
   methods: {
     redirectToSignUp() {
       this.$router.push({
-        name: 'auth-register'
+        name: 'auth-register',
       })
     },
     redirectToSignIn() {
       this.$router.push({
-        name: 'auth-login'
+        name: 'auth-login',
       })
     },
     sendEmail() {
-      this.$refs.form.validate().then((success) => {
+      this.$refs.form.validate().then(success => {
         if (!success) {
           console.log('did not send')
           return
@@ -526,14 +734,14 @@ export default {
       })
     },
     sendSuscribe() {
-      this.$refs.formEmail.validate().then((success) => {
+      this.$refs.formEmail.validate().then(success => {
         if (!success) {
           console.log('did not send Email')
           return
         }
         console.log('send Email')
       })
-    }
+    },
   },
 }
 </script>

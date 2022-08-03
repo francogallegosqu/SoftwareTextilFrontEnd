@@ -3,11 +3,11 @@
     <b-row
       class="header-navbar-chooser d-flex justify-content-center align-item-center"
     >
-    <b-col cols="10" >
-      <b-navbar
+      <b-col cols="10">
+        <b-navbar
           type="light"
           class=" navbar-background  navbar navbar-shadow d-flex justify-content-between"
-          sticky 
+          sticky
         >
           <b-navbar-brand :to="{ name: 'web' }">
             <logo />
@@ -16,44 +16,98 @@
             <user-dropdown />
           </div>
         </b-navbar>
-    </b-col>
+      </b-col>
     </b-row>
-      <b-row
-        class=" backgroung-row w-100 m-0 d-flex justify-content-center align-item-center"
-        style="height: 90vh"
+    <b-row
+      class=" backgroung-row w-100 m-0 d-flex justify-content-center align-item-center"
+      style="height: 90vh"
+    >
+      <b-col
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+        class="d-flex flex-column justify-content-center "
       >
-        <b-col cols="12" sm="6" md="4"  lg="3" class="d-flex flex-column justify-content-center ">
-          <b-card no-body class=" b-card-body d-flex  justify-content-center align-item-center" @click="goManageCustomer" bg-variant="primary" text-variant="white" >
+        <b-card
+          no-body
+          class=" b-card-body d-flex  justify-content-center align-item-center"
+          bg-variant="primary"
+          text-variant="white"
+          @click="goManageCustomer"
+        >
 
-            <div class=" w-100 d-flex justify-content-center">
-              <feather-icon size="200" fluid icon="UsersIcon"></feather-icon>
-            </div>
-            <b-card-title class="mb-0 d-flex justify-content-center">
-              <h1 class="title-card text-center mb-0 mr-0" >Clientes</h1>
-            </b-card-title>
-          </b-card>
-        </b-col>
-        <b-col cols="12" sm="6" md="4"  lg="3" class="d-flex flex-column justify-content-center ">
-          <b-card no-body class=" b-card-body d-flex  justify-content-center align-item-center" @click="goManageProvider" bg-variant="primary" text-variant="white" >
-            <div class=" w-100 d-flex justify-content-center">
-              <feather-icon size="200" fluid icon="TruckIcon"></feather-icon>
-            </div>
-            <b-card-title class="mb-0 d-flex justify-content-center">
-              <h1 class="title-card text-center mb-0 mr-0" >Proovedores</h1>
-            </b-card-title>
-          </b-card>
-        </b-col>
-        <b-col cols="12" sm="6" md="4"  lg="3" class="d-flex flex-column justify-content-center ">
-          <b-card no-body class=" b-card-body d-flex  justify-content-center align-item-center" @click="goManageManage" bg-variant="primary" text-variant="white" >
-            <div class=" w-100 d-flex justify-content-center">
-              <feather-icon size="200" fluid icon="SettingsIcon"></feather-icon>
-            </div>
-            <b-card-title class="mb-0 d-flex justify-content-center">
-              <h1 class="title-card text-center mb-0 mr-0" >Manage</h1>
-            </b-card-title>
-          </b-card>
-        </b-col>
-      </b-row>
+          <div class=" w-100 d-flex justify-content-center">
+            <feather-icon
+              size="200"
+              fluid
+              icon="UsersIcon"
+            />
+          </div>
+          <b-card-title class="mb-0 d-flex justify-content-center">
+            <h1 class="title-card text-center mb-0 mr-0">
+              Clientes
+            </h1>
+          </b-card-title>
+        </b-card>
+      </b-col>
+      <b-col
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+        class="d-flex flex-column justify-content-center "
+      >
+        <b-card
+          no-body
+          class=" b-card-body d-flex  justify-content-center align-item-center"
+          bg-variant="primary"
+          text-variant="white"
+          @click="goManageProvider"
+        >
+          <div class=" w-100 d-flex justify-content-center">
+            <feather-icon
+              size="200"
+              fluid
+              icon="TruckIcon"
+            />
+          </div>
+          <b-card-title class="mb-0 d-flex justify-content-center">
+            <h1 class="title-card text-center mb-0 mr-0">
+              Proovedores
+            </h1>
+          </b-card-title>
+        </b-card>
+      </b-col>
+      <b-col
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+        class="d-flex flex-column justify-content-center "
+      >
+        <b-card
+          no-body
+          class=" b-card-body d-flex  justify-content-center align-item-center"
+          bg-variant="primary"
+          text-variant="white"
+          @click="goManageManage"
+        >
+          <div class=" w-100 d-flex justify-content-center">
+            <feather-icon
+              size="200"
+              fluid
+              icon="SettingsIcon"
+            />
+          </div>
+          <b-card-title class="mb-0 d-flex justify-content-center">
+            <h1 class="title-card text-center mb-0 mr-0">
+              Manage
+            </h1>
+          </b-card-title>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -62,6 +116,7 @@ import { mapGetters } from 'vuex'
 // import Components
 import Logo from '@/commons/logo/Logo.vue'
 import UserDropdown from '../../../commons/userDropdown/UserDropdown.vue'
+
 export default {
   components: {
     UserDropdown,
@@ -69,27 +124,26 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentUser: 'authentication/currentUser'
+      currentUser: 'authentication/currentUser',
     }),
     isLogged() {
-      return this.currentUser ? true : false
+      return !!this.currentUser
     },
-    
+
   },
-  methods:{
-    goManageCustomer(){
+  methods: {
+    goManageCustomer() {
       this.$router.push({ name: 'admin-dashboard-customer' })
     },
-    goManageProvider(){
+    goManageProvider() {
       this.$router.push({ name: 'admin-dashboard-provider' })
     },
-    goManageManage(){
+    goManageManage() {
       this.$router.push({ name: 'admin-create-city' })
-    }
-  }
+    },
+  },
 }
 </script>
-
 
 <style lang="scss" scoped>
 /* Color */
@@ -116,7 +170,7 @@ export default {
   background-color: #e4ede9;
   border-radius: 5px;
   width: 80%;
-  
+
 }
 .b-card-body{
   min-height: 50%;
@@ -129,10 +183,9 @@ export default {
   }
 }
 
-
 .backgroung-row{
-   background-image: url("../../../../assets/images/profile/chooser/fondo-lineas.jpg"); 
-//    background-position:center center; 
+   background-image: url("../../../../assets/images/profile/chooser/fondo-lineas.jpg");
+//    background-position:center center;
     background-repeat: no-repeat;
     background-size:100%;
 }

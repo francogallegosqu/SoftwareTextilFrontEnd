@@ -1,11 +1,17 @@
 <template>
   <section>
     <b-row class="match-height">
-      <b-col xl="4" md="6">
+      <b-col
+        xl="4"
+        md="6"
+      >
 
         <t-congratulations :data="data" />
       </b-col>
-      <b-col xl="8" md="6">
+      <b-col
+        xl="8"
+        md="6"
+      >
 
         <t-statistics :data="statisticsItems" />
       </b-col>
@@ -16,10 +22,11 @@
 <script>
 import TCongratulations from '@/views/administrator/commons/TCongratulations.vue'
 import TStatistics from '@/views/administrator/commons/TStatistics.vue'
+
 export default {
   components: {
     TCongratulations,
-    TStatistics
+    TStatistics,
   },
   data() {
     return {
@@ -58,6 +65,6 @@ export default {
         },
       ],
     }
-  }
+  },
 }
 </script>

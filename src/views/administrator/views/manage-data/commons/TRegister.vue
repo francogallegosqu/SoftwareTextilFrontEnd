@@ -16,7 +16,10 @@
         <b-row class="w-100 m-0">
           <!-- name -->
           <b-col cols="12">
-            <b-form-group :label="nameTitle" label-for="name">
+            <b-form-group
+              :label="nameTitle"
+              label-for="name"
+            >
               <validation-provider
                 #default="{ errors }"
                 name="Name"
@@ -34,8 +37,14 @@
           </b-col>
 
           <!-- Id  -->
-          <b-col cols="12" v-if="isAvailable">
-            <b-form-group label="Elige" label-for="idTemplate">
+          <b-col
+            v-if="isAvailable"
+            cols="12"
+          >
+            <b-form-group
+              label="Elige"
+              label-for="idTemplate"
+            >
               <validation-provider
                 #default="{ errors }"
                 name="IdTemplate"
@@ -47,13 +56,15 @@
                   :label="nameLabelRegister"
                   class="w-100"
                   :state="errors.length > 0 ? false : null"
-                >
-                </v-select>
+                />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
-          <b-col cols="12" class="d-flex justify-content-end">
+          <b-col
+            cols="12"
+            class="d-flex justify-content-end"
+          >
             <b-button
               variant="primary"
               type="submit"
@@ -69,9 +80,10 @@
 </template>
 
 <script>
-import vSelect from "vue-select";
+import vSelect from 'vue-select'
+
 export default {
-  components:{
+  components: {
     vSelect,
   },
   props: {
@@ -80,25 +92,28 @@ export default {
     },
     nameTitle: {
       type: String,
+      default: '',
     },
     formRegister: {
       type: Object,
+      default: () => {},
     },
     optionsRegister: {
       type: Array,
+      default: () => [],
     },
     nameLabelRegister: {
       type: String,
+      default: '',
     },
   },
   methods: {
     validationFormRegister() {
-      this.$emit("validationFormRegister");
+      this.$emit('validationFormRegister')
     },
   },
-};
+}
 </script>
-
 
 <style >
 .title-card-register {

@@ -1,7 +1,7 @@
 export default {
-    title: 'Departamento',
-    icon: 'MapPinIcon',
-    route: 'admin-department',
-    rol:'administrador',
-    module:5,
+  title: 'Departamento',
+  icon: 'MapPinIcon',
+  route: 'admin-department',
+  rol: 'administrador',
+  module: 5,
 }

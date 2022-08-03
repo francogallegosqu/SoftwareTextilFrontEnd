@@ -1,22 +1,25 @@
 <template>
   <b-modal
+    v-model="isOpenUpdate"
     modal
     :title="`Actualizar ${nameTitle}`"
-    v-model="isOpenUpdate"
     header-bg-variant="warning"
     modal-class="modal-warning"
     hide-footer
     body-class="mb-2"
-    @hidden="closeModal"
     title-tag="h3"
     no-close-on-backdrop
+    @hidden="closeModal"
   >
     <b-row class="w-100 m-0 p-0">
       <b-col cols="12">
         <b-row class="w-100 m-0">
           <!-- name -->
           <b-col cols="12">
-            <b-form-group :label="nameTitle" label-for="name">
+            <b-form-group
+              :label="nameTitle"
+              label-for="name"
+            >
               <validation-provider
                 #default="{ errors }"
                 name="Name"
@@ -34,8 +37,14 @@
           </b-col>
 
           <!-- Id  -->
-          <b-col cols="12" v-if="isAvailable">
-            <b-form-group label="Elige" label-for="idTemplate">
+          <b-col
+            v-if="isAvailable"
+            cols="12"
+          >
+            <b-form-group
+              label="Elige"
+              label-for="idTemplate"
+            >
               <validation-provider
                 #default="{ errors }"
                 name="IdTemplate"
@@ -48,13 +57,15 @@
                   :label="nameLabelRegister"
                   class="w-100"
                   :state="errors.length > 0 ? false : null"
-                >
-                </v-select>
+                />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
             </b-form-group>
           </b-col>
-          <b-col cols="12" class="d-flex justify-content-end">
+          <b-col
+            cols="12"
+            class="d-flex justify-content-end"
+          >
             <b-button
               variant="warning"
               type="submit"
@@ -80,33 +91,36 @@ export default {
     },
     nameTitle: {
       type: String,
+      default: '',
     },
     formUpdate: {
       type: Object,
+      default: () => {},
     },
     optionsUpdate: {
       type: Array,
+      default: () => [],
     },
     nameLabelRegister: {
       type: String,
+      default: '',
     },
   },
   data() {
     return {
       isOpenUpdate: this.isUpdate,
-    };
+    }
   },
   methods: {
     validationFormUpdate() {
-      this.$emit("validationFormUpdate");
+      this.$emit('validationFormUpdate')
     },
     closeModal() {
-      this.$emit("closeModal");
+      this.$emit('closeModal')
     },
   },
-};
+}
 </script>
-
 
 <style >
 .title-card-register {

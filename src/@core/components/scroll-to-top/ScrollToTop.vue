@@ -63,16 +63,16 @@ export default {
     }
 }
 .button-scroll{
-  background-color: #006414 !important ;
+  background-color: #3e6552 !important ;
   opacity: 0.7;
 }
 .button-scroll:checked{
-  background-color: #006414 !important ;
+  background-color: #3e6552 !important ;
 }
 .button-scroll:active{
-  background-color: #006414 !important ;
+  background-color: #3e6552 !important ;
 }
 button:focus {
-   background-color: #006414 !important ;
+   background-color: #3e6552 !important ;
 }
 </style>

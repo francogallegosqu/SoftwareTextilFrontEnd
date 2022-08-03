@@ -13,7 +13,8 @@ import homepageRouter from '@/views/homepage/router'
 // ----- Modules -----
 // Authentication
 import authSignUpRouter from "@/modules/authentication/signup/signup.router"
-import authSignInRouter from "@/modules/authentication/login/login.router"
+// import authSignInRouter from "@/modules/authentication/login/login.router"
+import authSignInRouter from "@/views/authentication/signin/signin.router"
 
 // System
 import systemProfileRouter from "@/modules/system/profile/profile.router"

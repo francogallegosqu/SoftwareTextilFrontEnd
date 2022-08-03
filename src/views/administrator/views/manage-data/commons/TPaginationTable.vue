@@ -17,7 +17,8 @@ export default {
   props: {
     paginate: {
       type: Object,
+      default: () => {},
     },
   },
-};
+}
 </script>
