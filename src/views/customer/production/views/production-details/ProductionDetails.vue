@@ -12,8 +12,11 @@
       <b-col md="6">
         <card-accessories />
       </b-col>
-      <b-col md="12">
+      <b-col md="6">
         <card-services />
+      </b-col>
+      <b-col md="6">
+        <card-documents />
       </b-col>
     </b-row>
   </div>
@@ -27,6 +30,7 @@ import CardInformation from "./components/CardInformation.vue";
 import CardFabrics from "./components/CardFabrics.vue";
 import CardAccessories from "./components/CardAccessories.vue";
 import CardServices from "./components/CardServices.vue";
+import CardDocuments from "./components/CardDocuments.vue";
 
 export default {
   components: {
@@ -34,6 +38,7 @@ export default {
     CardFabrics,
     CardAccessories,
     CardServices,
+    CardDocuments,
   },
   data() {
     return {
