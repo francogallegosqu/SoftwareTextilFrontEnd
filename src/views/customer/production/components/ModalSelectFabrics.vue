@@ -50,26 +50,21 @@ export default {
   },
   methods: {
     ...mapActions({
-      A_GET_FABRICS_PAGINATE: "provMyPostsFabrics/A_GET_FABRICS_PAGINATE",
+      A_GET_FABRICS: "provMyPostsFabrics/A_GET_FABRICS",
     }),
     async getFabrics() {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_FABRICS_PAGINATE({
-          params: {
-            pageNo: 0,
-            pageSize: 100,
-            sortDir: "asc",
-            sortField: "idFabric",
-          },
-          page: 1,
+        const response = await this.A_GET_FABRICS({
+          page: 0,
+          size: 100,
+          sortDir: "asc",
+          sort: "idFabric",
         });
 
         if (response.status == 200) {
-          console.log(response.data["com.anderson.textil.model.Fabric@4624d882"].content);
-          this.fabrics.data =
-            response.data["com.anderson.textil.model.Fabric@4624d882"].content;
+          this.fabrics.data = response.data;
         }
 
         this.removePreloader();
@@ -82,6 +77,7 @@ export default {
     },
     selectFabric(fabric) {
       this.$emit("onSelectItem", fabric);
+      this.close(true);
     },
     close(saved = false) {
       this.$emit("onClose", saved);

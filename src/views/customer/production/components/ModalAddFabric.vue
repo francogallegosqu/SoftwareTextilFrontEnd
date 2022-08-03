@@ -24,37 +24,84 @@
       </b-col>
     </b-row>
 
-    <b-row class="mt-1">
-      <b-col cols="8">
-        <b-form-group label="Tela">
-          <b-form-input readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="4">
-        <b-form-group label="Precio">
-          <b-form-input type="number" readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="12">
-        <b-form-group label="Unidad">
-          <b-form-input :disabled="form.nameFabric == ''"></b-form-input>
-        </b-form-group>
-      </b-col>
+    <ValidationObserver ref="form">
+      <b-row class="mt-1">
+        <b-col cols="8">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Tela"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                readonly
+                :value="form.nameFabric"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes seleccionar una tela
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
+        <b-col cols="4">
+          <b-form-group label="Precio">
+            <b-input-group prepend="S./">
+              <b-form-input
+                type="number"
+                readonly
+                :value="form.unitPriceFabric"
+              ></b-form-input>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col cols="12">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Unidad"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                v-model="form.unitFabric"
+                :state="errors.length > 0 ? false : null"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes ingresar la unidad
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
 
-      <b-col cols="6">
-        <b-form-group label="Cantidad">
-          <b-form-input
-            :disabled="form.nameFabric == ''"
-            type="number"
-          ></b-form-input>
-        </b-form-group>
-      </b-col>
-      <b-col cols="6">
-        <b-form-group label="Precio total">
-          <b-form-input type="number" readonly></b-form-input>
-        </b-form-group>
-      </b-col>
-    </b-row>
+        <b-col cols="6">
+          <ValidationProvider rules="required" #default="{ errors }">
+            <b-form-group
+              label="Cantidad"
+              :state="errors.length > 0 ? false : null"
+            >
+              <b-form-input
+                v-model="form.quantityFabric"
+                :disabled="form.nameFabric == ''"
+                :state="errors.length > 0 ? false : null"
+                type="number"
+              ></b-form-input>
+              <small v-if="errors[0]" class="text-danger">
+                Debes ingresar la cantidad
+              </small>
+            </b-form-group>
+          </ValidationProvider>
+        </b-col>
+        <b-col cols="6">
+          <b-form-group label="Precio total">
+            <b-input-group prepend="S./">
+              <b-form-input
+                type="number"
+                readonly
+                v-model="form.priceFabric"
+              ></b-form-input>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </ValidationObserver>
 
     <b-container class="mt-2 text-center">
       <b-button variant="secondary" class="mr-1" @click="close(false)">
@@ -117,6 +164,13 @@ export default {
       return this.$route.params.id;
     },
   },
+  watch: {
+    "form.quantityFabric"(newVal) {
+      if (this.form.quantityFabric != "") {
+        this.form.priceFabric = newVal * this.form.unitPriceFabric;
+      }
+    },
+  },
   methods: {
     ...mapActions({
       A_REGISTER_PRODUCTION_FABRIC:
@@ -135,12 +189,6 @@ export default {
     },
     async addProductionFabric() {
       try {
-        if (this.form.idFabric == "") {
-          return this.showErrorToast({
-            text: "Debes seleccionar una tela",
-          });
-        }
-
         const validate = await this.$refs.form.validate();
 
         if (validate) {
