@@ -1,6 +1,5 @@
+import { textilApi } from '@/service/axios'
 import jwtDefaultConfig from './jwtDefaultConfig'
-import { textilApi } from "@/service/axios";
-
 
 export default class JwtService {
   // Will be used by this service for making API calls

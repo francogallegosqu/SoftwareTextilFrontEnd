@@ -7,7 +7,10 @@ import useJwt from '@/auth/jwt/useJwt'
  */
 // eslint-disable-next-line arrow-body-style
 export const isUserLoggedIn = () => {
-  return localStorage.getItem('userData') && localStorage.getItem(useJwt.jwtConfig.storageTokenKeyName)
+  if (localStorage.getItem('userData') && localStorage.getItem(useJwt.jwtConfig.storageTokenKeyName)) {
+    return true
+  }
+  return false
 }
 
 export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
@@ -24,8 +27,8 @@ export const getUserToken = () => localStorage.getItem('accessToken')
 export const getHomeRouteForLoggedInUser = userRole => {
   if (userRole.toLowerCase() === 'proveedor') {
     return { name: 'app-provider-my-posts-fabrics' }
-  } else if (userRole.toLowerCase() === 'comprador') {
+  } if (userRole.toLowerCase() === 'comprador') {
     return { name: 'app-customer-productions' }
-  } else if (userRole === 'administrador') return '/'
+  } if (userRole === 'administrador') return '/'
   return { name: 'auth-login' }
 }
