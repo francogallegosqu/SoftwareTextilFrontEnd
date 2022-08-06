@@ -25,6 +25,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_PRODUCTIONS_BY_USER({ commit }, id) {
+        try {
+            const response = await productionService.getProductionsByUser(id)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_PRODUCTION_BY_ID({ commit }, id) {
         try {
             const response = await productionService.getProductionById(id)

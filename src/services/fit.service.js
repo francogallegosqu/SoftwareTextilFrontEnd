@@ -18,7 +18,7 @@ class FitService {
         }
     }
 
-    async getFitById(params) {
+    async getFitById(id) {
         try {
             const { data, status } = await textilApi.get('api/fits/' + id)
             return { data, status }

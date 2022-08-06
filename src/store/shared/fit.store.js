@@ -31,6 +31,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_FIT_BY_ID({ commit }, id) {
+        try {
+            const response = await fitsService.getFitById(id)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_REGISTER_FIT({ commit }, body) {
         try {
             const response = await fitsService.registerFit(body)

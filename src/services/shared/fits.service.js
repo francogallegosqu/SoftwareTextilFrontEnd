@@ -24,6 +24,16 @@ class FitsService {
         }
     }
 
+    async getFitById(id) {
+        try {
+            const { data, status } = await textilApi.get('api/fits/' + id)
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getFit ", error)
+            throw error
+        }
+    }
+
     async registerFit(body) {
         try {
             const { data, status } = await textilApi.post('api/fits', body)

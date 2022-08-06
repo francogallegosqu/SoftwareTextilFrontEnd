@@ -13,6 +13,16 @@ class ProductionService {
         }
     }
 
+    async getProductionsByUser(id) {
+        try {
+            const { data, status } = await textilApi.get('/api/productions/user/' + id)
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getProductionsByUser", error)
+            throw error
+        }
+    }
+
     async getProductionById(id) {
         try {
             const { data, status } = await textilApi.get('api/productions/' + id)
