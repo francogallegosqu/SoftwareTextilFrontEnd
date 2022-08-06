@@ -3,6 +3,7 @@ import productionService from "@/services/production/production.service"
 import productionFabricService from "@/services/production/production-fabric.service"
 import productionAccessoryService from "@/services/production/production-accessory.service"
 import productionServiceService from "@/services/production/production-service.service"
+import productionDatasheetService from "@/services/production/production-datasheet.service"
 
 const state = {
 
@@ -20,6 +21,14 @@ const actions = {
     async A_GET_PRODUCTIONS({ commit }, params) {
         try {
             const response = await productionService.getProductions(params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
+    async A_GET_PRODUCTIONS_BY_USER({ commit }, id) {
+        try {
+            const response = await productionService.getProductionsByUser(id)
             return response
         } catch (error) {
             throw error
@@ -172,6 +181,14 @@ const actions = {
     async A_DELETE_PRODUCTION_SERVICE({ commit }, id) {
         try {
             const response = await productionServiceService.deleteService(id)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
+    async A_REGISTER_PRODUCTION_DATASHEET({ commit }, body) {
+        try {
+            const response = await productionDatasheetService.registerDatasheet(body)
             return response
         } catch (error) {
             throw error

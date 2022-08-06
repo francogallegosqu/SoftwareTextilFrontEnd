@@ -3,7 +3,7 @@
     <header-slot></header-slot>
 
     <b-row class="card-group">
-      <b-col cols="12">
+      <b-col cols="6">
         <card-information :production="production" />
       </b-col>
       <b-col md="6">
@@ -14,9 +14,6 @@
       </b-col>
       <b-col md="6">
         <card-services />
-      </b-col>
-      <b-col md="6">
-        <card-documents />
       </b-col>
     </b-row>
   </div>

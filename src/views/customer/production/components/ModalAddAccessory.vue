@@ -12,6 +12,7 @@
     <b-row>
       <b-col cols="12">
         <b-button
+          v-if="accessorySelected == null"
           v-ripple.400="'rgba(113, 102, 240, 0.15)'"
           variant="outline-primary"
           class="float-right my-1"
@@ -127,9 +128,18 @@ import Ripple from "vue-ripple-directive";
 
 // Components
 import ModalSelectAccessories from "./ModalSelectAccessories.vue";
-import { ValidationProvider } from "vee-validate";
 
 export default {
+  props: {
+    idProduction: {
+      type: Number,
+      default: null,
+    },
+    accessorySelected: {
+      type: Object,
+      default: null,
+    },
+  },
   components: {
     ModalSelectAccessories,
   },
@@ -161,7 +171,9 @@ export default {
       currentUser: "authentication/currentUser",
     }),
     productionId() {
-      return this.$route.params.id;
+      return this.idProduction == null
+        ? this.$route.params.id
+        : this.idProduction;
     },
   },
   watch: {
@@ -225,6 +237,10 @@ export default {
   },
   created() {
     this.show = true;
+
+    if (this.accessorySelected != null) {
+      this.selectAccessory(this.accessorySelected);
+    }
   },
 };
 </script>

@@ -12,6 +12,7 @@
     <b-row>
       <b-col cols="12">
         <b-button
+          v-if="serviceSelected == null"
           v-ripple.400="'rgba(113, 102, 240, 0.15)'"
           variant="outline-primary"
           class="float-right my-1"
@@ -129,7 +130,16 @@ import Ripple from "vue-ripple-directive";
 import ModalSelectServices from "./ModalSelectServices.vue";
 
 export default {
-  props: {},
+  props: {
+    idProduction: {
+      type: Number,
+      default: null,
+    },
+    serviceSelected: {
+      type: Object,
+      default: null,
+    },
+  },
   components: {
     ModalSelectServices,
   },
@@ -225,6 +235,10 @@ export default {
   },
   created() {
     this.show = true;
+
+    if (this.serviceSelected != null) {
+      this.selectService(this.serviceSelected);
+    }
   },
 };
 </script>

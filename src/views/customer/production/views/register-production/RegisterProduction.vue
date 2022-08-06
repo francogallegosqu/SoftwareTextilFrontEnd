@@ -20,7 +20,7 @@
                 <b-form-input v-model="form.nameProduction"></b-form-input>
               </b-form-group>
             </b-col>
-            <b-col cols="6">
+            <b-col cols="4">
               <b-form-group label="Ingresa la cantidad">
                 <b-form-input
                   type="number"
@@ -28,11 +28,19 @@
                 ></b-form-input>
               </b-form-group>
             </b-col>
-            <b-col cols="6">
-              <b-form-group label="Ingresa el costo total">
+            <b-col cols="4">
+              <b-form-group label="Ingresa el costo por unidad">
+                <b-input-group prepend="S./">
+                  <b-form-input type="number" v-model="form.costUnit" />
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+            <b-col cols="4">
+              <b-form-group label="Costo total">
                 <b-input-group prepend="S./">
                   <b-form-input
                     type="number"
+                    readonly
                     v-model="form.totalCostProduction"
                   />
                 </b-input-group>
@@ -133,6 +141,7 @@ export default {
         nameProduction: "",
         hasPrint: false,
         quantityProduction: null,
+        costUnit: "",
         totalCostProduction: null,
         created_at: new Date().toString(),
         created_by: "",
@@ -164,6 +173,28 @@ export default {
     },
     disableSecondButton() {
       return this.form.idSubcategory == "";
+    },
+  },
+  watch: {
+    "form.quantityProduction"(newVal) {
+      if (
+        this.form.quantityProduction != null &&
+        this.form.quantityProduction != "" &&
+        this.form.costUnit != ""
+      ) {
+        this.form.totalCostProduction =
+          this.form.quantityProduction * this.form.costUnit;
+      }
+    },
+    "form.costUnit"(newVal) {
+      if (
+        this.form.quantityProduction != null &&
+        this.form.quantityProduction != "" &&
+        this.form.costUnit != ""
+      ) {
+        this.form.totalCostProduction =
+          this.form.quantityProduction * this.form.costUnit;
+      }
     },
   },
   methods: {

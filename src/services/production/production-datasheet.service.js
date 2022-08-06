@@ -55,3 +55,5 @@ class ProductionDatasheetService {
     }
 
 }
+
+export default new ProductionDatasheetService();
