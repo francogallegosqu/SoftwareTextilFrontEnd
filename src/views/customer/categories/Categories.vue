@@ -5,10 +5,10 @@
         <b-button
           variant="outline-primary"
           class="mr-2"
-          @click="redirectToRegisterFit"
+          @click="redirectToRegisterCategory"
         >
           <feather-icon icon="PlusCircleIcon" class="mr-50" />
-          Agregar fit
+          Agregar categoria
         </b-button>
 
         <b-button-group class="mr-2">
@@ -31,20 +31,20 @@
     <b-card body-class="px-0">
       <template v-if="typeGridView == 'cards'">
         <b-container>
-          <card-group-fits
-            :fits="fits"
-            @onUpdate="redirectToUpdateFit"
-            @onDelete="deleteFit"
+          <card-group-categories
+            :categories="categories"
+            @onUpdate="redirectToUpdateCategory"
+            @onDelete="deleteCategory"
           />
         </b-container>
       </template>
 
       <template v-if="typeGridView == 'table'">
-        <table-fits
+        <table-categories
           :table="table"
-          :fits="fits"
-          @onUpdate="redirectToUpdateFit"
-          @onDelete="deleteFit"
+          :categories="categories"
+          @onUpdate="redirectToUpdateCategory"
+          @onDelete="deleteCategory"
         />
       </template>
     </b-card>
@@ -58,13 +58,13 @@ import { mapActions, mapGetters } from "vuex";
 import Fields from "./data/fields.data";
 
 // Componets
-import TableFits from "./components/TableFits.vue";
-import CardGroupFits from "./components/CardGroupFits.vue";
+import TableCategories from "./components/TableCategories.vue";
+import CardGroupCategories from "./components/CardGroupCategories.vue";
 
 export default {
   components: {
-    TableFits,
-    CardGroupFits,
+    TableCategories,
+    CardGroupCategories,
   },
   data() {
     return {
@@ -74,46 +74,46 @@ export default {
         fields: Fields,
       },
 
-      fits: {
+      categories: {
         data: [],
       },
     };
   },
   methods: {
     ...mapActions({
-      A_GET_FITS: "fit/A_GET_FITS",
-      A_DELETE_FIT: "fit/A_DELETE_FIT",
+      A_GET_CATEGORIES: "sharedCategory/A_GET_CATEGORIES",
+      A_DELETE_CATEGORY: "sharedCategory/A_DELETE_CATEGORY",
     }),
     getGridView() {
-      this.typeGridView = localStorage.getItem("customerFitView");
+      this.typeGridView = localStorage.getItem("customerCategoriesView");
       this.typeGridView == null ? this.setGridView("table") : null;
     },
     setGridView(view) {
       this.typeGridView = view;
-      localStorage.setItem("customerFitView", view);
+      localStorage.setItem("customerCategoriesView", view);
     },
-    redirectToRegisterFit() {
+    redirectToRegisterCategory() {
       this.$router.push({
-        name: "app-customer-fits-register",
+        name: "app-customer-categories-register",
       });
     },
-    redirectToUpdateFit(id) {
+    redirectToUpdateCategory(id) {
       this.$router.push({
-        name: "app-customer-fits-update",
+        name: "app-customer-categories-update",
         params: { id: id },
       });
     },
-    async getFits() {
+    async getCategories() {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_FITS({
+        const response = await this.A_GET_CATEGORIES({
           page: 0,
           size: 100,
         });
 
         if (response.status == 200) {
-          this.fits.data = response.data;
+          this.categories.data = response.data;
         }
 
         this.removePreloader();
@@ -124,18 +124,18 @@ export default {
         throw error;
       }
     },
-    async deleteFit(id) {
+    async deleteCategory(id) {
       try {
         const confirm = await this.showGenericConfirmSwal({});
 
         if (confirm.value) {
           this.addPreloader();
 
-          const response = await this.A_DELETE_FIT(id);
+          const response = await this.A_DELETE_CATEGORY(id);
 
           if (response.status == 200) {
             this.showGenericToast({ type: "delete" });
-            await this.getFits();
+            await this.getCategories();
           }
 
           this.removePreloader();
@@ -150,7 +150,7 @@ export default {
   },
   async created() {
     await this.getGridView();
-    await this.getFits();
+    await this.getCategories();
   },
 };
 </script>

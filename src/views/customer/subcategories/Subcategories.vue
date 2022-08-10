@@ -5,10 +5,10 @@
         <b-button
           variant="outline-primary"
           class="mr-2"
-          @click="redirectToRegisterFit"
+          @click="redirectToRegisterSubcategory"
         >
           <feather-icon icon="PlusCircleIcon" class="mr-50" />
-          Agregar fit
+          Agregar sub categoria
         </b-button>
 
         <b-button-group class="mr-2">
@@ -31,20 +31,20 @@
     <b-card body-class="px-0">
       <template v-if="typeGridView == 'cards'">
         <b-container>
-          <card-group-fits
-            :fits="fits"
-            @onUpdate="redirectToUpdateFit"
-            @onDelete="deleteFit"
+          <card-group-subcategories
+            :subcategories="subcategories"
+            @onUpdate="redirectToUpdateSubcategory"
+            @onDelete="deleteCategory"
           />
         </b-container>
       </template>
 
       <template v-if="typeGridView == 'table'">
-        <table-fits
+        <table-subcategories
           :table="table"
-          :fits="fits"
-          @onUpdate="redirectToUpdateFit"
-          @onDelete="deleteFit"
+          :subcategories="subcategories"
+          @onUpdate="redirectToUpdateSubcategory"
+          @onDelete="deleteCategory"
         />
       </template>
     </b-card>
@@ -58,13 +58,13 @@ import { mapActions, mapGetters } from "vuex";
 import Fields from "./data/fields.data";
 
 // Componets
-import TableFits from "./components/TableFits.vue";
-import CardGroupFits from "./components/CardGroupFits.vue";
+import TableSubcategories from "./components/TableSubcategories.vue";
+import CardGroupSubcategories from "./components/CardGroupSubcategories.vue";
 
 export default {
   components: {
-    TableFits,
-    CardGroupFits,
+    TableSubcategories,
+    CardGroupSubcategories,
   },
   data() {
     return {
@@ -74,46 +74,46 @@ export default {
         fields: Fields,
       },
 
-      fits: {
+      subcategories: {
         data: [],
       },
     };
   },
   methods: {
     ...mapActions({
-      A_GET_FITS: "fit/A_GET_FITS",
-      A_DELETE_FIT: "fit/A_DELETE_FIT",
+      A_GET_SUBCATEGORIES: "sharedSubcategory/A_GET_SUBCATEGORIES",
+      A_DELETE_SUBCATEGORY: "sharedSubcategory/A_DELETE_SUBCATEGORY",
     }),
     getGridView() {
-      this.typeGridView = localStorage.getItem("customerFitView");
+      this.typeGridView = localStorage.getItem("customerCategoriesView");
       this.typeGridView == null ? this.setGridView("table") : null;
     },
     setGridView(view) {
       this.typeGridView = view;
-      localStorage.setItem("customerFitView", view);
+      localStorage.setItem("customerCategoriesView", view);
     },
-    redirectToRegisterFit() {
+    redirectToRegisterSubcategory() {
       this.$router.push({
-        name: "app-customer-fits-register",
+        name: "app-customer-subcategories-register",
       });
     },
-    redirectToUpdateFit(id) {
+    redirectToUpdateSubcategory(id) {
       this.$router.push({
-        name: "app-customer-fits-update",
+        name: "app-customer-subcategories-update",
         params: { id: id },
       });
     },
-    async getFits() {
+    async getSubcategories() {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_FITS({
+        const response = await this.A_GET_SUBCATEGORIES({
           page: 0,
           size: 100,
         });
 
         if (response.status == 200) {
-          this.fits.data = response.data;
+          this.subcategories.data = response.data;
         }
 
         this.removePreloader();
@@ -124,18 +124,18 @@ export default {
         throw error;
       }
     },
-    async deleteFit(id) {
+    async deleteCategory(id) {
       try {
         const confirm = await this.showGenericConfirmSwal({});
 
         if (confirm.value) {
           this.addPreloader();
 
-          const response = await this.A_DELETE_FIT(id);
+          const response = await this.A_DELETE_SUBCATEGORY(id);
 
           if (response.status == 200) {
             this.showGenericToast({ type: "delete" });
-            await this.getFits();
+            await this.getSubcategories();
           }
 
           this.removePreloader();
@@ -150,7 +150,7 @@ export default {
   },
   async created() {
     await this.getGridView();
-    await this.getFits();
+    await this.getSubcategories();
   },
 };
 </script>

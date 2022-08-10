@@ -70,7 +70,7 @@ export default {
       this.showModalAddService = true;
     },
     async closeModalAddService(saved) {
-      if (services) await this.getProductionServices();
+      if (saved) await this.getProductionServices();
       this.showModalAddService = false;
     },
     async getProductionServices() {

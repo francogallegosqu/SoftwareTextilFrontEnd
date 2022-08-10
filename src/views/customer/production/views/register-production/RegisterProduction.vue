@@ -184,6 +184,8 @@ export default {
       ) {
         this.form.totalCostProduction =
           this.form.quantityProduction * this.form.costUnit;
+      } else {
+        this.form.totalCostProduction = "";
       }
     },
     "form.costUnit"(newVal) {
@@ -194,6 +196,8 @@ export default {
       ) {
         this.form.totalCostProduction =
           this.form.quantityProduction * this.form.costUnit;
+      } else {
+        this.form.totalCostProduction = "";
       }
     },
   },
