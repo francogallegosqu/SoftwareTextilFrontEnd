@@ -2,14 +2,13 @@
   <b-card-group columns>
     <b-card
       class="shadow"
-      v-for="(item, index) of fits.data"
+      v-for="(item, index) of categories.data"
       :key="index"
-      :title="item.nameFit"
+      :title="item.nameCategory"
     >
       <b-card-text>
-        <p>{{ item.descriptionFit }}</p>
         <small>
-          {{ $moment(item.created_at).format("L LTS") }}
+          {{ $moment(data.item.created_at).format("L LTS") }}
         </small>
 
         <div style="white-space: nowrap" class="mt-1">
@@ -17,11 +16,11 @@
             class="btn-icon"
             size="sm"
             variant="flat-warning"
-            @click="update(item.idFit)"
+            @click="update(item.idSubCategory)"
           >
             <feather-icon
               icon="EditIcon"
-              v-b-tooltip.hover.bottom="'Actualizar Fit'"
+              v-b-tooltip.hover.bottom="'Actualizar Categoria'"
             ></feather-icon>
           </b-button>
 
@@ -29,11 +28,11 @@
             class="btn-icon"
             size="sm"
             variant="flat-danger"
-            @click="remove(item.idFit)"
+            @click="remove(item.idSubCategory)"
           >
             <feather-icon
               icon="TrashIcon"
-              v-b-tooltip.hover.bottom="'Eliminar Fit'"
+              v-b-tooltip.hover.bottom="'Eliminar Categoria'"
             ></feather-icon>
           </b-button>
         </div>
@@ -45,7 +44,7 @@
 <script>
 export default {
   props: {
-    fits: {
+    categories: {
       type: Object,
       required: true,
     },
