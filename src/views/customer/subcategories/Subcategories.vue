@@ -7,7 +7,10 @@
           class="mr-2"
           @click="redirectToRegisterSubcategory"
         >
-          <feather-icon icon="PlusCircleIcon" class="mr-50" />
+          <feather-icon
+            icon="PlusCircleIcon"
+            class="mr-50"
+          />
           Agregar sub categoria
         </b-button>
 
@@ -52,14 +55,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from 'vuex'
 
 // Data
-import Fields from "./data/fields.data";
+import Fields from './data/fields.data'
 
 // Componets
-import TableSubcategories from "./components/TableSubcategories.vue";
-import CardGroupSubcategories from "./components/CardGroupSubcategories.vue";
+import TableSubcategories from './components/TableSubcategories.vue'
+import CardGroupSubcategories from './components/CardGroupSubcategories.vue'
 
 export default {
   components: {
@@ -68,7 +71,7 @@ export default {
   },
   data() {
     return {
-      typeGridView: "",
+      typeGridView: '',
 
       table: {
         fields: Fields,
@@ -77,82 +80,83 @@ export default {
       subcategories: {
         data: [],
       },
-    };
+    }
+  },
+  async created() {
+    await this.getGridView()
+    await this.getSubcategories()
   },
   methods: {
     ...mapActions({
-      A_GET_SUBCATEGORIES: "sharedSubcategory/A_GET_SUBCATEGORIES",
-      A_DELETE_SUBCATEGORY: "sharedSubcategory/A_DELETE_SUBCATEGORY",
+      A_GET_SUBCATEGORIES: 'sharedSubcategory/A_GET_SUBCATEGORIES',
+      A_DELETE_SUBCATEGORY: 'sharedSubcategory/A_DELETE_SUBCATEGORY',
     }),
     getGridView() {
-      this.typeGridView = localStorage.getItem("customerCategoriesView");
-      this.typeGridView == null ? this.setGridView("table") : null;
+      this.typeGridView = localStorage.getItem('customerCategoriesView')
+      // eslint-disable-next-line no-unused-expressions
+      this.typeGridView == null ? this.setGridView('table') : null
     },
     setGridView(view) {
-      this.typeGridView = view;
-      localStorage.setItem("customerCategoriesView", view);
+      this.typeGridView = view
+      localStorage.setItem('customerCategoriesView', view)
     },
     redirectToRegisterSubcategory() {
       this.$router.push({
-        name: "app-customer-subcategories-register",
-      });
+        name: 'app-customer-subcategories-register',
+      })
     },
     redirectToUpdateSubcategory(id) {
       this.$router.push({
-        name: "app-customer-subcategories-update",
-        params: { id: id },
-      });
+        name: 'app-customer-subcategories-update',
+        params: { id },
+      })
     },
     async getSubcategories() {
       try {
-        this.addPreloader();
+        this.addPreloader()
 
         const response = await this.A_GET_SUBCATEGORIES({
           page: 0,
           size: 100,
-        });
+        })
 
-        if (response.status == 200) {
-          this.subcategories.data = response.data;
+        if (response.status === 200) {
+          this.subcategories.data = response.data
         }
 
-        this.removePreloader();
+        this.removePreloader()
       } catch (error) {
-        this.removePreloader();
-        this.showErrorToast({ text: error });
+        this.removePreloader()
+        this.showErrorToast({ text: error })
 
-        throw error;
+        throw error
       }
     },
     async deleteCategory(id) {
       try {
-        const confirm = await this.showGenericConfirmSwal({});
+        const confirm = await this.showGenericConfirmSwal({})
 
         if (confirm.value) {
-          this.addPreloader();
+          this.addPreloader()
 
-          const response = await this.A_DELETE_SUBCATEGORY(id);
+          const response = await this.A_DELETE_SUBCATEGORY(id)
 
-          if (response.status == 200) {
-            this.showGenericToast({ type: "delete" });
-            await this.getSubcategories();
+          if (response.status === 200) {
+            this.showGenericToast({ type: 'delete' })
+            await this.getSubcategories()
           }
 
-          this.removePreloader();
+          this.removePreloader()
         }
       } catch (error) {
-        this.removePreloader();
-        this.showErrorToast({ text: error });
+        this.removePreloader()
+        this.showErrorToast({ text: error })
 
-        throw error;
+        throw error
       }
     },
   },
-  async created() {
-    await this.getGridView();
-    await this.getSubcategories();
-  },
-};
+}
 </script>
 
 <style>

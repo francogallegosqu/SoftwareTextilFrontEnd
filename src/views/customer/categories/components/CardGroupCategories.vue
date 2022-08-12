@@ -1,17 +1,20 @@
 <template>
   <b-card-group columns>
     <b-card
-      class="shadow"
       v-for="(item, index) of categories.data"
       :key="index"
+      class="shadow"
       :title="item.nameCategory"
     >
       <b-card-text>
         <small>
-          {{ $moment(data.item.created_at).format("L LTS") }}
+          {{ $moment(item.created_at).format("L LTS") }}
         </small>
 
-        <div style="white-space: nowrap" class="mt-1">
+        <div
+          style="white-space: nowrap"
+          class="mt-1"
+        >
           <b-button
             class="btn-icon"
             size="sm"
@@ -19,9 +22,9 @@
             @click="update(item.idCategory)"
           >
             <feather-icon
-              icon="EditIcon"
               v-b-tooltip.hover.bottom="'Actualizar Categoria'"
-            ></feather-icon>
+              icon="EditIcon"
+            />
           </b-button>
 
           <b-button
@@ -31,9 +34,9 @@
             @click="remove(item.idCategory)"
           >
             <feather-icon
-              icon="TrashIcon"
               v-b-tooltip.hover.bottom="'Eliminar Categoria'"
-            ></feather-icon>
+              icon="TrashIcon"
+            />
           </b-button>
         </div>
       </b-card-text>
@@ -51,13 +54,13 @@ export default {
   },
   methods: {
     update(id) {
-      this.$emit("onUpdate", id);
+      this.$emit('onUpdate', id)
     },
     remove(id) {
-      this.$emit("onDelete", id);
+      this.$emit('onDelete', id)
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
