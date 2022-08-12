@@ -29,6 +29,14 @@
     </header-slot>
 
     <b-card body-class="px-0">
+      <b-pagination
+        class="float-right mr-2"
+        v-model="paginate.currentPage"
+        :per-page="paginate.perPage"
+        :total-rows="paginate.totalDocs"
+        hide-goto-end-buttons
+      />
+
       <template v-if="typeGridView == 'cards'">
         <b-container>
           <card-group-categories
@@ -70,6 +78,12 @@ export default {
     return {
       typeGridView: "",
 
+      paginate: {
+        currentPage: 1,
+        perPage: 1,
+        totalDocs: "",
+      },
+
       table: {
         fields: Fields,
       },
@@ -79,9 +93,14 @@ export default {
       },
     };
   },
+  watch: {
+    async "paginate.currentPage"(newVal) {
+      await this.getCategories();
+    },
+  },
   methods: {
     ...mapActions({
-      A_GET_CATEGORIES: "sharedCategory/A_GET_CATEGORIES",
+      A_GET_CATEGORIES_PAGINATE: "sharedCategory/A_GET_CATEGORIES_PAGINATE",
       A_DELETE_CATEGORY: "sharedCategory/A_DELETE_CATEGORY",
     }),
     getGridView() {
@@ -107,13 +126,20 @@ export default {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_CATEGORIES({
-          page: 0,
-          size: 100,
+        const response = await this.A_GET_CATEGORIES_PAGINATE({
+          page: this.paginate.currentPage,
+          params: {
+            pageNo: this.paginate.currentPage,
+            pageSize: this.paginate.perPage,
+            sortDir: "asc",
+            sortField: "nameCategory",
+          },
         });
 
         if (response.status == 200) {
-          this.categories.data = response.data;
+          const itemsValue = response.data[Object.keys(response.data)[0]];
+          this.categories.data = itemsValue.content;
+          this.paginate.totalDocs = itemsValue.totalElements;
         }
 
         this.removePreloader();

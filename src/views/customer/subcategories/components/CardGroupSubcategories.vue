@@ -2,7 +2,7 @@
   <b-card-group columns>
     <b-card
       class="shadow"
-      v-for="(item, index) of categories.data"
+      v-for="(item, index) of subcategories.data"
       :key="index"
       :title="item.nameCategory"
     >
@@ -44,7 +44,7 @@
 <script>
 export default {
   props: {
-    categories: {
+    subcategories: {
       type: Object,
       required: true,
     },

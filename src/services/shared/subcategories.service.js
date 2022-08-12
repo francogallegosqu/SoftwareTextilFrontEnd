@@ -18,6 +18,18 @@ class SubcategoriesService {
         }
     }
 
+    async getSubcategoriesPaginate(page, params) {
+        try {
+            const { data, status } = await textilApi.get('api/subcategories/page/' + page, {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getSubcategoriesPaginate ", error)
+            throw error
+        }
+    }
+
     async getSubcategory(id) {
         try {
             const { data, status } = await textilApi.get('api/subcategories/' + id)

@@ -32,6 +32,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_CATEGORIES_PAGINATE({ commit }, { page, params }) {
+        try {
+            const response = await categoriesService.getCategoriesPaginate(page, params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_CATEGORY({ commit }, id) {
         try {
             const response = await categoriesService.getCategory(id)

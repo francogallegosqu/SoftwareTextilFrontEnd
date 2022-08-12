@@ -23,6 +23,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_SUBCATEGORIES_PAGINATE({ commit }, {page, params}) {
+        try {
+            const response = await subcategoriesService.getSubcategoriesPaginate(page, params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_SUBCATEGORY({ commit }, id) {
         try {
             const response = await subcategoriesService.getSubcategory(id)

@@ -17,6 +17,18 @@ class CategoriesService {
         }
     }
 
+    async getCategoriesPaginate(page, params) {
+        try {
+            const { data, status } = await textilApi.get('api/categories/page/' + page, {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getCategoriesPaginate ", error)
+            throw error
+        }
+    }
+
     async getCategory(id) {
         try {
             const { data, status } = await textilApi.get('api/categories/' + id)
