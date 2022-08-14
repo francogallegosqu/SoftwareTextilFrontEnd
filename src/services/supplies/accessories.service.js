@@ -12,6 +12,18 @@ class AccessoriesServce {
         }
     }
 
+    async getAccessoriesPaginate(page, params) {
+        try {
+            const { data, status } = await textilApi.get("api/accessories/page/" + page, {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getAccessoriesPaginate ", error)
+            throw error
+        }
+    }
+
     async getAccessory(id) {
         try {
             const { data, status } = await textilApi.get("api/accessories/" + id)

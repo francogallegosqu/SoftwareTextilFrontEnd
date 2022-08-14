@@ -14,6 +14,18 @@ class ServicesService {
         }
     }
 
+    async getServicesPaginate(page, params) {
+        try {
+            const { data, status } = await textilApi.get('api/services/page/' + page, {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getServicesPaginate ", error)
+            throw error
+        }
+    }
+
     async getServicesByUser(userId) {
         try {
             const { data, status } = await textilApi.get('api/services/user/' + userId)

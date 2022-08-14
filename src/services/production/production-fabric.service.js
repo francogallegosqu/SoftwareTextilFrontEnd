@@ -14,6 +14,18 @@ class ProductionFabricService {
         }
     }
 
+    async getFabricsPaginate(page, params) {
+        try {
+            const { data, status } = await textilApi.get('api/productionfabrics/page/' + page, {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getFabricsPaginate", error)
+            throw error
+        }
+    }
+
     async getFabricById(id) {
         try {
             const { data, status } = await textilApi.get('api/productionfabrics/' + id)

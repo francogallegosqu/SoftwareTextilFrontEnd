@@ -74,6 +74,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_PRODUCTION_FABRICS_PAGINATE({ commit }, { page, params }) {
+        try {
+            const response = await productionFabricService.getFabricsPaginate(page, params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_PRODUCTION_FABRIC_BY_ID({ commit }, id) {
         try {
             const response = await productionFabricService.getFabricById(id)
@@ -114,6 +122,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_PRODUCTION_ACCESSORIES_PAGINATE({ commit }, { page, params }) {
+        try {
+            const response = await productionAccessoryService.getAccessoriesPaginate(page, params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_PRODUCTION_ACCESSORY_BY_ID({ commit }, id) {
         try {
             const response = await productionAccessoryService.getAccessoriesById(id)
@@ -149,6 +165,14 @@ const actions = {
     async A_GET_PRODUCTION_SERVICES({ commit }, params) {
         try {
             const response = await productionServiceService.getServices(params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
+    async A_GET_PRODUCTION_SERVICES_PAGINATE({ commit }, { page, params }) {
+        try {
+            const response = await productionServiceService.getServicesPaginate(page, params)
             return response
         } catch (error) {
             throw error

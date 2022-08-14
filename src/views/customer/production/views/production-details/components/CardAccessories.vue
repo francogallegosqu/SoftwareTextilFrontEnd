@@ -19,6 +19,14 @@
     </template>
 
     <div>
+      <b-pagination
+        class="float-right mr-2"
+        v-model="paginate.currentPage"
+        :per-page="paginate.perPage"
+        :total-rows="paginate.totalDocs"
+        hide-goto-end-buttons
+      />
+
       <b-table
         class="text-center"
         small
@@ -28,6 +36,7 @@
           { key: 'totalCost', label: 'Costo total' },
           { key: 'actions', label: 'Acciones' },
         ]"
+        :items="accessories.data"
       ></b-table>
     </div>
 
@@ -54,6 +63,12 @@ export default {
   },
   data() {
     return {
+      paginate: {
+        currentPage: 1,
+        perPage: 10,
+        totalDocs: "",
+      },
+
       accessories: {
         data: [],
       },
@@ -94,7 +109,7 @@ export default {
     },
   },
   async created() {
-    await this.getProductionAccessories();
+    // await this.getProductionAccessories();
   },
 };
 </script>

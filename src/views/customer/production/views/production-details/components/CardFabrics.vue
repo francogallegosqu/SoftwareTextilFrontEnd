@@ -19,15 +19,24 @@
     </template>
 
     <div>
+      <b-pagination
+        class="float-right mr-2"
+        v-model="paginate.currentPage"
+        :per-page="paginate.perPage"
+        :total-rows="paginate.totalDocs"
+        hide-goto-end-buttons
+      />
+
       <b-table
         class="text-center"
         small
         :fields="[
-          { key: 'fabric', label: 'Tela' },
-          { key: 'cant', label: 'Cantidad' },
-          { key: 'totalCost', label: 'Costo total' },
+          { key: 'fabric.nameFabric', label: 'Tela' },
+          { key: 'quantityFabric', label: 'Cantidad' },
+          { key: 'priceFabric', label: 'Costo total' },
           { key: 'actions', label: 'Acciones' },
         ]"
+        :items="fabrics.data"
       ></b-table>
     </div>
 
@@ -39,6 +48,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Ripple from "vue-ripple-directive";
 
 // Components
@@ -53,17 +63,62 @@ export default {
   },
   data() {
     return {
+      paginate: {
+        currentPage: 1,
+        perPage: 10,
+        totalDocs: "",
+      },
+
+      fabrics: {
+        data: [],
+      },
+
       // Modals
       showModalAddFabric: false,
     };
   },
   methods: {
+    ...mapActions({
+      A_GET_PRODUCTION_FABRICS_PAGINATE:
+        "custProduction/A_GET_PRODUCTION_FABRICS_PAGINATE",
+    }),
     openModalAddFabric() {
       this.showModalAddFabric = true;
     },
-    closeModalAddFabric() {
+    async closeModalAddFabric(saved) {
+      if (saved) await this.getProductionFabrics();
       this.showModalAddFabric = false;
     },
+    async getProductionFabrics() {
+      try {
+        this.addPreloader();
+
+        const response = await this.A_GET_PRODUCTION_FABRICS_PAGINATE({
+          page: this.paginate.currentPage,
+          params: {
+            pageNo: this.paginate.currentPage,
+            pageSize: this.paginate.perPage,
+            sortDir: "asc",
+            sortField: "idProductionFabric",
+          },
+        });
+
+        if (response.status == 200) {
+          const itemsValue = response.data[Object.keys(response.data)[0]];
+          this.fabrics.data = itemsValue.content;
+          this.paginate.totalDocs = itemsValue.totalElements;
+        }
+
+        this.removePreloader();
+      } catch (error) {
+        this.removePreloader();
+        this.showErrorToast({ text: error });
+        throw error;
+      }
+    },
+  },
+  async created() {
+    await this.getProductionFabrics();
   },
 };
 </script>

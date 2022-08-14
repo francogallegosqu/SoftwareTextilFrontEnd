@@ -21,9 +21,9 @@ const actions = {
             throw error
         }
     },
-    async A_GET_FABRICS_PAGINATE({ commit }, { params, page }) {
+    async A_GET_FABRICS_PAGINATE({ commit }, { page, params }) {
         try {
-            const response = await fabricsService.getFabricsPaginate(params, page)
+            const response = await fabricsService.getFabricsPaginate(page, params)
             return response
         } catch (error) {
             throw error

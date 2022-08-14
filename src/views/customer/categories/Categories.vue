@@ -80,7 +80,7 @@ export default {
 
       paginate: {
         currentPage: 1,
-        perPage: 1,
+        perPage: 10,
         totalDocs: "",
       },
 

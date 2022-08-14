@@ -23,6 +23,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_FITS_PAGINATE({ commit }, { page, params }) {
+        try {
+            const response = await fitsService.getFitsPaginate(page, params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_FIT({ commit }, id) {
         try {
             const response = await fitsService.getFit(id)

@@ -29,6 +29,14 @@
     </header-slot>
 
     <b-card body-class="px-0">
+      <b-pagination
+        class="float-right mr-2"
+        v-model="paginate.currentPage"
+        :per-page="paginate.perPage"
+        :total-rows="paginate.totalDocs"
+        hide-goto-end-buttons
+      />
+
       <template v-if="typeGridView == 'cards'">
         <b-container>
           <card-group-fits
@@ -74,14 +82,25 @@ export default {
         fields: Fields,
       },
 
+      paginate: {
+        currentPage: 1,
+        perPage: 10,
+        totalDocs: "",
+      },
+
       fits: {
         data: [],
       },
     };
   },
+  watch: {
+    async "paginate.currentPage"(newVal) {
+      await this.getFits();
+    },
+  },
   methods: {
     ...mapActions({
-      A_GET_FITS: "fit/A_GET_FITS",
+      A_GET_FITS_PAGINATE: "sharedFit/A_GET_FITS_PAGINATE",
       A_DELETE_FIT: "fit/A_DELETE_FIT",
     }),
     getGridView() {
@@ -107,13 +126,20 @@ export default {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_FITS({
-          page: 0,
-          size: 100,
+        const response = await this.A_GET_FITS_PAGINATE({
+          page: this.paginate.currentPage,
+          params: {
+            pageNo: this.paginate.currentPage,
+            pageSize: this.paginate.perPage,
+            sortDir: "asc",
+            sortField: "idFit",
+          },
         });
 
         if (response.status == 200) {
-          this.fits.data = response.data;
+          const itemsValue = response.data[Object.keys(response.data)[0]];
+          this.fits.data = itemsValue.content;
+          this.paginate.totalDocs = itemsValue.totalElements;
         }
 
         this.removePreloader();

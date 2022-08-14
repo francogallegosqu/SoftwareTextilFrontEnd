@@ -14,6 +14,18 @@ class ProductionServiceService {
         }
     }
 
+    async getServicesPaginate(page, params) {
+        try {
+            const { data, status } = await textilApi.get('api/productionservices/page/' + page, {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getServicesPaginate ", error)
+            throw error
+        }
+    }
+
     async getServiceById(id) {
         try {
             const { data, status } = await textilApi.get('api/productionservices/' + id)

@@ -14,6 +14,18 @@ class FitsService {
         }
     }
 
+    async getFitsPaginate(page, params) {
+        try {
+            const { data, status } = await textilApi.get('api/fits/page/' + page, {
+                params: params
+            })
+            return { data, status }
+        } catch (error) {
+            console.log("Something went wrong on getFitsPaginate ", error)
+            throw error
+        }
+    }
+
     async getFit(id) {
         try {
             const { data, status } = await textilApi.get('api/fits/' + id)

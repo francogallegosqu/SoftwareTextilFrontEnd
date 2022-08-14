@@ -21,6 +21,14 @@ const actions = {
             console.log()
         }
     },
+    async A_GET_ACCESSORIES_PAGINATE({ commit }, { page, params }) {
+        try {
+            const response = await accesoriesService.getAccessoriesPaginate(page, params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_ACCESSORY({ commit }, id) {
         try {
             const response = await accesoriesService.getAccessory(id)

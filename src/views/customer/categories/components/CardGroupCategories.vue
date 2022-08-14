@@ -8,7 +8,7 @@
     >
       <b-card-text>
         <small>
-          {{ $moment(data.item.created_at).format("L LTS") }}
+          {{ $moment(item.created_at).format("L LTS") }}
         </small>
 
         <div style="white-space: nowrap" class="mt-1">

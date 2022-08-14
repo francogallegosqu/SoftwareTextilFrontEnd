@@ -19,15 +19,24 @@
     </template>
 
     <div>
+      <b-pagination
+        class="float-right mr-2"
+        v-model="paginate.currentPage"
+        :per-page="paginate.perPage"
+        :total-rows="paginate.totalDocs"
+        hide-goto-end-buttons
+      />
+
       <b-table
         class="text-center"
         small
         :fields="[
-          { key: 'service', label: 'Servicio' },
-          { key: 'cant', label: 'Cantidad' },
-          { key: 'totalCost', label: 'Costo total' },
+          { key: 'service.nameService', label: 'Servicio' },
+          { key: 'quantityService', label: 'Cantidad' },
+          { key: 'priceService', label: 'Costo total' },
           { key: 'actions', label: 'Acciones' },
         ]"
+        :items="services.data"
       ></b-table>
     </div>
 
@@ -54,6 +63,12 @@ export default {
   },
   data() {
     return {
+      paginate: {
+        currentPage: 1,
+        perPage: 10,
+        totalDocs: "",
+      },
+
       services: {
         data: [],
       },
@@ -64,7 +79,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      A_GET_PRODUCTION_SERVICES: "custProduction/A_GET_PRODUCTION_SERVICES",
+      A_GET_PRODUCTION_SERVICES_PAGINATE:
+        "custProduction/A_GET_PRODUCTION_SERVICES_PAGINATE",
     }),
     openModalAddService() {
       this.showModalAddService = true;
@@ -75,10 +91,28 @@ export default {
     },
     async getProductionServices() {
       try {
+        this.addPreloader();
+
+        const response = await this.A_GET_PRODUCTION_SERVICES_PAGINATE({
+          page: this.paginate.currentPage,
+          params: {
+            pageNo: this.paginate.currentPage,
+            pageSize: this.paginate.perPage,
+            sortDir: "asc",
+            sortField: "idProductionService",
+          },
+        });
+
+        if (response.status == 200) {
+          const itemsValue = response.data[Object.keys(response.data)[0]];
+          this.services.data = itemsValue.content;
+          this.paginate.totalDocs = itemsValue.totalElements;
+        }
+
+        this.removePreloader();
       } catch (error) {
         this.removePreloader();
         this.showErrorToast({ text: error });
-
         throw error;
       }
     },

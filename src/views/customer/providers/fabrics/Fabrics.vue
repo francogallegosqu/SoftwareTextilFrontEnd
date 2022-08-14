@@ -20,6 +20,14 @@
     </header-slot>
 
     <b-card body-class="px-0">
+      <b-pagination
+        class="float-right mr-2"
+        v-model="paginate.currentPage"
+        :per-page="paginate.perPage"
+        :total-rows="paginate.totalDocs"
+        hide-goto-end-buttons
+      />
+
       <template v-if="typeGridView == 'cards'">
         <b-container>
           <card-group-fabrics
@@ -79,6 +87,12 @@ export default {
         fields: Fields,
       },
 
+      paginate: {
+        currentPage: 1,
+        perPage: 10,
+        totalDocs: "",
+      },
+
       fabrics: {
         data: [],
       },
@@ -95,9 +109,14 @@ export default {
       currentUser: "authentication/currentUser",
     }),
   },
+  watch: {
+    async "paginate.currentPage"(newVal) {
+      await this.getFabrics();
+    },
+  },
   methods: {
     ...mapActions({
-      A_GET_FABRICS: "provMyPostsFabrics/A_GET_FABRICS",
+      A_GET_FABRICS_PAGINATE: "provMyPostsFabrics/A_GET_FABRICS_PAGINATE",
     }),
     getGridView() {
       this.typeGridView = localStorage.getItem(
@@ -146,15 +165,20 @@ export default {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_FABRICS({
-          page: 0,
-          size: 100,
-          sortDir: "asc",
-          sort: "idFabric",
+        const response = await this.A_GET_FABRICS_PAGINATE({
+          page: this.paginate.currentPage,
+          params: {
+            pageNo: this.paginate.currentPage,
+            pageSize: this.paginate.perPage,
+            sortDir: "asc",
+            sortField: "idFabric",
+          },
         });
 
         if (response.status == 200) {
-          this.fabrics.data = response.data;
+          const itemsValue = response.data[Object.keys(response.data)[0]];
+          this.fabrics.data = itemsValue.content;
+          this.paginate.totalDocs = itemsValue.totalElements;
         }
 
         this.removePreloader();

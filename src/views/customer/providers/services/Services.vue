@@ -20,6 +20,14 @@
     </header-slot>
 
     <b-card body-class="px-0">
+      <b-pagination
+        class="float-right mr-2"
+        v-model="paginate.currentPage"
+        :per-page="paginate.perPage"
+        :total-rows="paginate.totalDocs"
+        hide-goto-end-buttons
+      />
+
       <template v-if="typeGridView == 'cards'">
         <b-container>
           <card-group-services
@@ -80,6 +88,12 @@ export default {
         fields: Fields,
       },
 
+      paginate: {
+        currentPage: 1,
+        perPage: 10,
+        totalDocs: "",
+      },
+
       services: {
         data: [],
       },
@@ -96,9 +110,14 @@ export default {
       currentUser: "authentication/currentUser",
     }),
   },
+  watch: {
+    async "paginate.currentPage"(newVal) {
+      await this.getServices();
+    },
+  },
   methods: {
     ...mapActions({
-      A_GET_SERVICES: "provMyPostsServices/A_GET_SERVICES",
+      A_GET_SERVICES_PAGINATE: "provMyPostsServices/A_GET_SERVICES_PAGINATE",
     }),
     getGridView() {
       this.typeGridView = localStorage.getItem("providerMyPostsServicesView");
@@ -145,15 +164,20 @@ export default {
       try {
         this.addPreloader();
 
-        const response = await this.A_GET_SERVICES({
-          page: 0,
-          size: 100,
-          sortDir: "asc",
-          sort: "idService",
+        const response = await this.A_GET_SERVICES_PAGINATE({
+          page: this.paginate.currentPage,
+          params: {
+            pageNo: this.paginate.currentPage,
+            pageSize: this.paginate.perPage,
+            sortDir: "asc",
+            sortField: "idService",
+          },
         });
 
         if (response.status == 200) {
-          this.services.data = response.data;
+          const itemsValue = response.data[Object.keys(response.data)[0]];
+          this.services.data = itemsValue.content;
+          this.paginate.totalDocs = itemsValue.totalElements;
         }
 
         this.removePreloader();

@@ -21,6 +21,14 @@ const actions = {
             throw error
         }
     },
+    async A_GET_SERVICES_PAGINATE({ commit }, { page, params }) {
+        try {
+            const response = await servicesService.getServicesPaginate(page, params)
+            return response
+        } catch (error) {
+            throw error
+        }
+    },
     async A_GET_SERVICE_BY_ID({ commit }, id) {
         try {
             const response = await servicesService.getServiceById(id)

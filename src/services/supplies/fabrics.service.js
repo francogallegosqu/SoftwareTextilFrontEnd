@@ -14,7 +14,7 @@ class FabricsService {
         }
     }
 
-    async getFabricsPaginate(params, page) {
+    async getFabricsPaginate(page, params) {
         try {
             const { data, status } = await textilApi.get('api/fabrics/page/' + page, {
                 params: params
