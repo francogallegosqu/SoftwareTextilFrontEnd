@@ -52,6 +52,14 @@
               >
                 Editar servicio
               </b-button>
+              <b-button
+                variant="outline-primary"
+                size="sm"
+                class="mr-1"
+                @click="openModalRegisterSale"
+              >
+                Registrar venta
+              </b-button>
               <b-button variant="danger" size="sm" @click="deleteService">
                 Eliminar servicio
               </b-button>
@@ -85,6 +93,12 @@
       :register-code="serviceId"
       @onClose="closeModalUploadImages"
     />
+
+    <modal-register-sale
+      v-if="showModalRegisterSale"
+      :unit-price="fabric.priceService"
+      @onClose="closeModalRegisterSale"
+    ></modal-register-sale>
   </div>
 </template>
 
@@ -93,10 +107,12 @@ import { mapActions } from "vuex";
 
 // Components
 import ModalUploadImages from "@/modules/system/my-posts/components/ModalUploadImages.vue";
+import ModalRegisterSale from "@/views/provider/components/ModalRegisterSale.vue";
 
 export default {
   components: {
     ModalUploadImages,
+    ModalRegisterSale,
   },
   data() {
     return {
@@ -105,6 +121,7 @@ export default {
 
       // Modals
       showModalUploadImages: false,
+      showModalRegisterSale: false,
     };
   },
   computed: {
@@ -124,6 +141,12 @@ export default {
     async closeModalUploadImages(saved) {
       if (saved) await this.getServiceImages();
       this.showModalUploadImages = false;
+    },
+    openModalRegisterSale() {
+      this.showModalRegisterSale = true;
+    },
+    closeModalRegisterSale() {
+      this.showModalRegisterSale = false;
     },
     redirectToUpdateService() {
       this.$router.push({

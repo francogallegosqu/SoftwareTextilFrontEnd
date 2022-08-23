@@ -35,6 +35,9 @@ import provMyPostsFabrics from "@/views/provider/my-posts/fabrics/fabric.store"
 import provMyPostsAccessories from "@/views/provider/my-posts/accessories/accessories.store"
 import provMyPostsServices from "@/views/provider/my-posts/services/services.store"
 
+// Bsale
+import paymentStore from "@/store/bsale/payments.store"
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -66,11 +69,14 @@ export default new Vuex.Store({
 
     // Customer
     custProduction,
-    
+
     // Provider
     provMyPostsAccessories,
     provMyPostsFabrics,
     provMyPostsServices,
+
+    // Bsale
+    paymentStore,
 
   },
   strict: process.env.DEV,

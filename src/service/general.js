@@ -10,6 +10,7 @@ export function initialize(router) {
             const token = localStorage.getItem('accessToken')
             if (token) {
                 config.headers["Authorization"] = `Bearer ${token}`; // for Laravel or Spring boot application
+                //config.headers["access_token"] = 
             }
             return config;
         },

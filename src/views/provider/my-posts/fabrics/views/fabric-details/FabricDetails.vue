@@ -84,6 +84,14 @@
               >
                 Editar tela
               </b-button>
+              <b-button
+                variant="outline-primary"
+                size="sm"
+                class="mr-1"
+                @click="openModalRegisterSale"
+              >
+                Registrar venta
+              </b-button>
               <b-button variant="danger" size="sm" @click="deleteFabric">
                 Eliminar tela
               </b-button>
@@ -117,6 +125,12 @@
       :register-code="idParam"
       @onClose="closeModalUploadImages"
     />
+
+    <modal-register-sale
+      v-if="showModalRegisterSale"
+      :unit-price="fabric.priceFabric"
+      @onClose="closeModalRegisterSale"
+    ></modal-register-sale>
   </div>
 </template>
 
@@ -125,10 +139,12 @@ import { mapActions } from "vuex";
 
 // Components
 import ModalUploadImages from "@/views/provider/components/ModalUploadImages.vue";
+import ModalRegisterSale from "@/views/provider/components/ModalRegisterSale.vue";
 
 export default {
   components: {
     ModalUploadImages,
+    ModalRegisterSale,
   },
   data() {
     return {
@@ -137,6 +153,7 @@ export default {
 
       // Modals
       showModalUploadImages: false,
+      showModalRegisterSale: false,
     };
   },
   computed: {
@@ -165,6 +182,12 @@ export default {
     async closeModalUploadImages(saved) {
       if (saved) await this.getFabricImages();
       this.showModalUploadImages = false;
+    },
+    openModalRegisterSale() {
+      this.showModalRegisterSale = true;
+    },
+    closeModalRegisterSale() {
+      this.showModalRegisterSale = false;
     },
     async getFabric() {
       try {
